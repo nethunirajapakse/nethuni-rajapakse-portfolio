@@ -1,0 +1,251 @@
+.hero {
+  padding: 80px 0;
+  min-height: calc(100vh - 80px);
+  display: flex;
+  align-items: center;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (max-width: 992px) {
+  .row {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+    text-align: center;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.title {
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.2;
+  color: var(--heading-color);
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 2.5rem;
+  }
+}
+
+.highlight {
+  color: var(--accent-color);
+  position: relative;
+  display: inline-block;
+}
+
+.highlight::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(
+    90deg,
+    var(--accent-color),
+    color-mix(in srgb, var(--accent-color), transparent 50%)
+  );
+  border-radius: 2px;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: 400;
+  margin-bottom: 2rem;
+  color: color-mix(in srgb, var(--default-color), transparent 20%);
+}
+
+@media (max-width: 768px) {
+  .subtitle {
+    font-size: 1.25rem;
+  }
+}
+
+.typed {
+  color: var(--accent-color);
+  font-weight: 600;
+}
+
+.cursor {
+  display: inline-block;
+  margin-left: 2px;
+  color: var(--accent-color);
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+.description {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  color: color-mix(in srgb, var(--default-color), transparent 30%);
+}
+
+.actions {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 3rem;
+}
+
+@media (max-width: 992px) {
+  .actions {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .actions {
+    flex-direction: column;
+  }
+  .actions a {
+    text-align: center;
+  }
+}
+
+.socialLinks {
+  display: flex;
+  gap: 1rem;
+}
+
+@media (max-width: 992px) {
+  .socialLinks {
+    justify-content: center;
+  }
+}
+
+.socialLinks a {
+  width: 45px;
+  height: 45px;
+  background: var(--surface-color);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--default-color);
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+}
+
+.socialLinks a:hover {
+  background: var(--accent-color);
+  color: var(--contrast-color);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px color-mix(in srgb, var(--accent-color), transparent 70%);
+}
+
+/* Image block */
+.imageBlock {
+  display: flex;
+  justify-content: center;
+}
+
+.imageWrapper {
+  position: relative;
+  max-width: 450px;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+}
+
+.profilePlaceholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 20px;
+  background: linear-gradient(
+    135deg,
+    var(--surface-color) 0%,
+    color-mix(in srgb, var(--surface-color), var(--accent-color) 15%) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12rem;
+  color: color-mix(in srgb, var(--accent-color), transparent 40%);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+}
+
+.profilePlaceholder:hover {
+  transform: scale(1.02);
+}
+
+.floatingElements {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.floatingCard {
+  position: absolute;
+  background: var(--surface-color);
+  padding: 12px 18px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--default-color);
+  animation: float 3s ease-in-out infinite;
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 80%);
+}
+
+.floatingCard i {
+  font-size: 1.5rem;
+  color: var(--accent-color);
+}
+
+.cardAi {
+  top: 8%;
+  right: -8%;
+  animation-delay: 0s;
+}
+
+.cardDev {
+  bottom: 30%;
+  left: -12%;
+  animation-delay: 1s;
+}
+
+.cardWriter {
+  top: 60%;
+  right: -5%;
+  animation-delay: 2s;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@media (max-width: 1199px) {
+  .cardAi { right: -2%; }
+  .cardDev { left: -2%; }
+  .cardWriter { right: -2%; }
+}
+
+@media (max-width: 992px) {
+  .floatingCard {
+    display: none;
+  }
+}

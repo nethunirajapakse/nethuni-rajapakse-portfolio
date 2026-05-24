@@ -1,149 +1,109 @@
-'use client';
-import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+"use client";
 
-const links = ['About', 'Projects', 'Contact'];
+import { useEffect, useState } from "react";
+import styles from "./Navbar.module.css";
+
+const navLinks = [
+  { id: "hero", label: "Home" },
+  { id: "about", label: "About" },
+  { id: "projects", label: "Projects" },
+  { id: "contact", label: "Contact" },
+];
 
 export default function Navbar() {
+  const [activeSection, setActiveSection] = useState("hero");
+  const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 40);
-    window.addEventListener('scroll', onScroll);
-    return () => window.removeEventListener('scroll', onScroll);
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+
+      // Scroll-spy: find which section is currently in view
+      const sections = navLinks.map((link) => {
+        const el = document.getElementById(link.id);
+        if (!el) return null;
+        const rect = el.getBoundingClientRect();
+        return { id: link.id, top: rect.top, bottom: rect.bottom };
+      });
+
+      const current = sections.find(
+        (s) => s && s.top <= 120 && s.bottom >= 120
+      );
+      if (current) setActiveSection(current.id);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleNavClick = (id: string) => {
+    setMobileOpen(false);
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
-    <motion.nav
-      initial={{ y: -60, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-      style={{
-        position: 'fixed', top: 0, left: 0, right: 0, zIndex: 100,
-        padding: '0 2rem',
-        background: scrolled ? 'rgba(8,13,16,0.92)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(16px)' : 'none',
-        borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
-        transition: 'all 0.4s ease',
-        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        height: '64px',
-      }}
+    <header
+      className={`${styles.header} ${scrolled ? styles.scrolled : ""}`}
     >
-      {/* Logo */}
-      <a href="#hero" style={{ textDecoration: 'none' }}>
-        <span style={{
-          fontFamily: 'Syne, sans-serif', fontWeight: 800, fontSize: '1.1rem',
-          color: 'var(--heading)', letterSpacing: '-0.02em',
-        }}>
-          NR<span style={{ color: 'var(--accent)' }}>.</span>
-        </span>
-      </a>
-
-      {/* Desktop links */}
-      <div style={{ display: 'flex', gap: '2.5rem', alignItems: 'center' }} className="desktop-nav">
-        {links.map((link, i) => (
-          <motion.a
-            key={link}
-            href={`#${link.toLowerCase()}`}
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 * i + 0.3 }}
-            style={{
-              color: 'var(--text-muted)', textDecoration: 'none',
-              fontFamily: 'Space Mono, monospace', fontSize: '0.78rem',
-              letterSpacing: '0.08em', transition: 'color 0.2s',
-            }}
-            onMouseEnter={e => (e.currentTarget.style.color = 'var(--accent)')}
-            onMouseLeave={e => (e.currentTarget.style.color = 'var(--text-muted)')}
-          >
-            <span style={{ color: 'var(--accent)', marginRight: '4px' }}>0{i + 1}.</span>{link}
-          </motion.a>
-        ))}
-        <motion.a
-          href="/resume.pdf"
-          target="_blank"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6 }}
-          style={{
-            border: '1px solid var(--accent)', color: 'var(--accent)',
-            padding: '6px 18px', borderRadius: '4px', textDecoration: 'none',
-            fontFamily: 'Space Mono, monospace', fontSize: '0.75rem',
-            letterSpacing: '0.06em', transition: 'all 0.2s',
-          }}
-          onMouseEnter={e => {
-            e.currentTarget.style.background = 'var(--accent-glow)';
-          }}
-          onMouseLeave={e => {
-            e.currentTarget.style.background = 'transparent';
-          }}
-        >
-          Resume
-        </motion.a>
-      </div>
-
-      {/* Mobile hamburger */}
-      <button
-        onClick={() => setMenuOpen(!menuOpen)}
-        style={{
-          background: 'none', border: 'none', cursor: 'pointer',
-          color: 'var(--accent)', fontSize: '1.4rem', display: 'none',
-        }}
-        className="mobile-menu-btn"
-      >
-        {menuOpen ? '✕' : '☰'}
-      </button>
-
-      {/* Mobile menu */}
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            style={{
-              position: 'fixed', top: '64px', left: 0, right: 0,
-              background: 'rgba(8,13,16,0.98)', backdropFilter: 'blur(20px)',
-              borderBottom: '1px solid var(--border)',
-              padding: '2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem',
-            }}
-          >
-            {links.map((link, i) => (
-              <a
-                key={link}
-                href={`#${link.toLowerCase()}`}
-                onClick={() => setMenuOpen(false)}
-                style={{
-                  color: 'var(--text)', textDecoration: 'none',
-                  fontFamily: 'Space Mono, monospace', fontSize: '1rem',
-                }}
-              >
-                <span style={{ color: 'var(--accent)', marginRight: '8px' }}>0{i + 1}.</span>{link}
-              </a>
+      <div className={`container ${styles.headerInner}`}>
+        <nav className={`${styles.navmenu} ${mobileOpen ? styles.mobileOpen : ""}`}>
+          <ul>
+            {navLinks.map((link) => (
+              <li key={link.id}>
+                <a
+                  href={`#${link.id}`}
+                  className={activeSection === link.id ? styles.active : ""}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleNavClick(link.id);
+                  }}
+                >
+                  {link.label}
+                </a>
+              </li>
             ))}
-            <a
-              href="/resume.pdf"
-              target="_blank"
-              style={{
-                border: '1px solid var(--accent)', color: 'var(--accent)',
-                padding: '10px 20px', borderRadius: '4px', textDecoration: 'none',
-                fontFamily: 'Space Mono, monospace', fontSize: '0.85rem',
-                textAlign: 'center',
-              }}
-            >
-              Resume
-            </a>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          </ul>
+          <button
+            className={styles.mobileToggle}
+            onClick={() => setMobileOpen(!mobileOpen)}
+            aria-label="Toggle navigation"
+          >
+            <i className={`bi ${mobileOpen ? "bi-x" : "bi-list"}`}></i>
+          </button>
+        </nav>
 
-      <style>{`
-        @media (max-width: 768px) {
-          .desktop-nav { display: none !important; }
-          .mobile-menu-btn { display: block !important; }
-        }
-      `}</style>
-    </motion.nav>
+        <div className={styles.socialLinks}>
+          <a
+            href="https://github.com/nethunirajapakse"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+          >
+            <i className="bi bi-github"></i>
+          </a>
+          <a
+            href="https://linkedin.com/in/nethuni-rajapakse/"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn"
+          >
+            <i className="bi bi-linkedin"></i>
+          </a>
+          <a
+            href="https://medium.com/@nethunirajapakse/activity"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Medium"
+          >
+            <i className="bi bi-medium"></i>
+          </a>
+        </div>
+      </div>
+    </header>
   );
 }

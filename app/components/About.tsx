@@ -1,149 +1,156 @@
-'use client';
-import { useRef } from 'react';
-import { motion, useInView } from 'framer-motion';
+"use client";
+
+import styles from "./About.module.css";
 
 const skills = [
-  { cat: 'Languages', items: ['Python', 'TypeScript', 'Java', 'SQL'] },
-  { cat: 'Frontend', items: ['React', 'Next.js', 'Tailwind CSS'] },
-  { cat: 'Backend', items: ['Node.js', 'FastAPI', 'Spring Boot'] },
-  { cat: 'AI / ML', items: ['LangChain', 'RAG', 'OpenAI API', 'Hugging Face'] },
-  { cat: 'Tools', items: ['Git', 'Docker', 'PostgreSQL', 'Supabase'] },
+  {
+    icon: "bi-code-slash",
+    title: "Full-Stack Development",
+    desc: "React, Next.js, Node.js, and modern web stacks.",
+  },
+  {
+    icon: "bi-cpu",
+    title: "AI & LLMs",
+    desc: "RAG architectures, fine-tuning, and prompt engineering.",
+  },
+  {
+    icon: "bi-database",
+    title: "Backend & Data",
+    desc: "Scalable APIs, databases, and system design.",
+  },
+  {
+    icon: "bi-phone",
+    title: "Mobile-first UI",
+    desc: "Responsive interfaces with thoughtful UX.",
+  },
+];
+
+const timeline = [
+  {
+    year: "2022",
+    title: "Started at University of Moratuwa",
+    desc: "Began IT undergraduate journey.",
+  },
+  {
+    year: "2023",
+    title: "First Full-stack Project",
+    desc: "Built and shipped end-to-end web applications.",
+  },
+  {
+    year: "2024",
+    title: "Diving into AI/LLMs",
+    desc: "Started exploring RAG systems and LLM applications.",
+  },
+  {
+    year: "2025",
+    title: "Final-year Research",
+    desc: "Focused on production-grade AI-driven solutions.",
+  },
 ];
 
 const facts = [
-  { label: 'University', value: 'University of Moratuwa' },
-  { label: 'Degree', value: 'BSc. IT (Hons)' },
-  { label: 'Year', value: 'Final Year' },
-  { label: 'Location', value: 'Sri Lanka 🇱🇰' },
+  { icon: "bi-cup-hot", label: "Coffee Lover" },
+  { icon: "bi-book", label: "Tech Reader" },
+  { icon: "bi-music-note-beamed", label: "Music" },
+  { icon: "bi-globe", label: "Open Source" },
 ];
 
 export default function About() {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: '-100px' });
-
   return (
-    <section id="about" ref={ref} style={{
-      padding: '120px 2rem', position: 'relative', zIndex: 1,
-    }}>
-      <div style={{ maxWidth: '1000px', margin: '0 auto' }}>
+    <section id="about" className={`section ${styles.about}`}>
+      <div className="container">
+        {/* Section Title */}
+        <div className="section-title">
+          <h2>About</h2>
+          <p>
+            A bit about who I am, what I build, and how I got here.
+          </p>
+        </div>
 
-        {/* Section label */}
-        <motion.div
-          initial={{ opacity: 0, x: -20 }}
-          animate={inView ? { opacity: 1, x: 0 } : {}}
-          transition={{ duration: 0.5 }}
-          style={{ display: 'flex', alignItems: 'center', gap: '1rem', marginBottom: '3.5rem' }}
-        >
-          <span style={{ color: 'var(--accent)', fontFamily: 'Space Mono', fontSize: '0.85rem' }}>01.</span>
-          <h2 style={{ fontFamily: 'Syne', fontWeight: 700, fontSize: 'clamp(1.6rem, 4vw, 2.4rem)', letterSpacing: '-0.02em' }}>
-            About Me
-          </h2>
-          <div style={{ flex: 1, height: '1px', background: 'var(--border)', maxWidth: '200px' }} />
-        </motion.div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '4rem', alignItems: 'start' }}>
-
-          {/* Left: bio + facts */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.15 }}
-          >
-            <p style={{ lineHeight: 1.85, color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
-              I'm a final-year IT undergraduate at the University of Moratuwa with a passion for
-              building things that live on the internet. I specialize in full-stack development and
-              have a growing interest in AI — particularly Large Language Models and Retrieval-Augmented
-              Generation (RAG) systems.
+        {/* Intro + Photo */}
+        <div className={styles.introRow}>
+          <div className={styles.introContent}>
+            <span className={styles.eyebrow}>Hello there</span>
+            <h2 className={styles.headline}>
+              Hi, I&apos;m Nethuni &mdash; a curious developer building thoughtful,
+              AI-driven software
+            </h2>
+            <p className={styles.lead}>
+              I&apos;m a final-year IT undergraduate at the University of Moratuwa,
+              passionate about turning ideas into clean, maintainable systems. My
+              recent work has focused on Large Language Models and
+              Retrieval-Augmented Generation, where I get to mix solid engineering
+              with the messier edges of AI.
             </p>
-            <p style={{ lineHeight: 1.85, color: 'var(--text-muted)', fontSize: '0.9rem', marginBottom: '2.5rem' }}>
-              When I'm not coding, I write about tech on Medium, contributing to a community of
-              developers. I believe in writing clean, maintainable code and building products
-              that are both functional and delightful to use.
+            <p>
+              Outside of code, I write on Medium about the things I learn,
+              tinker with side projects, and keep an eye on where developer
+              tooling is heading.
             </p>
 
-            {/* Facts grid */}
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
-              {facts.map((f, i) => (
-                <motion.div
-                  key={f.label}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={inView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ delay: 0.3 + i * 0.08 }}
-                  style={{
-                    background: 'var(--surface)', border: '1px solid var(--border)',
-                    borderRadius: '6px', padding: '14px 16px',
-                  }}
-                >
-                  <div style={{ fontFamily: 'Space Mono', fontSize: '0.65rem', color: 'var(--accent)', letterSpacing: '0.1em', marginBottom: '4px' }}>
-                    {f.label.toUpperCase()}
-                  </div>
-                  <div style={{ fontSize: '0.85rem', color: 'var(--text)', fontFamily: 'Space Mono' }}>
-                    {f.value}
-                  </div>
-                </motion.div>
-              ))}
+            <div className={styles.ctaGroup}>
+              <a href="#projects" className={styles.btnGhost}>
+                View My Work <i className="bi bi-arrow-up-right"></i>
+              </a>
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.linkUnderline}
+              >
+                Download Resume <i className="bi bi-download"></i>
+              </a>
             </div>
-          </motion.div>
+          </div>
 
-          {/* Right: skills */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: 0.3 }}
-          >
-            <p style={{ fontFamily: 'Space Mono', fontSize: '0.75rem', color: 'var(--accent)', letterSpacing: '0.1em', marginBottom: '1.5rem' }}>
-              // tech stack
-            </p>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-              {skills.map((group, gi) => (
-                <motion.div
-                  key={group.cat}
-                  initial={{ opacity: 0, x: 20 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ delay: 0.4 + gi * 0.1 }}
-                >
-                  <div style={{
-                    fontFamily: 'Space Mono', fontSize: '0.7rem', color: 'var(--text-muted)',
-                    letterSpacing: '0.08em', marginBottom: '0.6rem',
-                  }}>
-                    {group.cat}
-                  </div>
-                  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                    {group.items.map(item => (
-                      <span key={item} style={{
-                        background: 'var(--bg-3)', border: '1px solid var(--border)',
-                        color: 'var(--text)', fontFamily: 'Space Mono',
-                        fontSize: '0.75rem', padding: '4px 12px', borderRadius: '3px',
-                        transition: 'all 0.2s', cursor: 'default',
-                      }}
-                        onMouseEnter={e => {
-                          e.currentTarget.style.borderColor = 'var(--accent)';
-                          e.currentTarget.style.color = 'var(--accent)';
-                        }}
-                        onMouseLeave={e => {
-                          e.currentTarget.style.borderColor = 'var(--border)';
-                          e.currentTarget.style.color = 'var(--text)';
-                        }}
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
-                </motion.div>
-              ))}
+          <div className={styles.profileFigure}>
+            <div className={styles.profilePhoto}>
+              <img src="/profile.jpg" alt="Nethuni Rajapakse" />
             </div>
-          </motion.div>
+          </div>
+        </div>
+
+        {/* Skills Grid */}
+        <div className={styles.skillsGrid}>
+          {skills.map((skill) => (
+            <div key={skill.title} className={styles.skillItem}>
+              <i className={`bi ${skill.icon}`}></i>
+              <h3>{skill.title}</h3>
+              <p>{skill.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Journey Timeline */}
+        <div className={styles.timelineGrid}>
+          {timeline.map((item) => (
+            <article key={item.year} className={styles.timelineItem}>
+              <span className={styles.dot}></span>
+              <time>{item.year}</time>
+              <h4>{item.title}</h4>
+              <p>{item.desc}</p>
+            </article>
+          ))}
+        </div>
+
+        {/* Quote */}
+        <blockquote className={styles.personalQuote}>
+          <p>
+            &ldquo;Good software is the boring kind that quietly does what you
+            expect &mdash; every single time.&rdquo;
+          </p>
+        </blockquote>
+
+        {/* Fun Facts */}
+        <div className={styles.factsGrid}>
+          {facts.map((fact) => (
+            <div key={fact.label} className={styles.factPill}>
+              <i className={`bi ${fact.icon}`}></i>
+              <span>{fact.label}</span>
+            </div>
+          ))}
         </div>
       </div>
-
-      <style>{`
-        @media (max-width: 768px) {
-          #about > div > div:last-child {
-            grid-template-columns: 1fr !important;
-            gap: 3rem !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }

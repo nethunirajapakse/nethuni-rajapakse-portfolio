@@ -1,0 +1,306 @@
+/* Intro row */
+.introRow {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 3rem;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+
+@media (max-width: 992px) {
+  .introRow {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+.introContent {
+  display: flex;
+  flex-direction: column;
+}
+
+.eyebrow {
+  display: inline-block;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  font-size: 12px;
+  color: color-mix(in srgb, var(--default-color), transparent 40%);
+  margin-bottom: 16px;
+}
+
+.headline {
+  font-family: var(--heading-font);
+  font-weight: 300;
+  line-height: 1.2;
+  font-size: clamp(28px, 4vw, 44px);
+  margin: 0 0 24px 0;
+  color: var(--heading-color);
+}
+
+.lead {
+  font-size: 18px;
+  line-height: 1.8;
+  color: color-mix(in srgb, var(--default-color), transparent 10%);
+  margin: 0 0 24px 0;
+}
+
+.introContent p {
+  line-height: 1.8;
+  margin: 0 0 24px 0;
+  color: color-mix(in srgb, var(--default-color), transparent 5%);
+}
+
+.ctaGroup {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.btnGhost {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px;
+  border-radius: 6px;
+  color: var(--accent-color);
+  background: color-mix(in srgb, var(--accent-color), transparent 92%);
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 70%);
+  transition: 0.3s ease-in-out;
+  font-weight: 500;
+}
+
+.btnGhost:hover {
+  color: var(--contrast-color);
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+}
+
+.linkUnderline {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  position: relative;
+  color: var(--accent-color);
+  padding-bottom: 4px;
+  transition: 0.3s ease-in-out;
+}
+
+.linkUnderline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: color-mix(in srgb, var(--accent-color), transparent 40%);
+  transform: scaleX(0.4);
+  transform-origin: left;
+  transition: 0.3s ease-in-out;
+}
+
+.linkUnderline:hover::after {
+  transform: scaleX(1);
+}
+
+/* Profile figure */
+.profileFigure {
+  display: flex;
+  justify-content: center;
+}
+
+.profilePhoto {
+  width: 88%;
+  max-width: 440px;
+  aspect-ratio: 1 / 1;
+  border-radius: 18px;
+  background: linear-gradient(
+    135deg,
+    var(--surface-color) 0%,
+    color-mix(in srgb, var(--surface-color), var(--accent-color) 15%) 100%
+  );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10rem;
+  color: color-mix(in srgb, var(--accent-color), transparent 40%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transition: transform 0.3s ease-in-out;
+}
+
+.profilePhoto:hover {
+  transform: translateY(-4px);
+}
+
+@media (max-width: 576px) {
+  .profilePhoto {
+    width: 100%;
+    font-size: 8rem;
+  }
+}
+
+/* Skills grid */
+.skillsGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+@media (max-width: 992px) {
+  .skillsGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .skillsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.skillItem {
+  padding: 24px;
+  border-radius: 6px;
+  transition: 0.3s ease-in-out;
+  background: color-mix(in srgb, var(--surface-color), var(--accent-color) 2%);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
+  height: 100%;
+}
+
+.skillItem i {
+  font-size: 24px;
+  color: var(--accent-color);
+  margin-bottom: 16px;
+  display: inline-block;
+}
+
+.skillItem h3 {
+  font-size: 16px;
+  margin: 0 0 6px;
+  font-weight: 500;
+  color: var(--heading-color);
+}
+
+.skillItem p {
+  margin: 0;
+  font-size: 14px;
+  color: color-mix(in srgb, var(--default-color), transparent 25%);
+}
+
+.skillItem:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--accent-color), transparent 60%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Timeline */
+.timelineGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  margin-bottom: 4rem;
+}
+
+@media (max-width: 992px) {
+  .timelineGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .timelineGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.timelineItem {
+  position: relative;
+  padding-left: 26px;
+}
+
+.timelineItem time {
+  display: inline-block;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--default-color), transparent 45%);
+  margin-bottom: 6px;
+}
+
+.timelineItem h4 {
+  font-size: 18px;
+  font-weight: 400;
+  margin: 0 0 6px;
+  color: var(--heading-color);
+}
+
+.timelineItem p {
+  font-size: 14px;
+  color: color-mix(in srgb, var(--default-color), transparent 25%);
+  margin: 0;
+}
+
+.dot {
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--accent-color);
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent-color), transparent 80%);
+}
+
+/* Quote */
+.personalQuote {
+  padding: 24px 0;
+  margin: 0 0 3rem 0;
+  text-align: center;
+  border: none;
+}
+
+.personalQuote p {
+  font-family: var(--heading-font);
+  font-weight: 300;
+  font-size: clamp(20px, 3vw, 28px);
+  line-height: 1.5;
+  color: color-mix(in srgb, var(--default-color), transparent 5%);
+  margin: 0 auto;
+  max-width: 800px;
+}
+
+/* Fact pills */
+.factsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+}
+
+.factPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 85%);
+  background: var(--surface-color);
+  color: color-mix(in srgb, var(--default-color), transparent 10%);
+  transition: 0.3s ease-in-out;
+}
+
+.factPill i {
+  color: var(--accent-color);
+}
+
+.factPill span {
+  font-size: 14px;
+}
+
+.factPill:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent-color), transparent 60%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
