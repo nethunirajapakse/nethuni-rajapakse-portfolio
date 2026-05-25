@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import styles from "./Projects.module.css";
 
 type Project = {
@@ -12,6 +13,8 @@ type Project = {
   githubUrl?: string;
   liveUrl?: string;
   icon: string;
+  image: string;
+  year: string;
 };
 
 const projects: Project[] = [
@@ -25,6 +28,8 @@ const projects: Project[] = [
     githubUrl: "https://github.com/nethunirajapakse/orbiting-planet",
     liveUrl: "https://orbiting-planet.vercel.app/",
     icon: "bi-globe2",
+    image: "/projects/orbiting-planet.png",
+    year: "2024",
   },
   {
     id: 2,
@@ -33,8 +38,11 @@ const projects: Project[] = [
       "ML-powered property valuation tool for the Sri Lankan market. Predicts prices from 20 features and explains predictions with SHAP visualizations.",
     category: "ai",
     tags: ["Python", "Flask", "XGBoost", "SHAP", "Vite"],
-    githubUrl: "https://github.com/nethunirajapakse/SL-Property-Value-Predictor",
+    githubUrl:
+      "https://github.com/nethunirajapakse/SL-Property-Value-Predictor",
     icon: "bi-house-check",
+    image: "/projects/estatevision.png",
+    year: "2026",
   },
   {
     id: 3,
@@ -43,8 +51,11 @@ const projects: Project[] = [
       "Arduino-based IoT system with GPS tracking, crash detection, electronic lock, speedometer, and GSM emergency alerts — built as a university L1 hardware project.",
     category: "fullstack",
     tags: ["Arduino", "C++", "GPS", "GSM", "IoT", "EasyEDA"],
-    githubUrl: "https://github.com/nethunirajapakse/Safety-and-security-system-for-bicycle",
+    githubUrl:
+      "https://github.com/nethunirajapakse/Safety-and-security-system-for-bicycle",
     icon: "bi-shield-check",
+    image: "/projects/bicycle-safety.png",
+    year: "2023",
   },
   {
     id: 4,
@@ -55,6 +66,8 @@ const projects: Project[] = [
     tags: ["React Native", "Expo", "expo-router", "NASA API"],
     githubUrl: "https://github.com/nethunirajapakse/cosmic-edu-app",
     icon: "bi-stars",
+    image: "/projects/cosmic-edu.png",
+    year: "2024",
   },
   {
     id: 5,
@@ -65,6 +78,8 @@ const projects: Project[] = [
     tags: ["Python", "Flask", "CLIPS", "Expert Systems", "TypeScript"],
     githubUrl: "https://github.com/nethunirajapakse/eco-trip-recommender",
     icon: "bi-tree",
+    image: "/projects/ceylonwild.png",
+    year: "2025",
   },
   {
     id: 6,
@@ -72,9 +87,18 @@ const projects: Project[] = [
     description:
       "Comprehensive construction project management system featuring a web dashboard and mobile client. Supports multi-role user management, real-time inventory tracking with automated low-stock alerts, and task scheduling.",
     category: "fullstack",
-    tags: ["ReactJS", "Spring Boot", "MySQL", "Flutter", "Tailwind CSS", "Socket.io"],
+    tags: [
+      "ReactJS",
+      "Spring Boot",
+      "MySQL",
+      "Flutter",
+      "Tailwind CSS",
+      "Socket.io",
+    ],
     githubUrl: "https://github.com/Jayaweera123/Ascendia-",
     icon: "bi-building-gear",
+    image: "/projects/ascendia.png",
+    year: "2024",
   },
   {
     id: 7,
@@ -85,6 +109,8 @@ const projects: Project[] = [
     tags: ["Flutter", "Dart", "REST API", "Offline Caching"],
     githubUrl: "https://github.com/nethunirajapakse/joke-hub",
     icon: "bi-emoji-laughing",
+    image: "/projects/jokehub.png",
+    year: "2024",
   },
 ];
 
@@ -98,10 +124,13 @@ const filters = [
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState("all");
 
-  const filteredProjects =
+  const filteredProjects = (
     activeFilter === "all"
       ? projects
-      : projects.filter((p) => p.category === activeFilter);
+      : projects.filter((p) => p.category === activeFilter)
+  )
+    .slice()
+    .sort((a, b) => parseInt(b.year) - parseInt(a.year));
 
   return (
     <section id="projects" className={`section ${styles.projects}`}>
@@ -109,8 +138,8 @@ export default function Projects() {
         <div className="section-title">
           <h2>Projects</h2>
           <p>
-            A selection of things I&apos;ve built &mdash; ranging from full-stack
-            web apps to AI-driven systems.
+            A selection of things I&apos;ve built &mdash; ranging from
+            full-stack web apps to AI-driven systems.
           </p>
         </div>
 
@@ -120,9 +149,9 @@ export default function Projects() {
             <li
               key={f.key}
               className={activeFilter === f.key ? styles.active : ""}
-                onClick={() => setActiveFilter(f.key)}
-              >
-                {f.label}
+              onClick={() => setActiveFilter(f.key)}
+            >
+              {f.label}
             </li>
           ))}
         </ul>
@@ -131,14 +160,22 @@ export default function Projects() {
         <div className={styles.grid}>
           {filteredProjects.map((project) => (
             <div key={project.id} className={styles.card}>
-              <div className={styles.cardIcon}>
-                <i className={`bi ${project.icon}`}></i>
+              <div className={styles.cardImage}>
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                  style={{ objectFit: "cover" }}
+                />
               </div>
 
               <div className={styles.cardBody}>
-                <h4
-                  dangerouslySetInnerHTML={{ __html: project.title }}
-                ></h4>
+                <div className={styles.cardHeader}>
+                  <h4 dangerouslySetInnerHTML={{ __html: project.title }}></h4>
+                  <span className={styles.year}>{project.year}</span>
+                </div>
+
                 <p
                   dangerouslySetInnerHTML={{ __html: project.description }}
                 ></p>
