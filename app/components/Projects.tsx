@@ -17,63 +17,74 @@ type Project = {
 const projects: Project[] = [
   {
     id: 1,
-    title: "RAG-Powered Knowledge Assistant",
+    title: "Orbiting Planet",
     description:
-      "Retrieval-Augmented Generation system that answers questions from a custom document corpus using vector embeddings.",
-    category: "ai",
-    tags: ["Python", "LangChain", "OpenAI", "ChromaDB"],
-    githubUrl: "https://github.com/nethunirajapakse",
-    icon: "bi-cpu",
+      "Interactive 3D astronomical scene with real-time WebGL rendering, orbit animations, and dynamic lighting — all running in the browser.",
+    category: "web",
+    tags: ["Three.js", "WebGL", "Vite", "JavaScript"],
+    githubUrl: "https://github.com/nethunirajapakse/orbiting-planet",
+    liveUrl: "https://orbiting-planet.vercel.app/",
+    icon: "bi-globe2",
   },
   {
     id: 2,
-    title: "Full-Stack E-Commerce Platform",
+    title: "EstateVision",
     description:
-      "Production-ready commerce app with cart, checkout, auth, and admin dashboard. Built mobile-first.",
-    category: "fullstack",
-    tags: ["Next.js", "Node.js", "PostgreSQL", "Stripe"],
-    githubUrl: "https://github.com/nethunirajapakse",
-    icon: "bi-cart-check",
+      "ML-powered property valuation tool for the Sri Lankan market. Predicts prices from 20 features and explains predictions with SHAP visualizations.",
+    category: "ai",
+    tags: ["Python", "Flask", "XGBoost", "SHAP", "Vite"],
+    githubUrl: "https://github.com/nethunirajapakse/SL-Property-Value-Predictor",
+    icon: "bi-house-check",
   },
   {
     id: 3,
-    title: "LLM Fine-Tuning Pipeline",
+    title: "Bicycle Safety System",
     description:
-      "End-to-end pipeline for fine-tuning open-source language models on domain-specific data.",
-    category: "ai",
-    tags: ["PyTorch", "HuggingFace", "Python", "MLOps"],
-    githubUrl: "https://github.com/nethunirajapakse",
-    icon: "bi-diagram-3",
+      "Arduino-based IoT system with GPS tracking, crash detection, electronic lock, speedometer, and GSM emergency alerts — built as a university L1 hardware project.",
+    category: "fullstack",
+    tags: ["Arduino", "C++", "GPS", "GSM", "IoT", "EasyEDA"],
+    githubUrl: "https://github.com/nethunirajapakse/Safety-and-security-system-for-bicycle",
+    icon: "bi-shield-check",
   },
   {
     id: 4,
-    title: "Personal Portfolio Site",
+    title: "Cosmic Edu App",
     description:
-      "This site &mdash; a Next.js portfolio with a clean, dark aesthetic and smooth section navigation.",
-    category: "web",
-    tags: ["Next.js", "TypeScript", "CSS Modules"],
-    githubUrl: "https://github.com/nethunirajapakse",
-    icon: "bi-window-stack",
+      "React Native app fetching NASA's APOD data, with user auth, dynamic card views, and global session-based click tracking.",
+    category: "fullstack",
+    tags: ["React Native", "Expo", "expo-router", "NASA API"],
+    githubUrl: "https://github.com/nethunirajapakse/cosmic-edu-app",
+    icon: "bi-stars",
   },
   {
     id: 5,
-    title: "Task Management API",
+    title: "CeylonWild",
     description:
-      "RESTful API with JWT auth, role-based access control, and real-time updates via websockets.",
-    category: "fullstack",
-    tags: ["Node.js", "Express", "MongoDB", "Socket.io"],
-    githubUrl: "https://github.com/nethunirajapakse",
-    icon: "bi-list-check",
+      "A rule-based, light-weight expert recommender system that utilizes a CLIPS-driven production engine to translate user climate, activity, and logistical preferences into mathematically normalized eco-tourism recommendations for Sri Lanka.",
+    category: "ai",
+    tags: ["Python", "Flask", "CLIPS", "Expert Systems", "TypeScript"],
+    githubUrl: "https://github.com/nethunirajapakse/eco-trip-recommender",
+    icon: "bi-tree",
   },
   {
     id: 6,
-    title: "Sentiment Analysis Dashboard",
+    title: "Ascendia",
     description:
-      "Real-time sentiment analysis of social media streams with visualizations and trend tracking.",
-    category: "ai",
-    tags: ["Python", "FastAPI", "React", "ML"],
-    githubUrl: "https://github.com/nethunirajapakse",
-    icon: "bi-graph-up",
+      "Comprehensive construction project management system featuring a web dashboard and mobile client. Supports multi-role user management, real-time inventory tracking with automated low-stock alerts, and task scheduling.",
+    category: "fullstack",
+    tags: ["ReactJS", "Spring Boot", "MySQL", "Flutter", "Tailwind CSS", "Socket.io"],
+    githubUrl: "https://github.com/Jayaweera123/Ascendia-",
+    icon: "bi-building-gear",
+  },
+  {
+    id: 7,
+    title: "JokeHub",
+    description:
+      "A cross-platform Flutter application built for mobile, web, and desktop. Fetches dynamic joke data from an external REST API and implements robust local caching mechanics for seamless offline usability.",
+    category: "web",
+    tags: ["Flutter", "Dart", "REST API", "Offline Caching"],
+    githubUrl: "https://github.com/nethunirajapakse/joke-hub",
+    icon: "bi-emoji-laughing",
   },
 ];
 
@@ -109,9 +120,9 @@ export default function Projects() {
             <li
               key={f.key}
               className={activeFilter === f.key ? styles.active : ""}
-              onClick={() => setActiveFilter(f.key)}
-            >
-              {f.label}
+                onClick={() => setActiveFilter(f.key)}
+              >
+                {f.label}
             </li>
           ))}
         </ul>
