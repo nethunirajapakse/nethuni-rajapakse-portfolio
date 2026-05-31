@@ -19,12 +19,16 @@
   --nav-mobile-background-color: #213642;
   --nav-dropdown-background-color: #051117;
 
-  scroll-behavior: smooth;
-}
+  /* Radius scale — replaces the scattered 12/14/16/18/24/30/50/100px values */
+  --radius-sm: 12px;
+  --radius: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
 
-.light-background {
-  --background-color: #142027;
-  --surface-color: #325264;
+  /* Spacing rhythm */
+  --section-gap: 6rem; /* between blocks inside a section */
+
+  scroll-behavior: smooth;
 }
 
 /* ================================
@@ -140,7 +144,7 @@ img {
 .btn {
   display: inline-block;
   padding: 12px 30px;
-  border-radius: 50px;
+  border-radius: var(--radius-pill);
   font-weight: 600;
   text-decoration: none;
   transition: all 0.3s ease;
@@ -188,7 +192,7 @@ img {
   background-color: var(--accent-color);
   width: 44px;
   height: 44px;
-  border-radius: 50px;
+  border-radius: var(--radius-pill);
   transition: all 0.4s;
   display: flex;
   align-items: center;

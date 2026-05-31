@@ -1,77 +1,148 @@
+/* ============================================================
+   Hero
+   ============================================================ */
+
 .hero {
+  position: relative;
   padding: 80px 0;
   min-height: calc(100vh - 80px);
   display: flex;
   align-items: center;
+  overflow: hidden;
+}
+
+/* Ambient atmosphere — soft accent glows behind the content */
+.hero::before,
+.hero::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero::before {
+  top: -12%;
+  right: -6%;
+  width: 50vw;
+  height: 50vw;
+  max-width: 680px;
+  max-height: 680px;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--accent-color), transparent 86%) 0%,
+    transparent 70%
+  );
+}
+
+.hero::after {
+  bottom: -18%;
+  left: -10%;
+  width: 42vw;
+  height: 42vw;
+  max-width: 520px;
+  max-height: 520px;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--accent-color), transparent 92%) 0%,
+    transparent 70%
+  );
 }
 
 .row {
+  position: relative;
+  z-index: 1;
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: 4rem;
   align-items: center;
 }
 
 @media (max-width: 992px) {
   .row {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 3.5rem;
     text-align: center;
   }
 }
 
+/* ---------------- Content column ---------------- */
+
 .content {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  align-items: flex-start;
+}
+
+@media (max-width: 992px) {
+  .content {
+    align-items: center;
+  }
+}
+
+/* Staggered entrance — delay set inline via --delay.
+   Hero is above the fold, so these run on mount (no scroll trigger needed). */
+.reveal {
+  opacity: 0;
+  animation: revealUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0s)
+    forwards;
+}
+
+/* Availability / eyebrow pill */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.45rem 1.05rem;
+  margin-bottom: 1.75rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.85rem;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: color-mix(in srgb, var(--default-color), transparent 5%);
+  background: color-mix(in srgb, var(--surface-color), transparent 25%);
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 78%);
+  backdrop-filter: blur(8px);
+}
+
+.statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55);
+  animation: pulse 2.2s ease-out infinite;
 }
 
 .title {
-  font-size: 3.5rem;
+  font-size: clamp(2.5rem, 5vw, 3.75rem);
   font-weight: 700;
-  margin-bottom: 1rem;
-  line-height: 1.2;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
   color: var(--heading-color);
 }
 
-@media (max-width: 768px) {
-  .title {
-    font-size: 2.5rem;
-  }
-}
-
-.highlight {
-  color: var(--accent-color);
-  position: relative;
+.name {
   display: inline-block;
-}
-
-.highlight::after {
-  content: "";
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 3px;
   background: linear-gradient(
-    90deg,
+    120deg,
     var(--accent-color),
-    color-mix(in srgb, var(--accent-color), transparent 50%)
+    color-mix(in srgb, var(--accent-color), var(--heading-color) 50%)
   );
-  border-radius: 2px;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .subtitle {
-  font-size: 1.5rem;
+  font-size: clamp(1.25rem, 2.4vw, 1.6rem);
   font-weight: 400;
-  margin-bottom: 2rem;
-  color: color-mix(in srgb, var(--default-color), transparent 20%);
-}
-
-@media (max-width: 768px) {
-  .subtitle {
-    font-size: 1.25rem;
-  }
+  line-height: 1.4;
+  min-height: 2.4rem; /* prevents jitter while typing */
+  margin-bottom: 1.75rem;
+  color: color-mix(in srgb, var(--default-color), transparent 12%);
 }
 
 .typed {
@@ -83,25 +154,23 @@
   display: inline-block;
   margin-left: 2px;
   color: var(--accent-color);
-  animation: blink 1s infinite;
-}
-
-@keyframes blink {
-  0%, 50% { opacity: 1; }
-  51%, 100% { opacity: 0; }
+  font-weight: 400;
+  animation: blink 1s step-end infinite;
 }
 
 .description {
   font-size: 1.1rem;
-  line-height: 1.6;
+  line-height: 1.7;
+  max-width: 56ch;
   margin-bottom: 2.5rem;
-  color: color-mix(in srgb, var(--default-color), transparent 30%);
+  color: color-mix(in srgb, var(--default-color), transparent 28%);
 }
 
 .actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 1rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2.75rem;
 }
 
 @media (max-width: 992px) {
@@ -112,6 +181,7 @@
 
 @media (max-width: 576px) {
   .actions {
+    width: 100%;
     flex-direction: column;
   }
   .actions a {
@@ -119,9 +189,11 @@
   }
 }
 
+/* ---------------- Social links ---------------- */
+
 .socialLinks {
   display: flex;
-  gap: 1rem;
+  gap: 0.85rem;
 }
 
 @media (max-width: 992px) {
@@ -131,26 +203,31 @@
 }
 
 .socialLinks a {
-  width: 45px;
-  height: 45px;
-  background: var(--surface-color);
-  border-radius: 50%;
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: var(--default-color);
   font-size: 1.2rem;
-  transition: all 0.3s ease;
+  color: var(--default-color);
+  background: color-mix(in srgb, var(--surface-color), transparent 15%);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
+  transition: transform 0.3s ease, color 0.3s ease, background 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .socialLinks a:hover {
-  background: var(--accent-color);
   color: var(--contrast-color);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px color-mix(in srgb, var(--accent-color), transparent 70%);
+  background: var(--accent-color);
+  border-color: var(--accent-color);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px
+    color-mix(in srgb, var(--accent-color), transparent 65%);
 }
 
-/* Image block */
+/* ---------------- Image column ---------------- */
+
 .imageBlock {
   display: flex;
   justify-content: center;
@@ -158,84 +235,115 @@
 
 .imageWrapper {
   position: relative;
-  max-width: 450px;
   width: 100%;
+  max-width: 420px;
   aspect-ratio: 1 / 1;
+  opacity: 0;
+  animation: revealScale 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.25s forwards;
 }
 
-.profilePlaceholder {
+/* Soft glow ring behind the portrait */
+.imageGlow {
+  position: absolute;
+  inset: -8%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 40%,
+    color-mix(in srgb, var(--accent-color), transparent 70%) 0%,
+    transparent 65%
+  );
+  filter: blur(28px);
+  z-index: 0;
+}
+
+.imageFrame {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 100%;
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
   background: linear-gradient(
     135deg,
     var(--surface-color) 0%,
-    color-mix(in srgb, var(--surface-color), var(--accent-color) 15%) 100%
+    color-mix(in srgb, var(--surface-color), var(--accent-color) 12%) 100%
   );
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 80%);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+  transition: transform 0.4s ease;
+}
+
+.imageFrame:hover {
+  transform: translateY(-6px);
+}
+
+.imageFrame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Empty-state placeholder (shown if no image is present) */
+.placeholderIcon {
+  width: 100%;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 12rem;
-  color: color-mix(in srgb, var(--accent-color), transparent 40%);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  transition: transform 0.3s ease;
+  font-size: 11rem;
+  color: color-mix(in srgb, var(--accent-color), transparent 45%);
 }
 
-.profilePlaceholder:hover {
-  transform: scale(1.02);
-}
+/* ---------------- Floating cards ---------------- */
 
 .floatingElements {
   position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
+  z-index: 2;
   pointer-events: none;
+  opacity: 0;
+  animation: revealUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.7s forwards;
 }
 
 .floatingCard {
   position: absolute;
-  background: var(--surface-color);
-  padding: 12px 18px;
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
   display: flex;
   align-items: center;
   gap: 10px;
+  padding: 12px 18px;
+  border-radius: var(--radius);
   font-weight: 600;
   font-size: 0.95rem;
   color: var(--default-color);
-  animation: float 3s ease-in-out infinite;
-  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 80%);
+  background: color-mix(in srgb, var(--surface-color), transparent 8%);
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 78%);
+  box-shadow: 0 12px 34px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(10px);
+  animation: float 4s ease-in-out infinite;
 }
 
 .floatingCard i {
-  font-size: 1.5rem;
+  font-size: 1.4rem;
   color: var(--accent-color);
 }
 
 .cardAi {
-  top: 8%;
-  right: -8%;
+  top: 6%;
+  right: -7%;
   animation-delay: 0s;
 }
 
 .cardDev {
-  bottom: 30%;
-  left: -12%;
-  animation-delay: 1s;
+  bottom: 28%;
+  left: -11%;
+  animation-delay: 1.3s;
 }
 
 .cardWriter {
-  top: 60%;
-  right: -5%;
-  animation-delay: 2s;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  top: 58%;
+  right: -4%;
+  animation-delay: 2.4s;
 }
 
 @media (max-width: 1199px) {
@@ -245,7 +353,64 @@
 }
 
 @media (max-width: 992px) {
-  .floatingCard {
+  .floatingElements {
     display: none;
+  }
+}
+
+/* ---------------- Keyframes ---------------- */
+
+@keyframes revealUp {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes revealScale {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}
+
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.55); }
+  70% { box-shadow: 0 0 0 7px rgba(34, 197, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+/* ---------------- Reduced motion ---------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .imageWrapper,
+  .floatingElements {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+  .floatingCard,
+  .cursor,
+  .statusDot {
+    animation: none;
   }
 }

@@ -10,11 +10,22 @@
   }
 }
 
+/* ---------------- Scroll reveal ---------------- */
+
+.reveal {
+  opacity: 0;
+}
+
+.inView .reveal {
+  animation: contactReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0s)
+    forwards;
+}
+
 /* Info box */
 .infoBox {
   background-color: var(--surface-color);
   padding: 3rem;
-  border-radius: 1rem;
+  border-radius: var(--radius);
   height: 100%;
 }
 
@@ -99,7 +110,7 @@
 .formBox {
   background-color: var(--surface-color);
   padding: 3rem;
-  border-radius: 1rem;
+  border-radius: var(--radius);
   height: 100%;
   box-shadow: 0 0 25px rgba(0, 0, 0, 0.2);
 }
@@ -149,7 +160,7 @@
 .form textarea {
   padding: 0.875rem 1.25rem;
   border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
-  border-radius: 0.5rem;
+  border-radius: var(--radius-sm);
   background-color: transparent;
   color: var(--default-color);
   font-family: inherit;
@@ -186,7 +197,7 @@
 .success,
 .error {
   padding: 12px 16px;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   width: 100%;
   text-align: center;
   font-weight: 500;
@@ -205,4 +216,28 @@
 .error {
   background: #df1529;
   color: #ffffff;
+}
+
+/* ---------------- Keyframes ---------------- */
+
+@keyframes contactReveal {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------------- Reduced motion ---------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .inView .reveal {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
 }

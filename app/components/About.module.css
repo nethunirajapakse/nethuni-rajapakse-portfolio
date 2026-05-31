@@ -1,60 +1,128 @@
-/* Intro row */
+/* ============================================================
+   About — matched to Hero aesthetic
+   ============================================================ */
+
+.about {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Ambient glow, subtle so it doesn't fight the content */
+.about::before {
+  content: "";
+  position: absolute;
+  top: 6%;
+  left: -8%;
+  width: 38vw;
+  height: 38vw;
+  max-width: 460px;
+  max-height: 460px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--accent-color), transparent 90%) 0%,
+    transparent 70%
+  );
+  filter: blur(60px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.about > :global(.container) {
+  position: relative;
+  z-index: 1;
+}
+
+/* Shared staggered entrance — only fires once the section scrolls into
+   view (parent gets .inView). Delay set inline via --delay. */
+.reveal {
+  opacity: 0;
+}
+
+.inView .reveal {
+  animation: aboutReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) var(--delay, 0s)
+    forwards;
+}
+
+/* ---------------- Intro row ---------------- */
+
 .introRow {
   display: grid;
   grid-template-columns: 1.4fr 1fr;
-  gap: 3rem;
+  gap: 4rem;
   align-items: center;
-  margin-bottom: 4rem;
+  margin-bottom: var(--section-gap);
 }
 
 @media (max-width: 992px) {
   .introRow {
     grid-template-columns: 1fr;
-    gap: 2.5rem;
+    gap: 3rem;
   }
 }
 
 .introContent {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
 
 .eyebrow {
-  display: inline-block;
-  letter-spacing: 0.12em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.45rem 1.05rem;
+  margin-bottom: 1.5rem;
+  border-radius: var(--radius-pill);
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  font-size: 12px;
-  color: color-mix(in srgb, var(--default-color), transparent 40%);
-  margin-bottom: 16px;
+  color: var(--accent-color);
+  background: color-mix(in srgb, var(--surface-color), transparent 25%);
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 78%);
+  backdrop-filter: blur(8px);
 }
 
 .headline {
   font-family: var(--heading-font);
   font-weight: 300;
-  line-height: 1.2;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
   font-size: clamp(28px, 4vw, 44px);
-  margin: 0 0 24px 0;
+  margin: 0 0 1.5rem 0;
   color: var(--heading-color);
+}
+
+.name {
+  font-weight: 600;
+  background: linear-gradient(
+    120deg,
+    var(--accent-color),
+    color-mix(in srgb, var(--accent-color), var(--heading-color) 50%)
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .lead {
   font-size: 18px;
   line-height: 1.8;
   color: color-mix(in srgb, var(--default-color), transparent 10%);
-  margin: 0 0 24px 0;
+  margin: 0 0 1.5rem 0;
 }
 
-.introContent p {
+.introContent > p {
   line-height: 1.8;
-  margin: 0 0 24px 0;
-  color: color-mix(in srgb, var(--default-color), transparent 5%);
+  margin: 0 0 1.75rem 0;
+  color: color-mix(in srgb, var(--default-color), transparent 22%);
 }
 
 .ctaGroup {
   display: flex;
-  gap: 24px;
+  gap: 1.5rem;
   align-items: center;
-  margin-top: 8px;
   flex-wrap: wrap;
 }
 
@@ -62,19 +130,23 @@
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  padding: 12px 18px;
-  border-radius: 6px;
+  padding: 12px 20px;
+  border-radius: var(--radius-sm);
   color: var(--accent-color);
   background: color-mix(in srgb, var(--accent-color), transparent 92%);
   border: 1px solid color-mix(in srgb, var(--accent-color), transparent 70%);
-  transition: 0.3s ease-in-out;
   font-weight: 500;
+  transition: transform 0.3s ease, color 0.3s ease, background 0.3s ease,
+    border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .btnGhost:hover {
   color: var(--contrast-color);
   background: var(--accent-color);
   border-color: var(--accent-color);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px
+    color-mix(in srgb, var(--accent-color), transparent 65%);
 }
 
 .linkUnderline {
@@ -84,7 +156,7 @@
   position: relative;
   color: var(--accent-color);
   padding-bottom: 4px;
-  transition: 0.3s ease-in-out;
+  transition: color 0.3s ease;
 }
 
 .linkUnderline::after {
@@ -97,55 +169,95 @@
   background: color-mix(in srgb, var(--accent-color), transparent 40%);
   transform: scaleX(0.4);
   transform-origin: left;
-  transition: 0.3s ease-in-out;
+  transition: transform 0.3s ease;
 }
 
 .linkUnderline:hover::after {
   transform: scaleX(1);
 }
 
-/* Profile figure */
+/* ---------------- Profile figure ---------------- */
+
 .profileFigure {
   display: flex;
   justify-content: center;
 }
 
-.profilePhoto {
+.profileWrapper {
+  position: relative;
   width: 88%;
-  max-width: 440px;
+  max-width: 420px;
   aspect-ratio: 1 / 1;
-  border-radius: 18px;
+}
+
+.profileGlow {
+  position: absolute;
+  inset: -8%;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 50% 40%,
+    color-mix(in srgb, var(--accent-color), transparent 72%) 0%,
+    transparent 65%
+  );
+  filter: blur(28px);
+  z-index: 0;
+}
+
+.profilePhoto {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
   background: linear-gradient(
     135deg,
     var(--surface-color) 0%,
-    color-mix(in srgb, var(--surface-color), var(--accent-color) 15%) 100%
+    color-mix(in srgb, var(--surface-color), var(--accent-color) 12%) 100%
   );
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10rem;
-  color: color-mix(in srgb, var(--accent-color), transparent 40%);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
-  transition: transform 0.3s ease-in-out;
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 80%);
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+  transition: transform 0.4s ease;
 }
 
 .profilePhoto:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px);
+}
+
+.profilePhoto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 @media (max-width: 576px) {
-  .profilePhoto {
+  .profileWrapper {
     width: 100%;
-    font-size: 8rem;
   }
 }
 
-/* Skills grid */
+/* ---------------- Group heading ---------------- */
+
+.groupLabel {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: color-mix(in srgb, var(--default-color), transparent 45%);
+  margin: 0 0 1.5rem 0;
+}
+
+/* ---------------- Skills grid ---------------- */
+
+.skillsBlock {
+  margin-bottom: var(--section-gap);
+}
+
 .skillsGrid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
-  margin-bottom: 4rem;
+  gap: 1.25rem;
 }
 
 @media (max-width: 992px) {
@@ -161,51 +273,87 @@
 }
 
 .skillItem {
-  padding: 24px;
-  border-radius: 6px;
-  transition: 0.3s ease-in-out;
-  background: color-mix(in srgb, var(--surface-color), var(--accent-color) 2%);
-  border: 1px solid color-mix(in srgb, var(--default-color), transparent 88%);
+  padding: 26px 24px;
+  border-radius: var(--radius);
   height: 100%;
+  background: color-mix(in srgb, var(--surface-color), transparent 12%);
+  border: 1px solid color-mix(in srgb, var(--default-color), transparent 90%);
+  backdrop-filter: blur(10px);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-.skillItem i {
-  font-size: 24px;
+.iconWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 46px;
+  height: 46px;
+  border-radius: var(--radius-sm);
+  margin-bottom: 18px;
+  background: color-mix(in srgb, var(--accent-color), transparent 86%);
+}
+
+.iconWrap i {
+  font-size: 22px;
   color: var(--accent-color);
-  margin-bottom: 16px;
-  display: inline-block;
 }
 
 .skillItem h3 {
   font-size: 16px;
-  margin: 0 0 6px;
-  font-weight: 500;
+  margin: 0 0 8px;
+  font-weight: 600;
   color: var(--heading-color);
 }
 
 .skillItem p {
   margin: 0;
   font-size: 14px;
-  color: color-mix(in srgb, var(--default-color), transparent 25%);
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--default-color), transparent 28%);
 }
 
 .skillItem:hover {
-  transform: translateY(-3px);
-  border-color: color-mix(in srgb, var(--accent-color), transparent 60%);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transform: translateY(-5px);
+  border-color: color-mix(in srgb, var(--accent-color), transparent 55%);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.28);
 }
 
-/* Timeline */
+/* ---------------- Timeline ---------------- */
+
+.timelineBlock {
+  margin-bottom: var(--section-gap);
+}
+
 .timelineGrid {
+  position: relative;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 1.5rem;
-  margin-bottom: 4rem;
+}
+
+/* Connector line only on the full desktop layout */
+@media (min-width: 993px) {
+  .timelineGrid::before {
+    content: "";
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: 5px;
+    height: 2px;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--accent-color), transparent 80%),
+      color-mix(in srgb, var(--accent-color), transparent 45%),
+      color-mix(in srgb, var(--accent-color), transparent 80%)
+    );
+    z-index: 0;
+  }
 }
 
 @media (max-width: 992px) {
   .timelineGrid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 1.5rem;
   }
 }
 
@@ -217,48 +365,64 @@
 
 .timelineItem {
   position: relative;
-  padding-left: 26px;
-}
-
-.timelineItem time {
-  display: inline-block;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--default-color), transparent 45%);
-  margin-bottom: 6px;
-}
-
-.timelineItem h4 {
-  font-size: 18px;
-  font-weight: 400;
-  margin: 0 0 6px;
-  color: var(--heading-color);
-}
-
-.timelineItem p {
-  font-size: 14px;
-  color: color-mix(in srgb, var(--default-color), transparent 25%);
-  margin: 0;
+  z-index: 1;
+  padding-top: 26px;
 }
 
 .dot {
   position: absolute;
   left: 0;
-  top: 4px;
-  width: 10px;
-  height: 10px;
+  top: 0;
+  width: 12px;
+  height: 12px;
   border-radius: 50%;
   background: var(--accent-color);
-  box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent-color), transparent 80%);
+  box-shadow: 0 0 0 5px
+    color-mix(in srgb, var(--accent-color), transparent 82%);
 }
 
-/* Quote */
+.timelineItem time {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent-color);
+  margin-bottom: 8px;
+}
+
+.timelineItem h4 {
+  font-size: 17px;
+  font-weight: 500;
+  margin: 0 0 8px;
+  color: var(--heading-color);
+}
+
+.timelineItem p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: color-mix(in srgb, var(--default-color), transparent 28%);
+  margin: 0;
+}
+
+/* ---------------- Quote ---------------- */
+
 .personalQuote {
-  padding: 24px 0;
-  margin: 0 0 3rem 0;
+  position: relative;
+  padding: 0 1rem;
+  margin: 0 0 5rem 0;
   text-align: center;
   border: none;
+}
+
+.personalQuote::before {
+  content: "\201C";
+  display: block;
+  font-family: var(--heading-font);
+  font-size: 5rem;
+  line-height: 0.7;
+  margin-bottom: 1rem;
+  color: color-mix(in srgb, var(--accent-color), transparent 55%);
 }
 
 .personalQuote p {
@@ -266,12 +430,13 @@
   font-weight: 300;
   font-size: clamp(20px, 3vw, 28px);
   line-height: 1.5;
-  color: color-mix(in srgb, var(--default-color), transparent 5%);
+  color: color-mix(in srgb, var(--default-color), transparent 8%);
   margin: 0 auto;
-  max-width: 800px;
+  max-width: 760px;
 }
 
-/* Fact pills */
+/* ---------------- Fact pills ---------------- */
+
 .factsGrid {
   display: flex;
   flex-wrap: wrap;
@@ -284,11 +449,12 @@
   align-items: center;
   gap: 10px;
   padding: 10px 18px;
-  border-radius: 999px;
-  border: 1px solid color-mix(in srgb, var(--default-color), transparent 85%);
-  background: var(--surface-color);
+  border-radius: var(--radius-pill);
+  border: 1px solid color-mix(in srgb, var(--accent-color), transparent 80%);
+  background: color-mix(in srgb, var(--surface-color), transparent 20%);
   color: color-mix(in srgb, var(--default-color), transparent 10%);
-  transition: 0.3s ease-in-out;
+  backdrop-filter: blur(8px);
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .factPill i {
@@ -300,7 +466,32 @@
 }
 
 .factPill:hover {
-  transform: translateY(-2px);
-  border-color: color-mix(in srgb, var(--accent-color), transparent 60%);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--accent-color), transparent 55%);
+  box-shadow: 0 12px 28px
+    color-mix(in srgb, var(--accent-color), transparent 70%);
+}
+
+/* ---------------- Keyframes ---------------- */
+
+@keyframes aboutReveal {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---------------- Reduced motion ---------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .inView .reveal {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
 }

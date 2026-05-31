@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import styles from "./Projects.module.css";
+import { useInView } from "../hooks/useInView";
 
 type Project = {
   id: number;
@@ -123,6 +124,7 @@ const filters = [
 
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState("all");
+  const { ref, inView } = useInView<HTMLElement>();
 
   const filteredProjects = (
     activeFilter === "all"
@@ -133,7 +135,11 @@ export default function Projects() {
     .sort((a, b) => parseInt(b.year) - parseInt(a.year));
 
   return (
-    <section id="projects" className={`section ${styles.projects}`}>
+    <section
+      id="projects"
+      ref={ref}
+      className={`section ${styles.projects} ${inView ? styles.inView : ""}`}
+    >
       <div className="container">
         <div className="section-title">
           <h2>Projects</h2>
@@ -144,7 +150,10 @@ export default function Projects() {
         </div>
 
         {/* Filters */}
-        <ul className={styles.filters}>
+        <ul
+          className={`${styles.reveal} ${styles.filters}`}
+          style={{ "--delay": "0.05s" } as any}
+        >
           {filters.map((f) => (
             <li
               key={f.key}
@@ -158,8 +167,12 @@ export default function Projects() {
 
         {/* Project Grid */}
         <div className={styles.grid}>
-          {filteredProjects.map((project) => (
-            <div key={project.id} className={styles.card}>
+          {filteredProjects.map((project, index) => (
+            <div
+              key={project.id}
+              className={`${styles.reveal} ${styles.card}`}
+              style={{ "--delay": `${0.1 + index * 0.07}s` } as any}
+            >
               <div className={styles.cardImage}>
                 <Image
                   src={project.image}
@@ -172,13 +185,11 @@ export default function Projects() {
 
               <div className={styles.cardBody}>
                 <div className={styles.cardHeader}>
-                  <h4 dangerouslySetInnerHTML={{ __html: project.title }}></h4>
+                  <h4>{project.title}</h4>
                   <span className={styles.year}>{project.year}</span>
                 </div>
 
-                <p
-                  dangerouslySetInnerHTML={{ __html: project.description }}
-                ></p>
+                <p>{project.description}</p>
 
                 <div className={styles.tags}>
                   {project.tags.map((tag) => (

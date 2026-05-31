@@ -2,11 +2,13 @@
 
 import { useState, FormEvent } from "react";
 import styles from "./Contact.module.css";
+import { useInView } from "../hooks/useInView";
 
 type Status = "idle" | "loading" | "success" | "error";
 
 export default function Contact() {
   const [status, setStatus] = useState<Status>("idle");
+  const { ref, inView } = useInView<HTMLElement>();
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -41,7 +43,11 @@ export default function Contact() {
   };
 
   return (
-    <section id="contact" className={`section ${styles.contact}`}>
+    <section
+      id="contact"
+      ref={ref}
+      className={`section ${inView ? styles.inView : ""}`}
+    >
       <div className="container">
         <div className="section-title">
           <h2>Contact</h2>
@@ -53,7 +59,10 @@ export default function Contact() {
 
         <div className={styles.row}>
           {/* Info box */}
-          <div className={styles.infoBox}>
+          <div
+            className={`${styles.reveal} ${styles.infoBox}`}
+            style={{ "--delay": "0.05s" } as any}
+          >
             <h3>Contact Info</h3>
             <p>
               Open to internship opportunities, collaborations, and interesting
@@ -100,7 +109,10 @@ export default function Contact() {
           </div>
 
           {/* Form */}
-          <div className={styles.formBox}>
+          <div
+            className={`${styles.reveal} ${styles.formBox}`}
+            style={{ "--delay": "0.15s" } as any}
+          >
             <h3>Get In Touch</h3>
             <p>Fill out the form and I&apos;ll get back to you as soon as I can.</p>
 

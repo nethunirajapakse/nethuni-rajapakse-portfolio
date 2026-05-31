@@ -15,31 +15,31 @@ export default function Hero() {
   const [itemIndex, setItemIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // Simple typed.js-style effect
+  // Typewriter effect
   useEffect(() => {
     const currentWord = typedItems[itemIndex];
     const typingSpeed = isDeleting ? 50 : 100;
     const pauseAtEnd = 1500;
 
-    const timeout = setTimeout(() => {
-      if (!isDeleting && typedText === currentWord) {
-        // Pause, then start deleting
-        setTimeout(() => setIsDeleting(true), pauseAtEnd);
-        return;
-      }
-
-      if (isDeleting && typedText === "") {
-        setIsDeleting(false);
-        setItemIndex((prev) => (prev + 1) % typedItems.length);
-        return;
-      }
-
-      setTypedText((prev) =>
-        isDeleting
-          ? currentWord.substring(0, prev.length - 1)
-          : currentWord.substring(0, prev.length + 1)
-      );
-    }, typingSpeed);
+    const timeout = setTimeout(
+      () => {
+        if (!isDeleting && typedText === currentWord) {
+          setTimeout(() => setIsDeleting(true), pauseAtEnd);
+          return;
+        }
+        if (isDeleting && typedText === "") {
+          setIsDeleting(false);
+          setItemIndex((prev) => (prev + 1) % typedItems.length);
+          return;
+        }
+        setTypedText((prev) =>
+          isDeleting
+            ? currentWord.substring(0, prev.length - 1)
+            : currentWord.substring(0, prev.length + 1),
+        );
+      },
+      typedText === currentWord && !isDeleting ? pauseAtEnd : typingSpeed,
+    );
 
     return () => clearTimeout(timeout);
   }, [typedText, isDeleting, itemIndex]);
@@ -48,23 +48,40 @@ export default function Hero() {
     <section id="hero" className={`section ${styles.hero}`}>
       <div className="container">
         <div className={styles.row}>
+          {/* ---------------- Content ---------------- */}
           <div className={styles.content}>
-            <h1 className={styles.title}>
+            <h1
+              className={`${styles.reveal} ${styles.title}`}
+              style={{ "--delay": "0.15s" } as any}
+            >
               Hello, I&apos;m{" "}
-              <span className={styles.highlight}>Nethuni Rajapakse</span>
+              <span className={styles.name}>Nethuni Rajapakse</span>
             </h1>
-            <h2 className={styles.subtitle}>
+
+            <h2
+              className={`${styles.reveal} ${styles.subtitle}`}
+              style={{ "--delay": "0.25s" } as any}
+            >
               Passionate <span className={styles.typed}>{typedText}</span>
-              <span className={styles.cursor}>|</span>
+              <span className={styles.cursor} aria-hidden="true">
+                |
+              </span>
             </h2>
-            <p className={styles.description}>
+
+            <p
+              className={`${styles.reveal} ${styles.description}`}
+              style={{ "--delay": "0.35s" } as any}
+            >
               Final-year undergraduate at the University of Moratuwa. I
               specialize in building scalable software systems and exploring
               AI-driven solutions, with a strong focus on Large Language Models
               and RAG architectures.
             </p>
 
-            <div className={styles.actions}>
+            <div
+              className={`${styles.reveal} ${styles.actions}`}
+              style={{ "--delay": "0.45s" } as any}
+            >
               <a href="#projects" className="btn btn-primary">
                 View My Projects
               </a>
@@ -73,7 +90,10 @@ export default function Hero() {
               </a>
             </div>
 
-            <div className={styles.socialLinks}>
+            <div
+              className={`${styles.reveal} ${styles.socialLinks}`}
+              style={{ "--delay": "0.55s" } as any}
+            >
               <a
                 href="https://medium.com/@nethunirajapakse/activity"
                 target="_blank"
@@ -101,14 +121,16 @@ export default function Hero() {
             </div>
           </div>
 
+          {/* ---------------- Image ---------------- */}
           <div className={styles.imageBlock}>
             <div className={styles.imageWrapper}>
-              {/* Replace src with your own image once you have one in /public */}
-              <div className={styles.profilePlaceholder}>
-                <img src="/profile.jpg" alt="Nethuni Rajapakse" />
+              <div className={styles.imageGlow} aria-hidden="true" />
+
+              <div className={styles.imageFrame}>
+                <img src="/me.png" alt="Nethuni Rajapakse" />
               </div>
 
-              <div className={styles.floatingElements}>
+              <div className={styles.floatingElements} aria-hidden="true">
                 <div className={`${styles.floatingCard} ${styles.cardAi}`}>
                   <i className="bi bi-cpu"></i>
                   <span>AI &amp; ML</span>
