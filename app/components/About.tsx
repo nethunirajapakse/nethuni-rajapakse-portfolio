@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "./About.module.css";
-import { useInView } from  "../hooks/useInView";
+import { useInView } from "../hooks/useInView";
 
 const skills = [
   {
@@ -67,6 +67,21 @@ export default function About() {
 
         {/* Intro + Photo */}
         <div className={styles.introRow}>
+          <div
+            className={`${styles.reveal} ${styles.profileFigure}`}
+            style={{ "--delay": "0.25s" } as any}
+          >
+            <div className={styles.profileWrapper}>
+              <div className={styles.profileGlow} aria-hidden="true" />
+              <div className={styles.profilePhoto}>
+                <img src="/profile.jpg" alt="Nethuni Rajapakse" />
+              </div>
+              <span className={styles.profileBadge}>
+                <i className="bi bi-geo-alt-fill"></i> Moratuwa, LK
+              </span>
+            </div>
+          </div>
+
           <div className={styles.introContent}>
             <h2
               className={`${styles.reveal} ${styles.headline}`}
@@ -108,18 +123,6 @@ export default function About() {
               >
                 Download Resume <i className="bi bi-download"></i>
               </a>
-            </div>
-          </div>
-
-          <div
-            className={`${styles.reveal} ${styles.profileFigure}`}
-            style={{ "--delay": "0.25s" } as any}
-          >
-            <div className={styles.profileWrapper}>
-              <div className={styles.profileGlow} aria-hidden="true" />
-              <div className={styles.profilePhoto}>
-                <img src="/profile.jpg" alt="Nethuni Rajapakse" />
-              </div>
             </div>
           </div>
         </div>
