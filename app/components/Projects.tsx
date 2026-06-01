@@ -113,6 +113,26 @@ const projects: Project[] = [
     image: "/projects/jokehub.png",
     year: "2024",
   },
+  {
+    id: 8,
+    title: "Spoti-Insights",
+    description:
+      "Full-stack Spotify analytics dashboard. Continuously syncs your listening history into a database via a background job, then surfaces insights Spotify doesn't — listening trends, genre distribution, hourly activity, and top artists/tracks by real play count.",
+    category: "fullstack",
+    tags: [
+      "React",
+      "TypeScript",
+      "FastAPI",
+      "PostgreSQL",
+      "Redis",
+      "TanStack Query",
+    ],
+    githubUrl: "https://github.com/nethunirajapakse/spoti-insights",
+    liveUrl: "https://spoti-insights-app.onrender.com/",
+    icon: "bi-spotify",
+    image: "/projects/spoti-insights.png",
+    year: "2026",
+  },
 ];
 
 const filters = [
