@@ -23,10 +23,12 @@
   list-style: none;
 }
 
-.filters li {
+.filterBtn {
   padding: 8px 20px;
   font-size: 0.95rem;
   font-weight: 500;
+  font-family: inherit;
+  border: none;
   border-radius: var(--radius-pill);
   cursor: pointer;
   transition: all 0.3s ease;
@@ -34,11 +36,16 @@
   color: var(--accent-color);
 }
 
-.filters li:hover {
+.filterBtn:hover {
   background-color: color-mix(in srgb, var(--accent-color), transparent 80%);
 }
 
-.filters li.active {
+.filterBtn:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 2px;
+}
+
+.filterBtn.active {
   background-color: var(--accent-color);
   color: var(--contrast-color);
 }

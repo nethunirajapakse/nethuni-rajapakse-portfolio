@@ -131,7 +131,7 @@ const projects: Project[] = [
     liveUrl: "https://spoti-insights-app.onrender.com/",
     icon: "bi-spotify",
     image: "/projects/spoti-insights.png",
-    year: "2026",
+    year: "2025",
   },
 ];
 
@@ -152,7 +152,7 @@ export default function Projects() {
       : projects.filter((p) => p.category === activeFilter)
   )
     .slice()
-    .sort((a, b) => parseInt(b.year) - parseInt(a.year));
+    .sort((a, b) => Number.parseInt(b.year) - Number.parseInt(a.year));
 
   return (
     <section
@@ -175,12 +175,17 @@ export default function Projects() {
           style={{ "--delay": "0.05s" } as any}
         >
           {filters.map((f) => (
-            <li
-              key={f.key}
-              className={activeFilter === f.key ? styles.active : ""}
-              onClick={() => setActiveFilter(f.key)}
-            >
-              {f.label}
+            <li key={f.key}>
+              <button
+                type="button"
+                className={`${styles.filterBtn} ${
+                  activeFilter === f.key ? styles.active : ""
+                }`}
+                onClick={() => setActiveFilter(f.key)}
+                aria-pressed={activeFilter === f.key}
+              >
+                {f.label}
+              </button>
             </li>
           ))}
         </ul>
