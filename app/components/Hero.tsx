@@ -4,10 +4,10 @@ import { useEffect, useState } from "react";
 import styles from "./Hero.module.css";
 
 const typedItems = [
-  "Software Developer",
-  "IT Undergraduate",
-  "AI Enthusiast",
-  "Full-stack Engineer",
+  { prefix: "a passionate ", role: "software developer" },
+  { prefix: "an ambitious ", role: "IT undergraduate" },
+  { prefix: "a driven ", role: "AI enthusiast" },
+  { prefix: "a versatile ", role: "full-stack engineer" },
 ];
 
 export default function Hero() {
@@ -15,15 +15,17 @@ export default function Hero() {
   const [itemIndex, setItemIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
 
-  // Typewriter effect
   useEffect(() => {
-    const currentWord = typedItems[itemIndex];
+    // Combine prefix and role to compute the full string to type out
+    const currentItem = typedItems[itemIndex];
+    const fullWord = `${currentItem.prefix}${currentItem.role}`;
+    
     const typingSpeed = isDeleting ? 50 : 100;
     const pauseAtEnd = 1500;
 
     const timeout = setTimeout(
       () => {
-        if (!isDeleting && typedText === currentWord) {
+        if (!isDeleting && typedText === fullWord) {
           setTimeout(() => setIsDeleting(true), pauseAtEnd);
           return;
         }
@@ -34,15 +36,29 @@ export default function Hero() {
         }
         setTypedText((prev) =>
           isDeleting
-            ? currentWord.substring(0, prev.length - 1)
-            : currentWord.substring(0, prev.length + 1),
+            ? fullWord.substring(0, prev.length - 1)
+            : fullWord.substring(0, prev.length + 1),
         );
       },
-      typedText === currentWord && !isDeleting ? pauseAtEnd : typingSpeed,
+      typedText === fullWord && !isDeleting ? pauseAtEnd : typingSpeed,
     );
 
     return () => clearTimeout(timeout);
   }, [typedText, isDeleting, itemIndex]);
+
+  // Helper logic to split the currently typed text between the normal prefix and the colored role
+  const currentItem = typedItems[itemIndex];
+  const prefixLength = currentItem.prefix.length;
+  
+  let renderPrefix = "";
+  let renderRole = "";
+
+  if (typedText.length <= prefixLength) {
+    renderPrefix = typedText;
+  } else {
+    renderPrefix = currentItem.prefix;
+    renderRole = typedText.substring(prefixLength);
+  }
 
   return (
     <section id="hero" className={`section ${styles.hero}`}>
@@ -62,7 +78,9 @@ export default function Hero() {
               className={`${styles.reveal} ${styles.subtitle}`}
               style={{ "--delay": "0.25s" } as any}
             >
-              Passionate <span className={styles.typed}>{typedText}</span>
+              {/* The prefix stays normal color, the role gets the custom colored style */}
+              <span>I&apos;m {renderPrefix}</span>
+              <span className={styles.typed}>{renderRole}</span>
               <span className={styles.cursor} aria-hidden="true">
                 |
               </span>

@@ -414,3 +414,12 @@
     animation: none;
   }
 }
+
+.subtitle {
+  font-size: clamp(1.25rem, 2.4vw, 1.6rem);
+  font-weight: 400;
+  line-height: 1.4;
+  min-height: 4.5rem; /* Slightly increased to safely catch mobile two-line wraps seamlessly */
+  margin-bottom: 1.75rem;
+  color: color-mix(in srgb, var(--default-color), transparent 12%);
+}
