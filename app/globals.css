@@ -44,6 +44,7 @@ html,
 body {
   margin: 0;
   padding: 0;
+  overflow-x: clip;
 }
 
 body {
@@ -54,7 +55,6 @@ body {
   line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
 }
 
 a {

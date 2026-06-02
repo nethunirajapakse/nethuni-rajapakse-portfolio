@@ -104,6 +104,7 @@
   margin: 0;
   font-size: 0.95rem;
   color: color-mix(in srgb, var(--default-color), transparent 15%);
+  overflow-wrap: anywhere;
 }
 
 /* Form box */

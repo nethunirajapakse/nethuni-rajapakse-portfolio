@@ -74,7 +74,7 @@ export default function About() {
             <div className={styles.profileWrapper}>
               <div className={styles.profileGlow} aria-hidden="true" />
               <div className={styles.profilePhoto}>
-                <img src="/profile1.jpg" alt="Nethuni Rajapakse" />
+                <img src="about_me.png" alt="Nethuni Rajapakse" />
               </div>
               <span className={styles.profileBadge}>
                 <i className="bi bi-geo-alt-fill"></i> Moratuwa, LK
