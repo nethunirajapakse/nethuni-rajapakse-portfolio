@@ -10,8 +10,13 @@ import { useEffect, useRef, useState } from "react";
  *   const { ref, inView } = useInView<HTMLElement>();
  *   <section ref={ref} className={inView ? styles.inView : ""}>
  */
+const DEFAULT_OPTIONS: IntersectionObserverInit = {
+  threshold: 0,
+  rootMargin: "0px 0px -80px 0px",
+};
+
 export function useInView<T extends HTMLElement = HTMLElement>(
-  options: IntersectionObserverInit = { threshold: 0.15 }
+  options: IntersectionObserverInit = DEFAULT_OPTIONS
 ) {
   const ref = useRef<T>(null);
   const [inView, setInView] = useState(false);
