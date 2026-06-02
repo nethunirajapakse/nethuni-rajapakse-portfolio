@@ -8,6 +8,7 @@ type Status = "idle" | "loading" | "success" | "error";
 
 export default function Contact() {
   const [status, setStatus] = useState<Status>("idle");
+  const [errorMsg, setErrorMsg] = useState("");
   const { ref, inView } = useInView<HTMLElement>();
   const [form, setForm] = useState({
     name: "",
@@ -25,19 +26,26 @@ export default function Contact() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setStatus("loading");
+    setErrorMsg("");
 
-    // Placeholder: opens user's email client with prefilled content.
-    // Replace this with a real API call (e.g. /api/contact route, Formspree, Resend, etc.)
     try {
-      const mailto = `mailto:nethunirajapakse@gmail.com?subject=${encodeURIComponent(
-        form.subject || "Portfolio contact"
-      )}&body=${encodeURIComponent(
-        `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`
-      )}`;
-      window.location.href = mailto;
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+
+      if (!res.ok) {
+        const data = await res.json().catch(() => ({}));
+        throw new Error(data.error || "Failed to send.");
+      }
+
       setStatus("success");
       setForm({ name: "", email: "", subject: "", message: "" });
-    } catch {
+    } catch (err) {
+      setErrorMsg(
+        err instanceof Error ? err.message : "Something went wrong."
+      );
       setStatus("error");
     }
   };
@@ -124,6 +132,7 @@ export default function Contact() {
                   placeholder="Your Name"
                   value={form.name}
                   onChange={handleChange}
+                  disabled={status === "loading"}
                   required
                 />
                 <input
@@ -132,6 +141,7 @@ export default function Contact() {
                   placeholder="Your Email"
                   value={form.email}
                   onChange={handleChange}
+                  disabled={status === "loading"}
                   required
                 />
               </div>
@@ -142,6 +152,7 @@ export default function Contact() {
                 placeholder="Subject"
                 value={form.subject}
                 onChange={handleChange}
+                disabled={status === "loading"}
                 required
               />
 
@@ -151,6 +162,7 @@ export default function Contact() {
                 placeholder="Message"
                 value={form.message}
                 onChange={handleChange}
+                disabled={status === "loading"}
                 required
               />
 
@@ -160,17 +172,22 @@ export default function Contact() {
                 )}
                 {status === "success" && (
                   <div className={styles.success}>
-                    Thanks! Your email client should be open now.
+                    <i className="bi bi-check-circle" aria-hidden="true"></i>
+                    <span>Message sent — I&apos;ll be in touch.</span>
                   </div>
                 )}
                 {status === "error" && (
                   <div className={styles.error}>
-                    Something went wrong. Please try again.
+                    {errorMsg || "Something went wrong. Please try again."}
                   </div>
                 )}
 
-                <button type="submit" className="btn btn-primary">
-                  Send Message
+                <button
+                  type="submit"
+                  className="btn btn-primary"
+                  disabled={status === "loading"}
+                >
+                  {status === "loading" ? "Sending..." : "Send Message"}
                 </button>
               </div>
             </form>

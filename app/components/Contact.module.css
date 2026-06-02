@@ -194,7 +194,6 @@
 }
 
 .loading,
-.success,
 .error {
   padding: 12px 16px;
   border-radius: var(--radius-sm);
@@ -208,14 +207,23 @@
   color: var(--default-color);
 }
 
-.success {
-  background: #059652;
-  color: #ffffff;
-}
-
 .error {
   background: #df1529;
   color: #ffffff;
+}
+
+/* Success: lightweight inline confirmation, not a full block */
+.success {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--accent-color);
+}
+
+.success i {
+  font-size: 1.05rem;
 }
 
 /* ---------------- Keyframes ---------------- */
