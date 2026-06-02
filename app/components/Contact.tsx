@@ -167,9 +167,6 @@ export default function Contact() {
               />
 
               <div className={styles.formFooter}>
-                {status === "loading" && (
-                  <div className={styles.loading}>Sending...</div>
-                )}
                 {status === "success" && (
                   <div className={styles.success}>
                     <i className="bi bi-check-circle" aria-hidden="true"></i>
