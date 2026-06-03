@@ -131,7 +131,7 @@ const projects: Project[] = [
     liveUrl: "https://spoti-insights-app.onrender.com/",
     icon: "bi-spotify",
     image: "/projects/spoti-insights.png",
-    year: "2025",
+    year: "2026",
   },
 ];
 
