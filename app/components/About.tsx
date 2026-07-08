@@ -183,7 +183,7 @@ export default function About() {
             borderColor: "var(--color-accent)",
           }}
         >
-          Good software is the boring kind that quietly does what you expect —
+          Good software is the boring kind that quietly does what you expect,
           every single time.
         </blockquote>
       </div>
