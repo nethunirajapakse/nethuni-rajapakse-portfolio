@@ -168,7 +168,7 @@ export default function Hero() {
               }}
             >
               <Image
-                src="/me.png"
+                src="/nethuni.png"
                 alt="Nethuni Rajapakse"
                 fill
                 sizes="(max-width: 768px) 100vw, 380px"
