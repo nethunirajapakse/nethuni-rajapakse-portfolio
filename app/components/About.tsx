@@ -1,190 +1,190 @@
 "use client";
 
-import styles from "./About.module.css";
 import { useInView } from "../hooks/useInView";
 
+/**
+ * NOTE: I rewrote the four skill cards to match the "reliability engineer"
+ * positioning — they now describe what you can actually defend in an interview
+ * (grounded in CloudMart, Rostra, Interlekt) instead of generic buzzwords.
+ * The intro paragraph is likewise rebalanced to lead with systems, then AI.
+ * Swap any wording you'd rather keep from the original.
+ */
 const skills = [
   {
-    icon: "bi-code-slash",
-    title: "Full-Stack Development",
-    desc: "React, Next.js, Node.js, and modern web stacks.",
+    icon: "bi-hdd-stack",
+    title: "Backend & reliability",
+    desc: "Spring Boot microservices with idempotency, retries, and graceful degradation.",
+  },
+  {
+    icon: "bi-arrow-repeat",
+    title: "DevOps & CI/CD",
+    desc: "GitHub Actions pipelines with OIDC auth, image scanning, and health-gated deploys.",
+  },
+  {
+    icon: "bi-activity",
+    title: "Cloud & observability",
+    desc: "AWS on EKS and Fargate, with CloudWatch logging and metrics wired in.",
   },
   {
     icon: "bi-cpu",
-    title: "AI & LLMs",
-    desc: "RAG architectures, fine-tuning, and prompt engineering.",
-  },
-  {
-    icon: "bi-database",
-    title: "Backend & Data",
-    desc: "Scalable APIs, databases, and system design.",
-  },
-  {
-    icon: "bi-phone",
-    title: "Mobile-first UI",
-    desc: "Responsive interfaces with thoughtful UX.",
-  },
-];
-
-const timeline = [
-  {
-    year: "2022",
-    title: "Started at University of Moratuwa",
-    desc: "Began IT undergraduate journey.",
-  },
-  {
-    year: "2023",
-    title: "First Full-stack Project",
-    desc: "Built and shipped end-to-end web applications.",
-  },
-  {
-    year: "2024",
-    title: "Diving into AI/LLMs",
-    desc: "Started exploring RAG systems and LLM applications.",
-  },
-  {
-    year: "2025",
-    title: "Final-year Research",
-    desc: "Focused on production-grade AI-driven solutions.",
+    title: "AI at the edge",
+    desc: "On-device LLM inference — quantization and llama.cpp running on Android.",
   },
 ];
 
 export default function About() {
   const { ref, inView } = useInView<HTMLElement>();
+  const reveal = (delay: string) =>
+    `${inView ? "animate-reveal" : "opacity-0"}`;
 
   return (
-    <section
-      id="about"
-      ref={ref}
-      className={`section ${styles.about} ${inView ? styles.inView : ""}`}
-    >
-      <div className="container">
-        {/* Section Title */}
-        <div className="section-title">
-          <h2>About</h2>
-          <p>A bit about who I am, what I build, and how I got here.</p>
+    <section id="about" ref={ref} className="py-24">
+      <div className="mx-auto max-w-6xl px-6">
+        {/* Section header */}
+        <div className="mb-16 max-w-2xl">
+          <p className="mb-3 font-mono text-sm tracking-tight text-accent">
+            — about
+          </p>
+          <h2 className="font-display text-[clamp(2rem,4vw,2.75rem)] font-bold tracking-tight text-heading">
+            Who I am, and what I build
+          </h2>
         </div>
 
-        {/* Intro + Photo */}
-        <div className={styles.introRow}>
-          <div
-            className={`${styles.reveal} ${styles.profileFigure}`}
-            style={{ "--delay": "0.25s" } as any}
+        {/* Intro + photo */}
+        <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-[5fr_7fr]">
+          <figure
+            className={`${reveal("0.25s")} relative mx-auto w-full max-w-[340px]`}
+            style={{ animationDelay: "0.25s" }}
           >
-            <div className={styles.profileWrapper}>
-              <div className={styles.profileGlow} aria-hidden="true" />
-              <div className={styles.profilePhoto}>
-                <img src="about_me.png" alt="Nethuni Rajapakse" />
-              </div>
-              <span className={styles.profileBadge}>
-                <i className="bi bi-geo-alt-fill"></i> Moratuwa, LK
-              </span>
-            </div>
-          </div>
-
-          <div className={styles.introContent}>
-            <h2
-              className={`${styles.reveal} ${styles.headline}`}
-              style={{ "--delay": "0.15s" } as any}
+            <div
+              aria-hidden
+              className="absolute -inset-4 -z-10 rounded-full blur-3xl"
+              style={{
+                background:
+                  "radial-gradient(circle, color-mix(in srgb, var(--color-accent), transparent 78%) 0%, transparent 65%)",
+              }}
+            />
+            <div
+              className="relative aspect-square overflow-hidden rounded-3xl border"
+              style={{
+                borderColor:
+                  "color-mix(in srgb, var(--color-accent), transparent 80%)",
+              }}
             >
-              Hi, I&apos;m <span className={styles.name}>Nethuni</span> &mdash;
-              a curious developer building thoughtful, AI-driven software
-            </h2>
+              <img
+                src="about_me.png"
+                alt="Nethuni Rajapakse"
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <figcaption className="mt-4 text-center font-mono text-[0.8rem] text-body/60">
+              // Moratuwa, LK
+            </figcaption>
+          </figure>
+
+          <div>
+            <h3
+              className={`${reveal("0.15s")} font-display text-[clamp(1.4rem,2.6vw,1.9rem)] font-medium leading-snug text-heading`}
+              style={{ animationDelay: "0.15s" }}
+            >
+              Hi, I&apos;m <span className="text-accent">Nethuni</span> — I care
+              about software that quietly does its job under pressure.
+            </h3>
 
             <p
-              className={`${styles.reveal} ${styles.lead}`}
-              style={{ "--delay": "0.25s" } as any}
+              className={`${reveal("0.25s")} mt-5 leading-relaxed text-body/80`}
+              style={{ animationDelay: "0.25s" }}
             >
               I&apos;m a final-year IT undergraduate at the University of
-              Moratuwa, passionate about turning ideas into clean, maintainable
-              systems. My recent work has focused on Large Language Models and
-              Retrieval-Augmented Generation, where I get to mix solid
-              engineering with the messier edges of AI.
+              Moratuwa, drawn to backend systems and the unglamorous work of
+              making them reliable: idempotency, failure recovery, clean
+              deploys. More recently I&apos;ve been pulling that same discipline
+              into AI, from RAG pipelines to running quantized language models
+              on-device.
             </p>
 
-            <p className={styles.reveal} style={{ "--delay": "0.32s" } as any}>
-              Outside of code, I write on Medium about the things I learn,
-              tinker with side projects, and keep an eye on where developer
-              tooling is heading.
+            <p
+              className={`${reveal("0.32s")} mt-4 leading-relaxed text-body/70`}
+              style={{ animationDelay: "0.32s" }}
+            >
+              Outside of code, I write on Medium about what I learn and keep an
+              eye on where developer tooling is heading.
             </p>
 
             <div
-              className={`${styles.reveal} ${styles.ctaGroup}`}
-              style={{ "--delay": "0.4s" } as any}
+              className={`${reveal("0.4s")} mt-7 flex flex-wrap items-center gap-5`}
+              style={{ animationDelay: "0.4s" }}
             >
-              <a href="#projects" className={styles.btnGhost}>
-                View My Work <i className="bi bi-arrow-up-right"></i>
+              <a
+                href="#projects"
+                className="inline-flex items-center gap-2 rounded-[var(--radius-card)] border px-5 py-2.5 font-medium text-heading transition hover:border-accent hover:text-accent"
+                style={{
+                  borderColor:
+                    "color-mix(in srgb, var(--color-body), transparent 82%)",
+                }}
+              >
+                View my work <i className="bi bi-arrow-up-right" />
               </a>
               <a
                 href="/resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className={styles.linkUnderline}
+                className="inline-flex items-center gap-2 font-mono text-sm text-body/80 underline-offset-4 transition hover:text-accent hover:underline"
               >
-                Download Resume <i className="bi bi-download"></i>
+                résumé <i className="bi bi-download" />
               </a>
             </div>
           </div>
         </div>
 
         {/* Skills */}
-        <div className={styles.skillsBlock}>
-          <p
-            className={`${styles.reveal} ${styles.groupLabel}`}
-            style={{ "--delay": "0.05s" } as any}
-          >
-            What I do
+        <div className="mt-24">
+          <p className="mb-8 font-mono text-sm tracking-tight text-accent">
+            — what I do
           </p>
-          <div className={styles.skillsGrid}>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
             {skills.map((skill, i) => (
               <div
                 key={skill.title}
-                className={`${styles.reveal} ${styles.skillItem}`}
-                style={{ "--delay": `${0.1 + i * 0.08}s` } as any}
+                className={`${reveal(`${0.1 + i * 0.08}s`)} rounded-[var(--radius-card)] border p-6 transition hover:-translate-y-1`}
+                style={{
+                  animationDelay: `${0.1 + i * 0.08}s`,
+                  borderColor:
+                    "color-mix(in srgb, var(--color-body), transparent 90%)",
+                  background:
+                    "color-mix(in srgb, var(--color-surface), transparent 20%)",
+                }}
               >
-                <span className={styles.iconWrap}>
-                  <i className={`bi ${skill.icon}`}></i>
+                <span
+                  className="mb-4 inline-flex h-11 w-11 items-center justify-center rounded-xl text-xl text-accent"
+                  style={{
+                    background:
+                      "color-mix(in srgb, var(--color-accent), transparent 88%)",
+                  }}
+                >
+                  <i className={`bi ${skill.icon}`} />
                 </span>
-                <h3>{skill.title}</h3>
-                <p>{skill.desc}</p>
+                <h3 className="mb-1.5 font-display text-lg font-semibold text-heading">
+                  {skill.title}
+                </h3>
+                <p className="text-sm leading-relaxed text-body/70">
+                  {skill.desc}
+                </p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Journey Timeline
-        <div className={styles.timelineBlock}>
-          <p
-            className={`${styles.reveal} ${styles.groupLabel}`}
-            style={{ "--delay": "0.05s" } as any}
-          >
-            My journey
-          </p>
-          <div className={styles.timelineGrid}>
-            {timeline.map((item, i) => (
-              <article
-                key={item.year}
-                className={`${styles.reveal} ${styles.timelineItem}`}
-                style={{ "--delay": `${0.1 + i * 0.08}s` } as any}
-              >
-                <span className={styles.dot}></span>
-                <time>{item.year}</time>
-                <h4>{item.title}</h4>
-                <p>{item.desc}</p>
-              </article>
-            ))}
-          </div>
-        </div> */}
-
-        {/* Quote */}
+        {/* Quote — the reliability thesis, elevated */}
         <blockquote
-          className={`${styles.reveal} ${styles.personalQuote}`}
-          style={{ "--delay": "0.05s" } as any}
+          className={`${reveal("0.05s")} mx-auto mt-24 max-w-3xl border-l-2 pl-6 font-display text-[clamp(1.35rem,3vw,1.9rem)] font-medium leading-snug text-heading/90`}
+          style={{
+            animationDelay: "0.05s",
+            borderColor: "var(--color-accent)",
+          }}
         >
-          <p>
-            Good software is the boring kind that quietly does what you expect
-            &mdash; every single time.
-          </p>
+          Good software is the boring kind that quietly does what you expect —
+          every single time.
         </blockquote>
       </div>
     </section>

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, FormEvent } from "react";
-import styles from "./Contact.module.css";
 import { useInView } from "../hooks/useInView";
 
 type Status = "idle" | "loading" | "success" | "error";
@@ -43,106 +42,130 @@ export default function Contact() {
       setStatus("success");
       setForm({ name: "", email: "", subject: "", message: "" });
     } catch (err) {
-      setErrorMsg(
-        err instanceof Error ? err.message : "Something went wrong."
-      );
+      setErrorMsg(err instanceof Error ? err.message : "Something went wrong.");
       setStatus("error");
     }
   };
 
+  const inputCls =
+    "w-full rounded-[var(--radius-card)] border bg-transparent px-4 py-3 text-body outline-none transition placeholder:text-body/40 focus:border-accent disabled:opacity-50";
+  const inputStyle = {
+    borderColor: "color-mix(in srgb, var(--color-body), transparent 88%)",
+  };
+
+  const contactItems = [
+    { icon: "bi-geo-alt", label: "Location", value: "Colombo, Sri Lanka" },
+    { icon: "bi-envelope", label: "Email", value: "nethunirajapakse@gmail.com" },
+    {
+      icon: "bi-linkedin",
+      label: "LinkedIn",
+      value: "nethuni-rajapakse",
+      href: "https://linkedin.com/in/nethuni-rajapakse/",
+    },
+  ];
+
   return (
-    <section
-      id="contact"
-      ref={ref}
-      className={`section ${inView ? styles.inView : ""}`}
-    >
-      <div className="container">
-        <div className="section-title">
-          <h2>Contact</h2>
-          <p>
-            Have a project in mind, an idea to discuss, or just want to say hi?
-            I&apos;d love to hear from you.
+    <section id="contact" ref={ref} className="py-24">
+      <div className="mx-auto max-w-6xl px-6">
+        {/* Section header */}
+        <div className="mb-14 max-w-2xl">
+          <p className="mb-3 font-mono text-sm tracking-tight text-accent">
+            — contact
+          </p>
+          <h2 className="font-display text-[clamp(2rem,4vw,2.75rem)] font-bold tracking-tight text-heading">
+            Let&apos;s talk
+          </h2>
+          <p className="mt-3 leading-relaxed text-body/70">
+            Have a role, a project, or an idea to discuss? I&apos;d love to hear
+            from you.
           </p>
         </div>
 
-        <div className={styles.row}>
-          {/* Info box */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-[5fr_7fr]">
+          {/* Info */}
           <div
-            className={`${styles.reveal} ${styles.infoBox}`}
-            style={{ "--delay": "0.05s" } as any}
+            className={`${inView ? "animate-reveal" : "opacity-0"} rounded-[var(--radius-card)] bg-surface p-8`}
+            style={{ animationDelay: "0.05s" }}
           >
-            <h3>Contact Info</h3>
-            <p>
-              Open to internship opportunities, collaborations, and interesting
+            <h3 className="font-display text-xl font-semibold text-heading">
+              Contact info
+            </h3>
+            <p className="mt-2 text-body/70">
+              Open to internships, collaborations, and interesting
               conversations.
             </p>
 
-            <div className={styles.infoItem}>
-              <div className={styles.iconBox}>
-                <i className="bi bi-geo-alt"></i>
-              </div>
-              <div>
-                <h4>Location</h4>
-                <p>Colombo, Sri Lanka</p>
-              </div>
-            </div>
-
-            <div className={styles.infoItem}>
-              <div className={styles.iconBox}>
-                <i className="bi bi-envelope"></i>
-              </div>
-              <div>
-                <h4>Email</h4>
-                <p>nethunirajapakse@gmail.com</p>
-              </div>
-            </div>
-
-            <div className={styles.infoItem}>
-              <div className={styles.iconBox}>
-                <i className="bi bi-linkedin"></i>
-              </div>
-              <div>
-                <h4>LinkedIn</h4>
-                <p>
-                  <a
-                    href="https://linkedin.com/in/nethuni-rajapakse/"
-                    target="_blank"
-                    rel="noopener noreferrer"
+            <div className="mt-8 flex flex-col gap-6">
+              {contactItems.map((item) => (
+                <div key={item.label} className="flex items-start gap-4">
+                  <span
+                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full text-xl text-accent"
+                    style={{
+                      background:
+                        "color-mix(in srgb, var(--color-accent), transparent 85%)",
+                    }}
                   >
-                    nethuni-rajapakse
-                  </a>
-                </p>
-              </div>
+                    <i className={`bi ${item.icon}`} />
+                  </span>
+                  <div className="min-w-0">
+                    <h4 className="font-mono text-xs uppercase tracking-widest text-body/50">
+                      {item.label}
+                    </h4>
+                    <p className="mt-1 break-words text-body">
+                      {item.href ? (
+                        <a
+                          href={item.href}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-accent hover:underline"
+                        >
+                          {item.value}
+                        </a>
+                      ) : (
+                        item.value
+                      )}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
 
           {/* Form */}
           <div
-            className={`${styles.reveal} ${styles.formBox}`}
-            style={{ "--delay": "0.15s" } as any}
+            className={`${inView ? "animate-reveal" : "opacity-0"} rounded-[var(--radius-card)] bg-surface p-8 shadow-xl`}
+            style={{ animationDelay: "0.15s" }}
           >
-            <h3>Get In Touch</h3>
-            <p>Fill out the form and I&apos;ll get back to you as soon as I can.</p>
+            <h3 className="font-display text-xl font-semibold text-heading">
+              Get in touch
+            </h3>
+            <p className="mt-2 text-body/70">
+              Fill this out and I&apos;ll get back to you as soon as I can.
+            </p>
 
-            <form onSubmit={handleSubmit} className={styles.form}>
-              <div className={styles.formRow}>
+            <form onSubmit={handleSubmit} className="mt-6 flex flex-col gap-4">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <input
                   type="text"
                   name="name"
-                  placeholder="Your Name"
+                  placeholder="Your name"
                   value={form.name}
                   onChange={handleChange}
                   disabled={status === "loading"}
                   required
+                  className={inputCls}
+                  style={inputStyle}
                 />
                 <input
                   type="email"
                   name="email"
-                  placeholder="Your Email"
+                  placeholder="Your email"
                   value={form.email}
                   onChange={handleChange}
                   disabled={status === "loading"}
                   required
+                  className={inputCls}
+                  style={inputStyle}
                 />
               </div>
 
@@ -154,6 +177,8 @@ export default function Contact() {
                 onChange={handleChange}
                 disabled={status === "loading"}
                 required
+                className={inputCls}
+                style={inputStyle}
               />
 
               <textarea
@@ -164,27 +189,29 @@ export default function Contact() {
                 onChange={handleChange}
                 disabled={status === "loading"}
                 required
+                className={`${inputCls} resize-y`}
+                style={inputStyle}
               />
 
-              <div className={styles.formFooter}>
+              <div className="mt-1 flex flex-col items-center gap-4">
                 {status === "success" && (
-                  <div className={styles.success}>
-                    <i className="bi bi-check-circle" aria-hidden="true"></i>
+                  <div className="inline-flex items-center gap-2 text-sm font-medium text-accent">
+                    <i className="bi bi-check-circle" aria-hidden />
                     <span>Message sent — I&apos;ll be in touch.</span>
                   </div>
                 )}
                 {status === "error" && (
-                  <div className={styles.error}>
+                  <div className="w-full rounded-[var(--radius-card)] bg-[#df1529] px-4 py-3 text-center font-medium text-white">
                     {errorMsg || "Something went wrong. Please try again."}
                   </div>
                 )}
 
                 <button
                   type="submit"
-                  className="btn btn-primary"
                   disabled={status === "loading"}
+                  className="rounded-[var(--radius-card)] bg-accent px-7 py-3 font-medium text-contrast transition hover:brightness-110 disabled:opacity-60"
                 >
-                  {status === "loading" ? "Sending..." : "Send Message"}
+                  {status === "loading" ? "Sending..." : "Send message"}
                 </button>
               </div>
             </form>
