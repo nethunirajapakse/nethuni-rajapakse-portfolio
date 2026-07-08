@@ -1,6 +1,19 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+import { Space_Grotesk, Hanken_Grotesk, IBM_Plex_Mono } from "next/font/google";
+
+const display = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
+});
+const body = Hanken_Grotesk({ subsets: ["latin"], variable: "--font-hanken" });
+const mono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-plex-mono",
+});
+
 export const metadata: Metadata = {
   title: "Nethuni Rajapakse - Portfolio",
   description:
@@ -41,7 +54,12 @@ export default function RootLayout({
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
         />
       </head>
-      <body suppressHydrationWarning={true}>{children}</body>
+      <body
+        className={`${display.variable} ${body.variable} ${mono.variable}`}
+        suppressHydrationWarning
+      >
+        {children}
+      </body>
     </html>
   );
 }
