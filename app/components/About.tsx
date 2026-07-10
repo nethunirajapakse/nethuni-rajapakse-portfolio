@@ -2,33 +2,27 @@
 
 import { useInView } from "../hooks/useInView";
 
-/**
- * NOTE: I rewrote the four skill cards to match the "reliability engineer"
- * positioning — they now describe what you can actually defend in an interview
- * (grounded in CloudMart, Rostra, Interlekt) instead of generic buzzwords.
- * The intro paragraph is likewise rebalanced to lead with systems, then AI.
- * Swap any wording you'd rather keep from the original.
- */
+
 const skills = [
   {
     icon: "bi-hdd-stack",
     title: "Backend & reliability",
-    desc: "Spring Boot microservices with idempotency, retries, and graceful degradation.",
+    desc: "Building resilient services that stay correct under failure, load, and retries.",
   },
   {
     icon: "bi-arrow-repeat",
     title: "DevOps & CI/CD",
-    desc: "GitHub Actions pipelines with OIDC auth, image scanning, and health-gated deploys.",
+    desc: "Automating build, test, and deployment pipelines with security checks along the way.",
   },
   {
     icon: "bi-activity",
     title: "Cloud & observability",
-    desc: "AWS on EKS and Fargate, with CloudWatch logging and metrics wired in.",
+    desc: "Running containerized workloads in the cloud with logging and metrics built in.",
   },
   {
     icon: "bi-cpu",
     title: "AI at the edge",
-    desc: "On-device LLM inference — quantization and llama.cpp running on Android.",
+    desc: "Bringing model inference onto resource-constrained devices through optimization.",
   },
 ];
 
@@ -87,7 +81,7 @@ export default function About() {
               className={`${reveal("0.15s")} font-display text-[clamp(1.4rem,2.6vw,1.9rem)] font-medium leading-snug text-heading`}
               style={{ animationDelay: "0.15s" }}
             >
-              Hi, I&apos;m <span className="text-accent">Nethuni</span> — I care
+              Hi, I&apos;m <span className="text-accent">Nethuni</span>. I care
               about software that quietly does its job under pressure.
             </h3>
 

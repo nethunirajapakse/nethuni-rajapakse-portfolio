@@ -55,7 +55,7 @@ export default function Contact() {
 
   const contactItems = [
     { icon: "bi-geo-alt", label: "Location", value: "Colombo, Sri Lanka" },
-    { icon: "bi-envelope", label: "Email", value: "nethunirajapakse@gmail.com" },
+    // { icon: "bi-envelope", label: "Email", value: "nethunirajapakse@gmail.com" },
     {
       icon: "bi-linkedin",
       label: "LinkedIn",
