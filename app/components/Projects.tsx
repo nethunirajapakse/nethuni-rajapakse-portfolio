@@ -126,17 +126,24 @@ const filters = [
   { key: "web", label: "Web" },
 ];
 
+const INITIAL_COUNT = 3;
+
 export default function Projects() {
   const [activeFilter, setActiveFilter] = useState("all");
+  const [showAll, setShowAll] = useState(false);
   const { ref, inView } = useInView<HTMLElement>();
 
-  const filteredProjects = (
+  const sortedProjects = (
     activeFilter === "all"
       ? projects
       : projects.filter((p) => p.category === activeFilter)
   )
     .slice()
     .sort((a, b) => Number.parseInt(b.year) - Number.parseInt(a.year));
+
+  const visibleProjects = showAll
+    ? sortedProjects
+    : sortedProjects.slice(0, INITIAL_COUNT);
 
   return (
     <section id="projects" ref={ref} className="py-24">
@@ -165,7 +172,10 @@ export default function Projects() {
               <button
                 key={f.key}
                 type="button"
-                onClick={() => setActiveFilter(f.key)}
+                onClick={() => {
+                  setActiveFilter(f.key);
+                  setShowAll(false);
+                }}
                 aria-pressed={active}
                 className={`rounded-full px-5 py-2 font-mono text-sm transition ${
                   active ? "text-contrast" : "text-accent hover:brightness-110"
@@ -184,7 +194,7 @@ export default function Projects() {
 
         {/* Grid */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {filteredProjects.map((project, index) => (
+          {visibleProjects.map((project, index) => (
             <article
               key={project.id}
               className={`${inView ? "animate-reveal" : "opacity-0"} group flex flex-col overflow-hidden rounded-[var(--radius-card)] border bg-surface transition hover:-translate-y-2`}
@@ -265,6 +275,31 @@ export default function Projects() {
             </article>
           ))}
         </div>
+
+        {sortedProjects.length > INITIAL_COUNT && (
+          <div className="mt-10 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setShowAll((v) => !v)}
+              className="inline-flex items-center gap-2 rounded-full px-6 py-2.5 font-mono text-sm text-accent transition hover:brightness-110"
+              style={{
+                background:
+                  "color-mix(in srgb, var(--color-accent), transparent 90%)",
+              }}
+            >
+              {showAll ? (
+                <>
+                  Show less <i className="bi bi-chevron-up" />
+                </>
+              ) : (
+                <>
+                  Show {sortedProjects.length - INITIAL_COUNT} more{" "}
+                  <i className="bi bi-chevron-down" />
+                </>
+              )}
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );
