@@ -1,7 +1,7 @@
 "use client";
 
 import { useInView } from "../hooks/useInView";
-
+import SkillSpace from "./Skillspace";
 
 const skills = [
   {
@@ -44,10 +44,10 @@ export default function About() {
           </h2>
         </div>
 
-        {/* Intro + photo */}
+        {/* Intro + skill space */}
         <div className="grid grid-cols-1 items-center gap-12 md:grid-cols-[5fr_7fr]">
           <figure
-            className={`${reveal("0.25s")} relative mx-auto w-full max-w-[340px]`}
+            className={`${reveal("0.25s")} relative mx-auto w-full max-w-[360px]`}
             style={{ animationDelay: "0.25s" }}
           >
             <div
@@ -55,25 +55,10 @@ export default function About() {
               className="absolute -inset-4 -z-10 rounded-full blur-3xl"
               style={{
                 background:
-                  "radial-gradient(circle, color-mix(in srgb, var(--color-accent), transparent 78%) 0%, transparent 65%)",
+                  "radial-gradient(circle, color-mix(in srgb, var(--color-accent), transparent 80%) 0%, transparent 65%)",
               }}
             />
-            <div
-              className="relative aspect-square overflow-hidden rounded-3xl border"
-              style={{
-                borderColor:
-                  "color-mix(in srgb, var(--color-accent), transparent 80%)",
-              }}
-            >
-              <img
-                src="about_me.png"
-                alt="Nethuni Rajapakse"
-                className="h-full w-full object-cover"
-              />
-            </div>
-            <figcaption className="mt-4 text-center font-mono text-[0.8rem] text-body/60">
-              // Moratuwa, LK
-            </figcaption>
+            <SkillSpace animate={inView} />
           </figure>
 
           <div>
