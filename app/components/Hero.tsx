@@ -55,7 +55,7 @@ export default function Hero() {
             className="animate-reveal mt-5 font-display text-[clamp(1.3rem,2.6vw,1.75rem)] font-medium leading-snug text-heading/85"
             style={{ animationDelay: "0.3s" }}
           >
-            I build backend systems that{" "}
+            I build software systems that{" "}
             <span className="text-accent">stay up.</span>
           </p>
 
