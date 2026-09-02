@@ -18,19 +18,19 @@ type Project = {
 };
 
 const projects: Project[] = [
-  {
-    id: 1,
-    title: "Orbiting Planet",
-    description:
-      "Interactive 3D astronomical scene with real-time WebGL rendering, orbit animations, and dynamic lighting — all running in the browser.",
-    category: "web",
-    tags: ["Three.js", "WebGL", "Vite", "JavaScript"],
-    githubUrl: "https://github.com/nethunirajapakse/orbiting-planet",
-    liveUrl: "https://orbiting-planet.vercel.app/",
-    icon: "bi-globe2",
-    image: "/projects/orbiting-planet.png",
-    year: "2024",
-  },
+  // {
+  //   id: 1,
+  //   title: "Orbiting Planet",
+  //   description:
+  //     "Interactive 3D astronomical scene with real-time WebGL rendering, orbit animations, and dynamic lighting — all running in the browser.",
+  //   category: "web",
+  //   tags: ["Three.js", "WebGL", "Vite", "JavaScript"],
+  //   githubUrl: "https://github.com/nethunirajapakse/orbiting-planet",
+  //   liveUrl: "https://orbiting-planet.vercel.app/",
+  //   icon: "bi-globe2",
+  //   image: "/projects/orbiting-planet.png",
+  //   year: "2024",
+  // },
   {
     id: 2,
     title: "EstateVision",
