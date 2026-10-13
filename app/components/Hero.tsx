@@ -40,11 +40,11 @@ export default function Hero() {
                 "color-mix(in srgb, var(--color-surface), transparent 30%)",
             }}
           >
-            <span
+            {/* <span
               className="h-2 w-2 rounded-full bg-[#22c55e]"
               style={{ animation: "statusPulse 2.2s ease-out infinite" }}
-            />
-            available for software engineering roles
+            /> */}
+            aspiring software engineer
           </p>
 
           <h1
@@ -185,7 +185,6 @@ export default function Hero() {
                 className="object-cover"
                 priority
               />
-              <div aria-hidden className="scanline" />
             </div>
             </TiltCard>
             <figcaption className="mt-4 text-center font-mono text-[0.8rem] text-body/60">
