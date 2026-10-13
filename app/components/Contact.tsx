@@ -2,6 +2,8 @@
 
 import { useState, FormEvent } from "react";
 import { useInView } from "../hooks/useInView";
+import ScrambleText from "./ScrambleText";
+import { fx } from "../lib/fx";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -40,6 +42,7 @@ export default function Contact() {
       }
 
       setStatus("success");
+      fx({ type: "warp" });
       setForm({ name: "", email: "", subject: "", message: "" });
     } catch (err) {
       setErrorMsg(err instanceof Error ? err.message : "Something went wrong.");
@@ -73,7 +76,7 @@ export default function Contact() {
             — contact
           </p>
           <h2 className="font-display text-[clamp(2rem,4vw,2.75rem)] font-bold tracking-tight text-heading">
-            Let&apos;s talk
+            <ScrambleText text="Let's talk" />
           </h2>
           <p className="mt-3 leading-relaxed text-body/70">
             Have a role, a project, or an idea to discuss? I&apos;d love to hear
@@ -85,7 +88,7 @@ export default function Contact() {
           {/* Info */}
           <div
             className={`${inView ? "animate-reveal" : "opacity-0"} rounded-[var(--radius-card)] bg-surface p-8`}
-            style={{ animationDelay: "0.05s" }}
+            style={{ animationDelay: "0.05s", borderColor: "var(--line-color)" }}
           >
             <h3 className="font-display text-xl font-semibold text-heading">
               Contact info
@@ -134,7 +137,7 @@ export default function Contact() {
           {/* Form */}
           <div
             className={`${inView ? "animate-reveal" : "opacity-0"} rounded-[var(--radius-card)] bg-surface p-8 shadow-xl`}
-            style={{ animationDelay: "0.15s" }}
+            style={{ animationDelay: "0.15s", borderColor: "var(--line-color)" }}
           >
             <h3 className="font-display text-xl font-semibold text-heading">
               Get in touch

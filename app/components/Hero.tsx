@@ -1,4 +1,8 @@
 import Image from "next/image";
+import ScrambleText from "./ScrambleText";
+import Magnetic from "./Magnetic";
+import TiltCard from "./TiltCard";
+import ResilienceDemo from "./ResilienceDemo";
 
 /**
  * Hero — no "use client" needed. The old version needed it only for the
@@ -47,7 +51,7 @@ export default function Hero() {
             className="animate-reveal font-display text-[clamp(2.6rem,6vw,4rem)] font-bold leading-[1.05] tracking-tight text-heading"
             style={{ animationDelay: "0.2s" }}
           >
-            Nethuni Rajapakse
+            <ScrambleText text="Nethuni Rajapakse" on="boot" duration={1100} />
           </h1>
 
           {/* The thesis — one honest, memorable line instead of a typewriter */}
@@ -73,22 +77,26 @@ export default function Hero() {
             className="animate-reveal mt-9 flex flex-wrap gap-3 max-md:justify-center max-[420px]:w-full max-[420px]:flex-col"
             style={{ animationDelay: "0.5s" }}
           >
-<a
-  href="#projects"
-  className="rounded-[var(--radius-card)] bg-accent px-6 py-3 text-center font-medium !text-white transition hover:brightness-110 max-[420px]:w-full"
->
-  View projects
-</a>
-            <a
-              href="#contact"
-              className="rounded-[var(--radius-card)] border px-6 py-3 text-center font-medium text-heading transition hover:border-accent hover:text-accent max-[420px]:w-full"
-              style={{
-                borderColor:
-                  "color-mix(in srgb, var(--color-body), transparent 82%)",
-              }}
-            >
-              Get in touch
-            </a>
+<Magnetic className="max-[420px]:w-full [&>a]:max-[420px]:w-full">
+              <a
+                href="#projects"
+                className="rounded-[var(--radius-card)] bg-accent px-6 py-3 text-center font-medium !text-contrast transition hover:brightness-110 max-[420px]:w-full"
+              >
+                View projects
+              </a>
+            </Magnetic>
+            <Magnetic className="max-[420px]:w-full [&>a]:max-[420px]:w-full">
+              <a
+                href="#contact"
+                className="rounded-[var(--radius-card)] border px-6 py-3 text-center font-medium text-heading transition hover:border-accent hover:text-accent max-[420px]:w-full"
+                style={{
+                  borderColor:
+                    "color-mix(in srgb, var(--color-body), transparent 82%)",
+                }}
+              >
+                Get in touch
+              </a>
+            </Magnetic>
             <a
               href="/resume.pdf"
               target="_blank"
@@ -122,8 +130,8 @@ export default function Hero() {
                 label: "Medium",
               },
             ].map((s) => (
+              <Magnetic key={s.label} strength={0.45}>
               <a
-                key={s.label}
                 href={s.href}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -138,6 +146,7 @@ export default function Hero() {
               >
                 <i className={`bi ${s.icon}`} />
               </a>
+              </Magnetic>
             ))}
           </div>
         </div>
@@ -158,6 +167,7 @@ export default function Hero() {
                   "radial-gradient(circle at 50% 40%, color-mix(in srgb, var(--color-accent), transparent 72%) 0%, transparent 65%)",
               }}
             />
+            <TiltCard intensity={6} fill={false} className="rounded-3xl">
             <div
               className="relative aspect-square overflow-hidden rounded-3xl border shadow-2xl"
               style={{
@@ -175,10 +185,13 @@ export default function Hero() {
                 className="object-cover"
                 priority
               />
+              <div aria-hidden className="scanline" />
             </div>
+            </TiltCard>
             <figcaption className="mt-4 text-center font-mono text-[0.8rem] text-body/60">
-              // Moratuwa, Sri Lanka
+              {"// Moratuwa, Sri Lanka"}
             </figcaption>
+            <ResilienceDemo />
           </figure>
         </div>
       </div>

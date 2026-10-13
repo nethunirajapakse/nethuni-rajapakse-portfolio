@@ -2,6 +2,8 @@
 
 import { useInView } from "../hooks/useInView";
 import SkillSpace from "./Skillspace";
+import ScrambleText from "./ScrambleText";
+import TiltCard from "./TiltCard";
 
 const skills = [
   {
@@ -40,7 +42,7 @@ export default function About() {
             — about
           </p>
           <h2 className="font-display text-[clamp(2rem,4vw,2.75rem)] font-bold tracking-tight text-heading">
-            Who I am, and what I build
+            <ScrambleText text="Who I am, and what I build" />
           </h2>
         </div>
 
@@ -125,9 +127,13 @@ export default function About() {
             {skills.map((skill, i) => (
               <div
                 key={skill.title}
-                className={`${reveal(`${0.1 + i * 0.08}s`)} rounded-[var(--radius-card)] border p-6 transition hover:-translate-y-1`}
+                className={`${reveal(`${0.1 + i * 0.08}s`)} h-full`}
+                style={{ animationDelay: `${0.1 + i * 0.08}s` }}
+              >
+              <TiltCard intensity={7} className="h-full rounded-[var(--radius-card)]">
+              <div
+                className="spot h-full rounded-[var(--radius-card)] border p-6 transition"
                 style={{
-                  animationDelay: `${0.1 + i * 0.08}s`,
                   borderColor:
                     "color-mix(in srgb, var(--color-body), transparent 90%)",
                   background:
@@ -149,6 +155,8 @@ export default function About() {
                 <p className="text-sm leading-relaxed text-body/70">
                   {skill.desc}
                 </p>
+              </div>
+              </TiltCard>
               </div>
             ))}
           </div>

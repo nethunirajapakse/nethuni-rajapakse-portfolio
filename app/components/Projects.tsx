@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Image from "next/image";
 import { useInView } from "../hooks/useInView";
+import ScrambleText from "./ScrambleText";
+import TiltCard from "./TiltCard";
 
 type Project = {
   id: number;
@@ -154,7 +156,7 @@ export default function Projects() {
             — projects
           </p>
           <h2 className="font-display text-[clamp(2rem,4vw,2.75rem)] font-bold tracking-tight text-heading">
-            Things I&apos;ve built
+            <ScrambleText text="Things I've built" />
           </h2>
           <p className="mt-3 leading-relaxed text-body/70">
             A selection ranging from full-stack web apps to AI-driven systems.
@@ -195,11 +197,15 @@ export default function Projects() {
         {/* Grid */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {visibleProjects.map((project, index) => (
-            <article
+            <div
               key={project.id}
-              className={`${inView ? "animate-reveal" : "opacity-0"} group flex flex-col overflow-hidden rounded-[var(--radius-card)] border bg-surface transition hover:-translate-y-2`}
+              className={`${inView ? "animate-reveal" : "opacity-0"} h-full`}
+              style={{ animationDelay: `${0.1 + index * 0.07}s` }}
+            >
+            <TiltCard intensity={6} className="rounded-[var(--radius-card)]">
+            <article
+              className="spot group flex h-full flex-col overflow-hidden rounded-[var(--radius-card)] border bg-surface"
               style={{
-                animationDelay: `${0.1 + index * 0.07}s`,
                 borderColor:
                   "color-mix(in srgb, var(--color-body), transparent 92%)",
               }}
@@ -273,6 +279,8 @@ export default function Projects() {
                 </div>
               </div>
             </article>
+            </TiltCard>
+            </div>
           ))}
         </div>
 

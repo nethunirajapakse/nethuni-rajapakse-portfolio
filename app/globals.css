@@ -255,3 +255,142 @@ img {
   color: var(--accent-color);
   animation: blink 1.1s step-end infinite;
 }
+
+/* ============================================================
+   ALIVE LAYER — boot sequence, live background, cursor FX
+   ============================================================ */
+
+/* ---- boot state (html[data-boot] is set by an inline script in <head>) ---- */
+html[data-boot="running"] { overflow: hidden; }
+html[data-boot="done"] .boot { display: none; }
+/* hold hero entrance animations until the shutter opens */
+html[data-boot="running"] .animate-reveal { animation-play-state: paused; }
+
+.boot {
+  position: fixed;
+  inset: 0;
+  z-index: 10001;
+  display: grid;
+  place-items: center;
+  padding: 1.5rem;
+  background: var(--background-color);
+  clip-path: inset(0 0 0 0);
+}
+.boot::before { /* faint scanlines */
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, rgba(255,255,255,0.025) 0 1px, transparent 1px 3px);
+}
+.boot-inner { position: relative; width: min(100%, 34rem); }
+.boot-edge {
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 2px;
+  background: var(--accent-color);
+  box-shadow: 0 0 24px 4px var(--accent-color);
+  opacity: 0;
+}
+.boot-exit { animation: bootWipe 0.9s cubic-bezier(0.7, 0, 0.2, 1) forwards; }
+.boot-exit .boot-inner { animation: bootFade 0.35s ease forwards; }
+.boot-exit .boot-edge { opacity: 1; animation: bootEdge 0.9s cubic-bezier(0.7, 0, 0.2, 1) forwards; }
+@keyframes bootWipe { to { clip-path: inset(0 0 100% 0); } }
+@keyframes bootEdge { from { transform: translateY(100vh); } to { transform: translateY(0); } }
+@keyframes bootFade { to { opacity: 0; transform: translateY(-8px); } }
+
+/* ---- live background shell ---- */
+.live-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  overflow: hidden;
+}
+.live-bg canvas { position: absolute; inset: 0; }
+.aurora {
+  position: absolute;
+  border-radius: 999px;
+  filter: blur(90px);
+  will-change: transform;
+}
+.aurora-a {
+  width: 52vw; height: 52vw; max-width: 760px; max-height: 760px;
+  left: -12%; top: 8%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent-color), transparent 88%) 0%, transparent 68%);
+  animation: auroraA 26s ease-in-out infinite alternate;
+}
+.aurora-b {
+  width: 46vw; height: 46vw; max-width: 680px; max-height: 680px;
+  right: -10%; bottom: -8%;
+  background: radial-gradient(circle, color-mix(in srgb, #3b82f6, transparent 90%) 0%, transparent 68%);
+  animation: auroraB 32s ease-in-out infinite alternate;
+}
+@keyframes auroraA { to { transform: translate3d(22vw, 14vh, 0) scale(1.15); } }
+@keyframes auroraB { to { transform: translate3d(-24vw, -16vh, 0) scale(1.2); } }
+
+/* ---- cursor fx (desktop pointers only) ---- */
+.cursor-glow,
+.cursor-ring { display: none; }
+@media (hover: hover) and (pointer: fine) {
+  .cursor-glow,
+  .cursor-ring {
+    display: block;
+    position: fixed;
+    left: 0; top: 0;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .cursor-glow {
+    z-index: -1;
+    width: 520px; height: 520px;
+    background: radial-gradient(circle, color-mix(in srgb, var(--accent-color), transparent 90%) 0%, transparent 62%);
+  }
+  .cursor-ring {
+    z-index: 10002;
+    width: 26px; height: 26px;
+    border-radius: 999px;
+    border: 1px solid color-mix(in srgb, var(--accent-color), transparent 35%);
+    transition: opacity 0.3s ease, width 0.2s ease, height 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+  }
+  .cursor-ring.is-hover {
+    width: 44px; height: 44px;
+    background: color-mix(in srgb, var(--accent-color), transparent 90%);
+    border-color: var(--accent-color);
+  }
+  .cursor-ring.is-down { width: 18px; height: 18px; }
+}
+
+/* ---- spotlight cards: glow follows the cursor (--mx/--my set by CursorFx) ---- */
+.spot { position: relative; isolation: isolate; }
+.spot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: radial-gradient(340px circle at var(--mx, 50%) var(--my, 50%), color-mix(in srgb, var(--accent-color), transparent 88%), transparent 65%);
+}
+.spot:hover::after { opacity: 1; }
+.spot:hover { border-color: color-mix(in srgb, var(--accent-color), transparent 62%) !important; }
+
+/* ---- portrait scan line ---- */
+.scanline {
+  position: absolute;
+  left: 0; right: 0; top: 0;
+  height: 28%;
+  pointer-events: none;
+  background: linear-gradient(to bottom, transparent, color-mix(in srgb, var(--accent-color), transparent 82%) 90%, color-mix(in srgb, var(--accent-color), transparent 40%) 100%);
+  animation: scan 5.5s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  transform: translateY(-100%);
+}
+@keyframes scan {
+  0%   { transform: translateY(-100%); opacity: 0; }
+  12%  { opacity: 1; }
+  60%  { transform: translateY(360%); opacity: 1; }
+  100% { transform: translateY(360%); opacity: 0; }
+}

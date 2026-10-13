@@ -1,30 +1,51 @@
 "use client";
 
-import { useRef, type ReactNode, type MouseEvent } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ReactNode,
+  type PointerEvent,
+} from "react";
 import {
   motion,
   useMotionValue,
   useSpring,
   useTransform,
-  useReducedMotion,
 } from "framer-motion";
 
 /**
  * TiltCard — 3D tilt-on-hover wrapper. The card rotates toward the
- * cursor on springs; a glare highlight tracks the pointer to sell
- * the depth. Disabled for reduced-motion users and touch pointers.
+ * cursor on springs.
+ *
+ * Tilt is a post-mount enhancement: the server and first client render are
+ * identical (no tilt), and it only switches on for fine-pointer, non-reduced
+ * motion visitors. Pointer listeners sit on the stable outer wrapper (not the
+ * rotating element) so the hit-area never shifts under the cursor — that was
+ * the source of hover flicker. That keeps hydration stable for everyone.
  */
 export default function TiltCard({
   children,
   className = "",
   intensity = 10,
+  fill = true,
 }: {
   children: ReactNode;
   className?: string;
   intensity?: number;
+  /** stretch to the parent's height (grid cards); false = size to content */
+  fill?: boolean;
 }) {
   const ref = useRef<HTMLDivElement>(null);
-  const reduced = useReducedMotion();
+  const [enabled, setEnabled] = useState(false);
+
+  useEffect(() => {
+    const ok =
+      window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+      !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setEnabled(ok);
+  }, []);
 
   const mx = useMotionValue(0.5); // pointer x, 0..1
   const my = useMotionValue(0.5); // pointer y, 0..1
@@ -38,16 +59,8 @@ export default function TiltCard({
     damping: 22,
   });
 
-  const glareX = useTransform(mx, [0, 1], ["0%", "100%"]);
-  const glareY = useTransform(my, [0, 1], ["0%", "100%"]);
-  const glare = useTransform(
-    [glareX, glareY],
-    ([gx, gy]) =>
-      `radial-gradient(circle at ${gx} ${gy}, rgba(255,255,255,0.10) 0%, transparent 55%)`
-  );
-
-  const onMove = (e: MouseEvent<HTMLDivElement>) => {
-    if (e.pointerType === "touch") return;
+  const onMove = (e: PointerEvent<HTMLDivElement>) => {
+    if (!enabled || e.pointerType !== "mouse") return;
     const rect = ref.current?.getBoundingClientRect();
     if (!rect) return;
     mx.set((e.clientX - rect.left) / rect.width);
@@ -59,36 +72,19 @@ export default function TiltCard({
     my.set(0.5);
   };
 
-  if (reduced) {
-    return <div className={className}>{children}</div>;
-  }
-
   return (
-    <div style={{ perspective: 1100 }} className="h-full">
+    <div
+      ref={ref}
+      onPointerMove={onMove}
+      onPointerLeave={onLeave}
+      style={{ perspective: 1100 }}
+      className={fill ? "h-full" : ""}
+    >
       <motion.div
-        ref={ref}
-        onMouseMove={onMove}
-        onMouseLeave={onLeave}
-        style={{
-          rotateX,
-          rotateY,
-          transformStyle: "preserve-3d",
-        }}
-        className={`relative h-full ${className}`}
+        style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
+        className={`relative ${fill ? "h-full" : ""} ${className}`}
       >
         {children}
-        {/* glare */}
-        <motion.div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-[inherit]"
-          style={{
-            background: useTransform(
-              [glareX, glareY],
-              ([gx, gy]) =>
-                `radial-gradient(circle at ${gx} ${gy}, rgba(255,255,255,0.10) 0%, transparent 55%)`
-            ),
-          }}
-        />
       </motion.div>
     </div>
   );
