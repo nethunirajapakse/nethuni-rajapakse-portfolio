@@ -18,12 +18,11 @@ import { fx } from "../lib/fx";
  * Every line is real — it's the stack and practices this site is about.
  */
 const LINES: { key: string; text: string }[] = [
-  { key: "runtime", text: "java · python · typescript" },
-  { key: "services", text: "spring boot · fastapi · kafka · redis" },
-  { key: "data", text: "postgresql · redis" },
-  { key: "delivery", text: "docker · github actions · aws eks" },
-  { key: "retries", text: "idempotent — safe to replay" },
-  { key: "failure", text: "circuit breakers closed" },
+  { key: "who", text: "nethuni · final-year IT, moratuwa" },
+  { key: "builds", text: "backend services that don't fall over" },
+  { key: "ships", text: "pipelines that deploy without drama" },
+  { key: "writes", text: "what I learn, on medium" },
+  { key: "status", text: "open to work, say hi below" },
 ];
 
 const STEP_MS = 230;
