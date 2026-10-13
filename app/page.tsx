@@ -7,6 +7,11 @@ import About from "./components/About";
 import Projects from "./components/Projects";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import BootSequence from "./components/BootSequence";
+import LiveBackground from "./components/LiveBackground";
+import CursorFx from "./components/CursorFx";
+import ScrollUI from "./components/ScrollUI";
+import CommandPalette from "./components/CommandPalette";
 
 export default function Home() {
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -25,6 +30,11 @@ export default function Home() {
 
   return (
     <>
+      <BootSequence />
+      <LiveBackground />
+      <CursorFx />
+      <ScrollUI />
+      <CommandPalette />
       <Navbar />
       <main>
         <Hero />
