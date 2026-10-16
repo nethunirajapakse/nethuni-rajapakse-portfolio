@@ -59,17 +59,16 @@ export default function Hero() {
             className="animate-reveal mt-5 font-display text-[clamp(1.3rem,2.6vw,1.75rem)] font-medium leading-snug text-heading/85"
             style={{ animationDelay: "0.3s" }}
           >
-            I build software systems that{" "}
-            <span className="text-accent">stay up.</span>
+            Build. Break. <span className="text-accent">Learn.</span>
           </p>
 
           <p
             className="animate-reveal mt-5 max-w-[52ch] text-[1.05rem] leading-relaxed text-body/75"
             style={{ animationDelay: "0.4s" }}
           >
-            University of Moratuwa IT graduate with hands-on microservices and
+            {/* University of Moratuwa IT graduate with hands-on microservices and
             CI/CD experience, drawn to reliability engineering and a growing
-            lean into AI at the edge.
+            lean into AI at the edge. */}
           </p>
 
           {/* Actions */}

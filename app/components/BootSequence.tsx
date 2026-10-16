@@ -14,8 +14,6 @@ import { fx } from "../lib/fx";
 
 /**
  * The boot is a readiness probe for the portfolio-as-a-system, in the same
- * vocabulary as the hero line: "I build software systems that stay up."
- * Every line is real — it's the stack and practices this site is about.
  */
 const LINES: { key: string; text: string }[] = [
   { key: "who", text: "nethuni · final-year IT, moratuwa" },

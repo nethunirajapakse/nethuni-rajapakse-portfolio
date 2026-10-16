@@ -8,7 +8,7 @@ type State = "idle" | "down" | "healed";
 /**
  * ResilienceDemo — the thesis, as a toy. The background is a small service
  * mesh; this takes some of its nodes down and shows traffic rerouting and the
- * nodes recovering. Same idea the hero line claims: systems that stay up.
+ * nodes recovering.
  */
 export default function ResilienceDemo() {
   const [state, setState] = useState<State>("idle");
