@@ -67,9 +67,9 @@ export default function Hero() {
             className="animate-reveal mt-5 max-w-[52ch] text-[1.05rem] leading-relaxed text-body/75"
             style={{ animationDelay: "0.4s" }}
           >
-            Final-year IT undergraduate at the University of Moratuwa, focused
-            on microservices, reliability, and CI/CD, with a growing lean into
-            AI at the edge.
+            University of Moratuwa IT graduate with hands-on microservices and
+            CI/CD experience, drawn to reliability engineering and a growing
+            lean into AI at the edge.
           </p>
 
           {/* Actions */}
@@ -77,7 +77,7 @@ export default function Hero() {
             className="animate-reveal mt-9 flex flex-wrap gap-3 max-md:justify-center max-[420px]:w-full max-[420px]:flex-col"
             style={{ animationDelay: "0.5s" }}
           >
-<Magnetic className="max-[420px]:w-full [&>a]:max-[420px]:w-full">
+            <Magnetic className="max-[420px]:w-full [&>a]:max-[420px]:w-full">
               <a
                 href="#projects"
                 className="rounded-[var(--radius-card)] bg-accent px-6 py-3 text-center font-medium !text-contrast transition hover:brightness-110 max-[420px]:w-full"
@@ -131,21 +131,21 @@ export default function Hero() {
               },
             ].map((s) => (
               <Magnetic key={s.label} strength={0.45}>
-              <a
-                href={s.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={s.label}
-                className="flex h-11 w-11 items-center justify-center rounded-[var(--radius-card)] border text-lg text-body transition hover:-translate-y-1 hover:border-accent hover:text-accent"
-                style={{
-                  borderColor:
-                    "color-mix(in srgb, var(--color-body), transparent 86%)",
-                  background:
-                    "color-mix(in srgb, var(--color-surface), transparent 20%)",
-                }}
-              >
-                <i className={`bi ${s.icon}`} />
-              </a>
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.label}
+                  className="flex h-11 w-11 items-center justify-center rounded-[var(--radius-card)] border text-lg text-body transition hover:-translate-y-1 hover:border-accent hover:text-accent"
+                  style={{
+                    borderColor:
+                      "color-mix(in srgb, var(--color-body), transparent 86%)",
+                    background:
+                      "color-mix(in srgb, var(--color-surface), transparent 20%)",
+                  }}
+                >
+                  <i className={`bi ${s.icon}`} />
+                </a>
               </Magnetic>
             ))}
           </div>
@@ -168,24 +168,24 @@ export default function Hero() {
               }}
             />
             <TiltCard intensity={6} fill={false} className="rounded-3xl">
-            <div
-              className="relative aspect-square overflow-hidden rounded-3xl border shadow-2xl"
-              style={{
-                borderColor:
-                  "color-mix(in srgb, var(--color-accent), transparent 78%)",
-                background:
-                  "linear-gradient(135deg, var(--color-surface), color-mix(in srgb, var(--color-surface), var(--color-accent) 12%))",
-              }}
-            >
-              <Image
-                src="/nethuni.png"
-                alt="Nethuni Rajapakse"
-                fill
-                sizes="(max-width: 768px) 100vw, 380px"
-                className="object-cover"
-                priority
-              />
-            </div>
+              <div
+                className="relative aspect-square overflow-hidden rounded-3xl border shadow-2xl"
+                style={{
+                  borderColor:
+                    "color-mix(in srgb, var(--color-accent), transparent 78%)",
+                  background:
+                    "linear-gradient(135deg, var(--color-surface), color-mix(in srgb, var(--color-surface), var(--color-accent) 12%))",
+                }}
+              >
+                <Image
+                  src="/nethuni.png"
+                  alt="Nethuni Rajapakse"
+                  fill
+                  sizes="(max-width: 768px) 100vw, 380px"
+                  className="object-cover"
+                  priority
+                />
+              </div>
             </TiltCard>
             <figcaption className="mt-4 text-center font-mono text-[0.8rem] text-body/60">
               {"// Moratuwa, Sri Lanka"}
