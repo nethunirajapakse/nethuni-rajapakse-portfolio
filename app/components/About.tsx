@@ -76,9 +76,9 @@ export default function About() {
               className={`${reveal("0.25s")} mt-5 leading-relaxed text-body/80`}
               style={{ animationDelay: "0.25s" }}
             >
-              I&apos;m a final-year IT undergraduate at the University of
+              I&apos;m a recent IT graduate from the University of
               Moratuwa, drawn to backend systems and the unglamorous work of
-              making them reliable: idempotency, failure recovery, clean
+              making them reliable, like idempotency, failure recovery, clean
               deploys. More recently I&apos;ve been pulling that same discipline
               into AI, from RAG pipelines to running quantized language models
               on-device.
