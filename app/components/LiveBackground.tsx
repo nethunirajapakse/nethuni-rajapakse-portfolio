@@ -72,7 +72,19 @@ export default function LiveBackground() {
           vx: rnd(-14, 14), vy: rnd(-14, 14),
           kx: 0, ky: 0, z: rnd(0.25, 1), fail: 0, flash: 0, healed: 0,
         });
-      if (nodes.length > target) nodes.length = target;
+      if (nodes.length > target) {
+        // Shrinking: drop everything that references removed node indices,
+        // otherwise in-flight packets / stale adjacency rows point at nodes
+        // that no longer exist and crash the frame loop.
+        nodes.length = target;
+        px.length = Math.min(px.length, target);
+        py.length = Math.min(py.length, target);
+        adj.length = Math.min(adj.length, target);
+        for (const row of adj) row.length = 0; // rebuilt on the next frame
+        for (let k = packets.length - 1; k >= 0; k--) {
+          if (packets[k].a >= target || packets[k].b >= target) packets.splice(k, 1);
+        }
+      }
       if (reduced) frame(0);
     };
 
@@ -90,8 +102,8 @@ export default function LiveBackground() {
     const spawnPacket = (from?: number) => {
       if (!nodes.length) return;
       const a = from ?? Math.floor(Math.random() * nodes.length);
-      if (nodes[a]?.fail > 0) return;
-      const nb = (adj[a] || []).filter((q) => nodes[q].fail <= 0);
+      if (!nodes[a] || nodes[a].fail > 0) return;
+      const nb = (adj[a] || []).filter((q) => nodes[q] && nodes[q].fail <= 0);
       if (!nb.length) return;
       const b = nb[Math.floor(Math.random() * nb.length)];
       packets.push({
@@ -245,6 +257,9 @@ export default function LiveBackground() {
       for (let k = packets.length - 1; k >= 0; k--) {
         const p = packets[k];
         p.t += p.speed * dt * speedMul;
+        // Guard against packets referencing nodes that no longer exist
+        // (e.g. after a resize shrank the node list).
+        if (!nodes[p.a] || !nodes[p.b]) { packets.splice(k, 1); continue; }
         const ax = px[p.a], ay = py[p.a], bx = px[p.b], by = py[p.b];
         if (ax === undefined || bx === undefined) { packets.splice(k, 1); continue; }
         const t = Math.min(p.t, 1);
@@ -267,7 +282,7 @@ export default function LiveBackground() {
         if (p.t >= 1) {
           if (nodes[p.b].fail > 0) {
             // circuit open: retry via another healthy neighbour, else drop
-            const alt = (adj[p.a] || []).filter((q) => q !== p.b && nodes[q].fail <= 0);
+            const alt = (adj[p.a] || []).filter((q) => q !== p.b && nodes[q] && nodes[q].fail <= 0);
             if (alt.length) {
               p.b = alt[Math.floor(Math.random() * alt.length)];
               p.t = 0;
@@ -279,7 +294,7 @@ export default function LiveBackground() {
           }
           nodes[p.b].flash = Math.max(nodes[p.b].flash, 0.6);
           p.hops--;
-          const nb = (adj[p.b] || []).filter((q) => q !== p.a && nodes[q].fail <= 0);
+          const nb = (adj[p.b] || []).filter((q) => q !== p.a && nodes[q] && nodes[q].fail <= 0);
           if (p.hops <= 0 || !nb.length) { packets.splice(k, 1); continue; }
           p.a = p.b;
           p.b = nb[Math.floor(Math.random() * nb.length)];
@@ -314,6 +329,7 @@ export default function LiveBackground() {
     const onLeave = () => { mouse.on = false; };
     const onDown = (e: PointerEvent) => {
       if (reduced) return;
+      if (!px.length) return; // first frame hasn't populated positions yet
       const t = e.target as Element | null;
       if (t?.closest?.("a,button,input,textarea,select,label,[role=dialog],[role=button]")) return;
       burst(e.clientX, e.clientY);

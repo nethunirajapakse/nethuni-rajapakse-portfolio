@@ -187,7 +187,7 @@ export default function Hero() {
               </div>
             </TiltCard>
             <figcaption className="mt-4 text-center font-mono text-[0.8rem] text-body/60">
-              {"// Moratuwa, Sri Lanka"}
+              {"// Colombo, Sri Lanka"}
             </figcaption>
             {/* <ResilienceDemo /> */}
           </figure>
