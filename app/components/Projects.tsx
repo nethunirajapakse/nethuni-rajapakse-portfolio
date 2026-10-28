@@ -119,6 +119,18 @@ const projects: Project[] = [
     image: "/projects/spoti-insights.png",
     year: "2026",
   },
+  {
+    id: 9,
+    title: "Rostra",
+    description:
+      "Event-driven auction platform with four Spring Boot microservices behind Spring Cloud Gateway, using Kafka with the Transactional Outbox pattern, optimistic locking for concurrent bids, and Resilience4J circuit breakers.",
+    category: "fullstack",
+    tags: ["Java", "Spring Boot", "Kafka", "PostgreSQL", "Spring Cloud Gateway", "Docker"],
+    githubUrl: "https://github.com/nethunirajapakse/rostra",
+    icon: "bi-building-gear",
+    image: "/projects/rostra.png",
+    year: "2026",
+  }
 ];
 
 const filters = [
