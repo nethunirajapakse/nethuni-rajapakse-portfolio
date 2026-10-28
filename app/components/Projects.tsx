@@ -123,7 +123,7 @@ const projects: Project[] = [
     id: 9,
     title: "Rostra",
     description:
-      "Online auction platform built as four Spring Boot microservices (auth, auction, bidding, notification) behind a Spring Cloud Gateway. Services talk over Kafka with at-least-once delivery via the Transactional Outbox pattern, and concurrent bids are handled with JPA optimistic locking and Resilience4J circuit breakers.",
+      "Event-driven auction platform with four Spring Boot microservices behind Spring Cloud Gateway, using Kafka with the Transactional Outbox pattern, optimistic locking for concurrent bids, and Resilience4J circuit breakers.",
     category: "fullstack",
     tags: ["Java", "Spring Boot", "Kafka", "PostgreSQL", "Spring Cloud Gateway", "Docker"],
     githubUrl: "https://github.com/nethunirajapakse/rostra",
