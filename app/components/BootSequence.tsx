@@ -16,11 +16,11 @@ import { fx } from "../lib/fx";
  * The boot is a readiness probe for the portfolio-as-a-system, in the same
  */
 const LINES: { key: string; text: string }[] = [
-  { key: "who", text: "nethuni · final-year IT, moratuwa" },
-  { key: "builds", text: "backend services that don't fall over" },
-  { key: "ships", text: "pipelines that deploy without drama" },
-  { key: "writes", text: "what I learn, on medium" },
-  { key: "status", text: "open to work, say hi below" },
+  { key: "who", text: "nethuni · software engineer, galle" },
+  { key: "stack", text: "java, spring boot, react, aws" },
+  { key: "focus", text: "distributed systems, reliability patterns" },
+  { key: "research", text: "on-device sinhala language models" },
+  { key: "status", text: "open to work" },
 ];
 
 const STEP_MS = 230;
@@ -89,7 +89,7 @@ export default function BootSequence() {
       <div className="boot-edge" aria-hidden />
       <div className="boot-inner">
         <p className="font-mono text-[0.78rem] tracking-widest text-accent">
-          $ healthcheck nethuni.dev
+          $ loading portfolio...
         </p>
 
         <ul className="mt-6 space-y-1.5 font-mono text-[0.85rem]">
@@ -120,7 +120,7 @@ export default function BootSequence() {
               granted ? "translate-y-0 text-accent opacity-100" : "translate-y-1 opacity-0"
             }`}
           >
-            HEALTHY — IT STAYS UP
+            READY
           </span>
           <span className="text-body/40">{pct}% · any key to skip</span>
         </div>
