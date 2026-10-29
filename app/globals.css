@@ -317,14 +317,14 @@ html[data-boot="running"] .animate-reveal { animation-play-state: paused; }
 .aurora-a {
   width: 52vw; height: 52vw; max-width: 760px; max-height: 760px;
   left: -12%; top: 8%;
-  background: radial-gradient(circle, color-mix(in srgb, var(--accent-color), transparent 88%) 0%, transparent 68%);
-  animation: auroraA 26s ease-in-out infinite alternate;
+  background: radial-gradient(circle, color-mix(in srgb, var(--accent-color), transparent 94%) 0%, transparent 68%);
+  animation: auroraA 60s ease-in-out infinite alternate;
 }
 .aurora-b {
   width: 46vw; height: 46vw; max-width: 680px; max-height: 680px;
   right: -10%; bottom: -8%;
-  background: radial-gradient(circle, color-mix(in srgb, #3b82f6, transparent 90%) 0%, transparent 68%);
-  animation: auroraB 32s ease-in-out infinite alternate;
+  background: radial-gradient(circle, color-mix(in srgb, #3b82f6, transparent 95%) 0%, transparent 68%);
+  animation: auroraB 75s ease-in-out infinite alternate;
 }
 @keyframes auroraA { to { transform: translate3d(22vw, 14vh, 0) scale(1.15); } }
 @keyframes auroraB { to { transform: translate3d(-24vw, -16vh, 0) scale(1.2); } }
