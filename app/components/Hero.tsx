@@ -45,7 +45,7 @@ export default function Hero() {
               style={{ animation: "statusPulse 2.2s ease-out infinite" }}
             /> 
             aspiring software engineer
-          </p> */}
+          </p>  */}
 
           <h1
             className="animate-reveal font-display text-[clamp(2.6rem,6vw,4rem)] font-bold leading-[1.05] tracking-tight text-heading"
