@@ -46,6 +46,7 @@ const entries: Entry[] = [
       "Cut SQL overhead on the backend with QueryDSL and batch fetching.",
       "Wrote unit and integration tests with JUnit and Mockito to protect core APIs.",
       "Built modular CRM components and dynamic filters to make financial data easier to explore.",
+      "Added health checks and rate limiting to newly introduced services for reliability and security.",
     ],
     tags: ["Spring Boot", "React", "TanStack Query", "QueryDSL", "JUnit", "Mockito"],
   },

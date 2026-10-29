@@ -64,12 +64,12 @@ export default function LiveBackground() {
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       LINK = W < 640 ? 105 : 135;
       const target = Math.round(
-        Math.min(90, Math.max(26, (W * H) / (W < 640 ? 17000 : 15000)))
+        Math.min(48, Math.max(16, (W * H) / (W < 640 ? 34000 : 30000)))
       );
       while (nodes.length < target)
         nodes.push({
           x: rnd(0, W), y: rnd(0, H),
-          vx: rnd(-14, 14), vy: rnd(-14, 14),
+          vx: rnd(-9, 9), vy: rnd(-9, 9),
           kx: 0, ky: 0, z: rnd(0.25, 1), fail: 0, flash: 0, healed: 0,
         });
       if (nodes.length > target) {
@@ -114,7 +114,7 @@ export default function LiveBackground() {
 
     const frame = (dt: number) => {
       clock += dt;
-      const speedMul = (calm ? 0.35 : 1) * (1 + warp * 5);
+      const speedMul = (calm ? 0.2 : 0.45) * (1 + warp * 5);
       warp = Math.max(0, warp - dt * 0.7);
 
       /* ---- rings (shockwaves) ---- */
@@ -152,7 +152,7 @@ export default function LiveBackground() {
           const d2 = dx * dx + dy * dy;
           if (d2 < 170 * 170 && d2 > 1) {
             const d = Math.sqrt(d2);
-            const f = (1 - d / 170) * 90 * dt;
+            const f = (1 - d / 170) * 45 * dt;
             n.kx += (dx / d) * f; n.ky += (dy / d) * f;
           }
         }
@@ -176,7 +176,7 @@ export default function LiveBackground() {
       if (!calm && !reduced) {
         nextFail -= dt;
         if (nextFail <= 0) {
-          nextFail = rnd(5, 9);
+          nextFail = rnd(16, 26);
           failNode(Math.floor(Math.random() * nodes.length), 2.6);
         }
       }
@@ -192,9 +192,9 @@ export default function LiveBackground() {
           if (d2 > LINK * LINK) continue;
           adj[i].push(j); adj[j].push(i);
           const d = Math.sqrt(d2);
-          const a = (1 - d / LINK) * 0.24 * ((nodes[i].z + nodes[j].z) / 2 + 0.2);
+          const a = (1 - d / LINK) * 0.11 * ((nodes[i].z + nodes[j].z) / 2 + 0.2);
           const bad = nodes[i].fail > 0 || nodes[j].fail > 0;
-          ctx.strokeStyle = `rgba(${bad ? AMBER : MINT},${bad ? a * 1.6 : a})`;
+          ctx.strokeStyle = `rgba(${bad ? AMBER : MINT},${bad ? a * 1.4 : a})`;
           ctx.beginPath();
           ctx.moveTo(px[i], py[i]);
           ctx.lineTo(px[j], py[j]);
@@ -207,7 +207,7 @@ export default function LiveBackground() {
         for (let i = 0; i < nodes.length; i++) {
           const d = Math.hypot(px[i] - mouse.x, py[i] - mouse.y);
           if (d < 170) {
-            ctx.strokeStyle = `rgba(${MINT},${(1 - d / 170) * 0.55})`;
+            ctx.strokeStyle = `rgba(${MINT},${(1 - d / 170) * 0.3})`;
             ctx.beginPath();
             ctx.moveTo(mouse.x, mouse.y);
             ctx.lineTo(px[i], py[i]);
@@ -224,12 +224,12 @@ export default function LiveBackground() {
         const pulse = bad ? 0.65 + 0.35 * Math.sin(clock * 14) : 1;
         const r = 1.1 + n.z * 1.7 + n.flash * 1.5;
         if (n.z > 0.65 || bad || n.flash > 0.1) {
-          ctx.fillStyle = `rgba(${col},${(bad ? 0.2 : 0.08) + n.flash * 0.2})`;
+          ctx.fillStyle = `rgba(${col},${(bad ? 0.14 : 0.04) + n.flash * 0.12})`;
           ctx.beginPath();
           ctx.arc(px[i], py[i], r * (bad ? 5 : 3.6), 0, 6.283);
           ctx.fill();
         }
-        ctx.fillStyle = `rgba(${col},${(0.35 + n.z * 0.55) * pulse})`;
+        ctx.fillStyle = `rgba(${col},${(0.2 + n.z * 0.35) * pulse})`;
         ctx.beginPath();
         ctx.arc(px[i], py[i], r, 0, 6.283);
         ctx.fill();
@@ -250,8 +250,8 @@ export default function LiveBackground() {
       }
 
       /* ---- packets ---- */
-      const maxPackets = calm ? 3 : 14;
-      if (!reduced && packets.length < maxPackets && Math.random() < dt * (warp > 0.2 ? 16 : 2.2)) {
+      const maxPackets = calm ? 2 : 5;
+      if (!reduced && packets.length < maxPackets && Math.random() < dt * (warp > 0.2 ? 16 : 0.7)) {
         spawnPacket();
       }
       for (let k = packets.length - 1; k >= 0; k--) {
@@ -268,7 +268,7 @@ export default function LiveBackground() {
         const col = p.amber ? AMBER : MINT;
         const grad = ctx.createLinearGradient(ax + (bx - ax) * t0, ay + (by - ay) * t0, x, y);
         grad.addColorStop(0, `rgba(${col},0)`);
-        grad.addColorStop(1, `rgba(${col},0.9)`);
+        grad.addColorStop(1, `rgba(${col},0.55)`);
         ctx.strokeStyle = grad;
         ctx.lineWidth = 1.6;
         ctx.beginPath();

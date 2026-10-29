@@ -163,7 +163,7 @@ export default function About() {
         </div> */}
 
         {/* Quote — the reliability thesis, elevated */}
-        <blockquote
+        {/* <blockquote
           className={`${reveal("0.05s")} mx-auto mt-24 max-w-3xl border-l-2 pl-6 font-display text-[clamp(1.35rem,3vw,1.9rem)] font-medium leading-snug text-heading/90`}
           style={{
             animationDelay: "0.05s",
@@ -172,7 +172,7 @@ export default function About() {
         >
           Good software is the boring kind that quietly does what you expect,
           every single time.
-        </blockquote>
+        </blockquote> */}
       </div>
     </section>
   );
