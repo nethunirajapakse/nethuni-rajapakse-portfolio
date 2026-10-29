@@ -119,7 +119,7 @@ export default function About() {
         </div>
 
         {/* Skills */}
-        <div className="mt-24">
+        {/* <div className="mt-24">
           <p className="mb-8 font-mono text-sm tracking-tight text-accent">
             — what I do
           </p>
@@ -160,7 +160,7 @@ export default function About() {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         {/* Quote — the reliability thesis, elevated */}
         <blockquote
