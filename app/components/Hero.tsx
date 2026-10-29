@@ -30,7 +30,7 @@ export default function Hero() {
         <div className="flex flex-col items-start max-md:items-center max-md:text-center">
           {/* Status eyebrow — monospace, functional green dot. This is the
               signature voice: system-status language, and it's actually true. */}
-          <p
+          {/* <p
             className="animate-reveal mb-7 inline-flex items-center gap-2.5 rounded-full border px-4 py-1.5 font-mono text-[0.78rem] tracking-tight text-body/90 backdrop-blur"
             style={{
               animationDelay: "0.1s",
@@ -40,12 +40,12 @@ export default function Hero() {
                 "color-mix(in srgb, var(--color-surface), transparent 30%)",
             }}
           >
-            {/* <span
+             <span
               className="h-2 w-2 rounded-full bg-[#22c55e]"
               style={{ animation: "statusPulse 2.2s ease-out infinite" }}
-            /> */}
+            /> 
             aspiring software engineer
-          </p>
+          </p>  */}
 
           <h1
             className="animate-reveal font-display text-[clamp(2.6rem,6vw,4rem)] font-bold leading-[1.05] tracking-tight text-heading"
