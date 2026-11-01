@@ -1,17 +1,12 @@
 /**
  * Tiny client-side event layer shared by the interactive pieces
- * (background, boot sequence, command palette, resilience demo).
+ * (background, boot sequence, command palette).
  */
 
 export type FxEvent =
   | { type: "pulse"; x?: number; y?: number }
   | { type: "warp" }
-  | { type: "fail" }
   | { type: "calm"; value: boolean };
-
-/** How many nodes "inject failure" takes down, and how long until they heal (s). */
-export const FAIL_COUNT = 5;
-export const FAIL_SECONDS = 3.2;
 
 export const fx = (detail: FxEvent) => {
   if (typeof window === "undefined") return;

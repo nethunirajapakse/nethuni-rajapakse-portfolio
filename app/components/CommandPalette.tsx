@@ -57,11 +57,6 @@ export default function CommandPalette() {
         run: () => { fx({ type: "pulse" }); },
       },
       {
-        id: "fail", group: "Background", icon: "bi-bug", label: "Inject failure", keywords: "break chaos outage",
-        hint: "watch the mesh reroute and recover",
-        run: () => fx({ type: "fail" }),
-      },
-      {
         id: "warp", group: "Background", icon: "bi-lightning-charge", label: "Engage warp", keywords: "speed fast",
         hint: "↑↑↓↓←→←→BA also works",
         run: () => { fx({ type: "warp" }); },

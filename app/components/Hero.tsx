@@ -2,7 +2,6 @@ import Image from "next/image";
 import ScrambleText from "./ScrambleText";
 import Magnetic from "./Magnetic";
 import TiltCard from "./TiltCard";
-import ResilienceDemo from "./ResilienceDemo";
 
 /**
  * Hero — no "use client" needed. The old version needed it only for the
@@ -189,7 +188,6 @@ export default function Hero() {
             <figcaption className="mt-4 text-center font-mono text-[0.8rem] text-body/60">
               {"// Colombo, Sri Lanka"}
             </figcaption>
-            {/* <ResilienceDemo /> */}
           </figure>
         </div>
       </div>
