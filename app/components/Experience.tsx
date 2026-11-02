@@ -56,8 +56,6 @@ const entries: Entry[] = [
     title: "B.Sc. (Hons) in Information Technology",
     org: "University of Moratuwa",
     meta: "2022 – 2026 · Moratuwa",
-    summary:
-      "Final-year research on reducing hallucinations in on-device Sinhala small language models (Interlekt).",
     tags: ["Distributed systems", "Software engineering", "AI/ML"],
     results: [{ label: "GPA", value: "3.57", note: "/ 4.00" }],
   },
