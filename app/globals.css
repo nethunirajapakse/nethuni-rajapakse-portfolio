@@ -75,7 +75,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Soft accent glow behind everything (the blueprint grid lines were removed) */
+/* The console grid: faint blueprint lines + vignette, sits behind everything */
 body::before {
   content: "";
   position: fixed;
@@ -83,7 +83,10 @@ body::before {
   z-index: -2;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 90% 70% at 70% -10%, color-mix(in srgb, var(--accent-color), transparent 94%) 0%, transparent 60%);
+    radial-gradient(ellipse 90% 70% at 70% -10%, color-mix(in srgb, var(--accent-color), transparent 94%) 0%, transparent 60%),
+    linear-gradient(color-mix(in srgb, var(--default-color), transparent 96%) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb, var(--default-color), transparent 96%) 1px, transparent 1px);
+  background-size: 100% 100%, 44px 44px, 44px 44px;
 }
 
 a {
