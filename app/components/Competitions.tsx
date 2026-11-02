@@ -1,0 +1,125 @@
+"use client";
+
+import { useInView } from "../hooks/useInView";
+import { competitions } from "../data/community";
+import EventPhotos from "./EventPhotos";
+import ScrambleText from "./ScrambleText";
+import TiltCard from "./TiltCard";
+
+const BORDER = "color-mix(in srgb, var(--color-body), transparent 92%)";
+
+export default function Competitions() {
+  const { ref, inView } = useInView<HTMLElement>();
+  const withPhotos = (c: (typeof competitions)[number]) => (c.photos?.length ?? 0) > 0;
+
+  return (
+    <section id="competitions" ref={ref} className="py-24">
+      <div className="mx-auto max-w-6xl px-6">
+        <div className="mb-14 max-w-2xl">
+          <p className="mb-3 font-mono text-sm tracking-tight text-accent">
+            — hackathons &amp; competitions
+          </p>
+          <h2 className="font-display text-[clamp(2rem,4vw,2.75rem)] font-bold tracking-tight text-heading">
+            <ScrambleText text="Building under the clock" />
+          </h2>
+          <p className="mt-4 leading-relaxed text-body/80">
+            Design sprints and programming contests where I worked with a team to ship
+            an idea or solve problems against the clock.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 items-start gap-6 lg:grid-cols-2">
+          {competitions.map((c, i) => (
+            <div
+              key={c.id}
+              className={`${inView ? "animate-reveal" : "opacity-0"} ${
+                i === 0 ? "lg:col-span-2" : ""
+              }`}
+              style={{ animationDelay: `${0.1 + i * 0.1}s` }}
+            >
+              <TiltCard intensity={4} fill={false} className="rounded-[var(--radius-card)]">
+                <article
+                  className={`spot flex flex-col overflow-hidden rounded-[var(--radius-card)] border bg-surface ${
+                    i === 0 && withPhotos(c) ? "lg:flex-row" : ""
+                  }`}
+                  style={{ borderColor: BORDER }}
+                >
+                  {withPhotos(c) && (
+                    <div className={i === 0 ? "lg:w-2/5 lg:shrink-0" : ""}>
+                      <EventPhotos
+                        photos={c.photos ?? []}
+                        title={`${c.title} · ${c.event}`}
+                        icon="bi-trophy"
+                        fit={c.photoFit}
+                        aspect={i === 0 ? "aspect-[16/10] lg:h-full lg:aspect-auto" : "aspect-[16/10]"}
+                      />
+                    </div>
+                  )}
+
+                  <div className="flex flex-1 flex-col p-6 sm:p-7">
+                    <div className="mb-3 flex flex-wrap items-center gap-x-3 gap-y-2">
+                      {c.result && (
+                        <span
+                          className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 font-mono text-xs"
+                          style={{
+                            color: "var(--color-amber)",
+                            background:
+                              "color-mix(in srgb, var(--color-amber), transparent 88%)",
+                          }}
+                        >
+                          <i className="bi bi-trophy-fill" /> {c.result}
+                        </span>
+                      )}
+                      {c.date && (
+                        <span className="font-mono text-xs text-body/50">{c.date}</span>
+                      )}
+                    </div>
+
+                    <h3 className="font-display text-xl font-semibold text-heading sm:text-2xl">
+                      {c.title}
+                    </h3>
+                    <p className="mt-1 font-medium text-accent">{c.event}</p>
+                    <p className="mt-1 font-mono text-xs leading-relaxed text-body/60">
+                      {c.organiser}
+                    </p>
+
+                    <p className="mt-4 flex-1 text-sm leading-relaxed text-body/75">
+                      {c.description}
+                    </p>
+
+                    {(c.team || c.teammates) && (
+                      <p className="mt-4 text-sm text-body/70">
+                        <i className="bi bi-people mr-2 text-accent" />
+                        {c.team && (
+                          <span className="font-medium text-heading">Team {c.team}</span>
+                        )}
+                        {c.team && c.teammates && " · with "}
+                        {!c.team && c.teammates && "With "}
+                        {c.teammates?.join(" and ")}
+                      </p>
+                    )}
+
+                    <div className="mt-5 flex flex-wrap gap-1.5">
+                      {c.tags.map((t) => (
+                        <span
+                          key={t}
+                          className="rounded-full px-2.5 py-1 font-mono text-[0.7rem] text-accent"
+                          style={{
+                            background:
+                              "color-mix(in srgb, var(--color-accent), transparent 90%)",
+                          }}
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </article>
+              </TiltCard>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}

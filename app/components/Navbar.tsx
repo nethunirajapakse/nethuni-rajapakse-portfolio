@@ -5,8 +5,11 @@ import { useEffect, useState } from "react";
 const navLinks = [
   { id: "hero", label: "Home" },
   { id: "about", label: "About" },
+  { id: "skills", label: "Skills" },
   { id: "experience", label: "Experience" },
   { id: "projects", label: "Projects" },
+  { id: "competitions", label: "Hackathons" },
+  { id: "volunteering", label: "Volunteering" },
   { id: "contact", label: "Contact" },
 ];
 
@@ -66,7 +69,7 @@ export default function Navbar() {
         </a>
 
         {/* Desktop nav */}
-        <nav className="hidden items-center gap-8 xl:flex">
+        <nav className="hidden items-center gap-6 xl:flex">
           {navLinks.map((link) => {
             const active = activeSection === link.id;
             return (
