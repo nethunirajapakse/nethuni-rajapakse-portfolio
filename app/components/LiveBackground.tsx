@@ -1,29 +1,26 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { FAIL_COUNT, FAIL_SECONDS, readCalm, writeCalm, type FxEvent } from "../lib/fx";
+import { readCalm, writeCalm, type FxEvent } from "../lib/fx";
 
 /**
- * LiveBackground — a living service mesh.
+ * LiveBackground — a living mesh.
  *
- * Nodes drift and link up; "request" packets hop along the links; every so
- * often a node degrades (amber), swallows packets, then recovers — the
- * reliability story in motion. The cursor is itself a node (nearby nodes
- * are nudged and linked to it), clicks send a shockwave, scrolling gives
- * parallax depth, and `fx` events (command palette, boot, konami) can burst
- * or warp the whole field. Calm mode and prefers-reduced-motion dial it down.
+ * Nodes drift and link up; small packets hop along the links. The cursor is
+ * itself a node (nearby nodes are nudged and linked to it), clicks send a
+ * shockwave, scrolling gives parallax depth, and `fx` events (command
+ * palette, boot, konami) can burst or warp the whole field. Calm mode and
+ * prefers-reduced-motion dial it down.
  */
 
 type N = {
   x: number; y: number; vx: number; vy: number;
-  kx: number; ky: number; z: number; fail: number; flash: number;
-  healed: number; // seconds left to show the "recovered" label
+  kx: number; ky: number; z: number; flash: number;
 };
-type P = { a: number; b: number; t: number; speed: number; hops: number; amber: boolean };
-type Ring = { x: number; y: number; r: number; max: number; amber: boolean; push: boolean };
+type P = { a: number; b: number; t: number; speed: number; hops: number };
+type Ring = { x: number; y: number; r: number; max: number };
 
 const MINT = "0,229,160";
-const AMBER = "255,180,84";
 
 export default function LiveBackground() {
   const ref = useRef<HTMLCanvasElement>(null);
@@ -40,8 +37,6 @@ export default function LiveBackground() {
     const rings: Ring[] = [];
     let calm = readCalm();
     let warp = 0;
-    let nextFail = 3;
-    let clock = 0;
     let scrollY = window.scrollY;
     let raf = 0;
     let last = performance.now();
@@ -70,7 +65,7 @@ export default function LiveBackground() {
         nodes.push({
           x: rnd(0, W), y: rnd(0, H),
           vx: rnd(-9, 9), vy: rnd(-9, 9),
-          kx: 0, ky: 0, z: rnd(0.25, 1), fail: 0, flash: 0, healed: 0,
+          kx: 0, ky: 0, z: rnd(0.25, 1), flash: 0,
         });
       if (nodes.length > target) {
         // Shrinking: drop everything that references removed node indices,
@@ -88,39 +83,30 @@ export default function LiveBackground() {
       if (reduced) frame(0);
     };
 
-    const burst = (x: number, y: number, amber = false, push = true, max = 320) =>
-      rings.push({ x, y, r: 0, max, amber, push });
-
-    const failNode = (i: number, secs: number) => {
-      const n = nodes[i];
-      if (!n || n.fail > 0) return;
-      n.fail = secs;
-      n.healed = 0;
-      burst(n.x, (py[i] ?? n.y), true, false, 90);
-    };
+    const burst = (x: number, y: number, max = 320) =>
+      rings.push({ x, y, r: 0, max });
 
     const spawnPacket = (from?: number) => {
       if (!nodes.length) return;
       const a = from ?? Math.floor(Math.random() * nodes.length);
-      if (!nodes[a] || nodes[a].fail > 0) return;
-      const nb = (adj[a] || []).filter((q) => nodes[q] && nodes[q].fail <= 0);
+      if (!nodes[a]) return;
+      const nb = adj[a] || [];
       if (!nb.length) return;
       const b = nb[Math.floor(Math.random() * nb.length)];
       packets.push({
         a, b, t: 0, speed: rnd(0.9, 1.7) * (warp > 0.2 ? 2.2 : 1),
-        hops: Math.floor(rnd(3, 7)), amber: false,
+        hops: Math.floor(rnd(3, 7)),
       });
     };
 
     const frame = (dt: number) => {
-      clock += dt;
       const speedMul = (calm ? 0.2 : 0.45) * (1 + warp * 5);
       warp = Math.max(0, warp - dt * 0.7);
 
       /* ---- rings (shockwaves) ---- */
       for (let i = rings.length - 1; i >= 0; i--) {
         const g = rings[i];
-        g.r += (g.push ? 420 : 140) * dt;
+        g.r += 420 * dt;
         if (g.r > g.max) rings.splice(i, 1);
       }
 
@@ -134,15 +120,6 @@ export default function LiveBackground() {
         n.kx *= damp; n.ky *= damp;
         if (n.x < -20) n.x = W + 20; else if (n.x > W + 20) n.x = -20;
         if (n.y < -20) n.y = H + 20; else if (n.y > H + 20) n.y = -20;
-        if (n.fail > 0) {
-          n.fail = Math.max(0, n.fail - dt);
-          if (n.fail === 0) {
-            n.healed = 1.6;
-            n.flash = 1;
-            burst(n.x, n.y - para * n.z, false, false, 70);
-          }
-        }
-        if (n.healed > 0) n.healed = Math.max(0, n.healed - dt);
         if (n.flash > 0) n.flash = Math.max(0, n.flash - dt * 1.4);
 
         const ry = n.y - para * n.z;
@@ -158,7 +135,6 @@ export default function LiveBackground() {
         }
         // shockwaves
         for (const g of rings) {
-          if (!g.push) continue;
           const dx = n.x - g.x, dy = ry - g.y;
           const d = Math.hypot(dx, dy) || 1;
           const band = Math.abs(d - g.r);
@@ -170,15 +146,6 @@ export default function LiveBackground() {
         }
         px[i] = n.x;
         py[i] = ry;
-      }
-
-      /* ---- node degradation / recovery ---- */
-      if (!calm && !reduced) {
-        nextFail -= dt;
-        if (nextFail <= 0) {
-          nextFail = rnd(16, 26);
-          failNode(Math.floor(Math.random() * nodes.length), 2.6);
-        }
       }
 
       /* ---- links ---- */
@@ -193,8 +160,7 @@ export default function LiveBackground() {
           adj[i].push(j); adj[j].push(i);
           const d = Math.sqrt(d2);
           const a = (1 - d / LINK) * 0.11 * ((nodes[i].z + nodes[j].z) / 2 + 0.2);
-          const bad = nodes[i].fail > 0 || nodes[j].fail > 0;
-          ctx.strokeStyle = `rgba(${bad ? AMBER : MINT},${bad ? a * 1.4 : a})`;
+          ctx.strokeStyle = `rgba(${MINT},${a})`;
           ctx.beginPath();
           ctx.moveTo(px[i], py[i]);
           ctx.lineTo(px[j], py[j]);
@@ -219,34 +185,17 @@ export default function LiveBackground() {
       /* ---- nodes ---- */
       for (let i = 0; i < nodes.length; i++) {
         const n = nodes[i];
-        const bad = n.fail > 0;
-        const col = bad ? AMBER : MINT;
-        const pulse = bad ? 0.65 + 0.35 * Math.sin(clock * 14) : 1;
         const r = 1.1 + n.z * 1.7 + n.flash * 1.5;
-        if (n.z > 0.65 || bad || n.flash > 0.1) {
-          ctx.fillStyle = `rgba(${col},${(bad ? 0.14 : 0.04) + n.flash * 0.12})`;
+        if (n.z > 0.65 || n.flash > 0.1) {
+          ctx.fillStyle = `rgba(${MINT},${0.04 + n.flash * 0.12})`;
           ctx.beginPath();
-          ctx.arc(px[i], py[i], r * (bad ? 5 : 3.6), 0, 6.283);
+          ctx.arc(px[i], py[i], r * 3.6, 0, 6.283);
           ctx.fill();
         }
-        ctx.fillStyle = `rgba(${col},${(0.2 + n.z * 0.35) * pulse})`;
+        ctx.fillStyle = `rgba(${MINT},${0.2 + n.z * 0.35})`;
         ctx.beginPath();
         ctx.arc(px[i], py[i], r, 0, 6.283);
         ctx.fill();
-      }
-
-      /* ---- status labels (circuit open / recovered) ---- */
-      ctx.font = "500 10px ui-monospace, SFMono-Regular, Menlo, monospace";
-      ctx.textBaseline = "middle";
-      for (let i = 0; i < nodes.length; i++) {
-        const n = nodes[i];
-        if (n.fail > 0) {
-          ctx.fillStyle = `rgba(${AMBER},${0.55 + 0.35 * Math.sin(clock * 10)})`;
-          ctx.fillText("circuit open", px[i] + 9, py[i] - 9);
-        } else if (n.healed > 0) {
-          ctx.fillStyle = `rgba(${MINT},${Math.min(1, n.healed / 0.8) * 0.9})`;
-          ctx.fillText("recovered", px[i] + 9, py[i] - 9);
-        }
       }
 
       /* ---- packets ---- */
@@ -265,7 +214,7 @@ export default function LiveBackground() {
         const t = Math.min(p.t, 1);
         const x = ax + (bx - ax) * t, y = ay + (by - ay) * t;
         const t0 = Math.max(0, t - 0.22);
-        const col = p.amber ? AMBER : MINT;
+        const col = MINT;
         const grad = ctx.createLinearGradient(ax + (bx - ax) * t0, ay + (by - ay) * t0, x, y);
         grad.addColorStop(0, `rgba(${col},0)`);
         grad.addColorStop(1, `rgba(${col},0.55)`);
@@ -280,21 +229,9 @@ export default function LiveBackground() {
         ctx.arc(x, y, 2, 0, 6.283);
         ctx.fill();
         if (p.t >= 1) {
-          if (nodes[p.b].fail > 0) {
-            // circuit open: retry via another healthy neighbour, else drop
-            const alt = (adj[p.a] || []).filter((q) => q !== p.b && nodes[q] && nodes[q].fail <= 0);
-            if (alt.length) {
-              p.b = alt[Math.floor(Math.random() * alt.length)];
-              p.t = 0;
-              p.amber = false;
-            } else {
-              packets.splice(k, 1);
-            }
-            continue;
-          }
           nodes[p.b].flash = Math.max(nodes[p.b].flash, 0.6);
           p.hops--;
-          const nb = (adj[p.b] || []).filter((q) => q !== p.a && nodes[q] && nodes[q].fail <= 0);
+          const nb = (adj[p.b] || []).filter((q) => q !== p.a && nodes[q]);
           if (p.hops <= 0 || !nb.length) { packets.splice(k, 1); continue; }
           p.a = p.b;
           p.b = nb[Math.floor(Math.random() * nb.length)];
@@ -305,8 +242,8 @@ export default function LiveBackground() {
 
       /* ---- rings ---- */
       for (const g of rings) {
-        const a = (1 - g.r / g.max) * (g.push ? 0.45 : 0.6);
-        ctx.strokeStyle = `rgba(${g.amber ? AMBER : MINT},${a})`;
+        const a = (1 - g.r / g.max) * 0.45;
+        ctx.strokeStyle = `rgba(${MINT},${a})`;
         ctx.beginPath();
         ctx.arc(g.x, g.y, g.r, 0, 6.283);
         ctx.stroke();
@@ -344,21 +281,11 @@ export default function LiveBackground() {
     const onFx = (e: Event) => {
       const d = (e as CustomEvent<FxEvent>).detail;
       if (d.type === "pulse") {
-        burst(d.x ?? W / 2, d.y ?? H / 2, false, true, 520);
+        burst(d.x ?? W / 2, d.y ?? H / 2, 520);
         for (let i = 0; i < 5; i++) spawnPacket();
       } else if (d.type === "warp") {
         warp = 1;
-        burst(W / 2, H / 2, false, true, Math.hypot(W, H) / 1.6);
-      } else if (d.type === "fail") {
-        // take down nodes in the middle of the screen so it's actually seen
-        const order = nodes
-          .map((_, i) => i)
-          .sort((a, b) =>
-            Math.hypot(px[a] - W / 2, py[a] - H / 2) - Math.hypot(px[b] - W / 2, py[b] - H / 2)
-          )
-          .slice(0, 14);
-        order.sort(() => Math.random() - 0.5).slice(0, FAIL_COUNT).forEach((i) => failNode(i, FAIL_SECONDS));
-        for (let i = 0; i < 8; i++) spawnPacket();
+        burst(W / 2, H / 2, Math.hypot(W, H) / 1.6);
       } else if (d.type === "calm") {
         calm = d.value;
         writeCalm(calm);

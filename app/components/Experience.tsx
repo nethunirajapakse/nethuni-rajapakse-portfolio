@@ -13,6 +13,7 @@ type Entry = {
   summary?: string;
   points?: string[];
   tags?: string[];
+  results?: { label: string; value: string; note?: string }[];
   current?: boolean;
 };
 
@@ -55,9 +56,8 @@ const entries: Entry[] = [
     title: "B.Sc. (Hons) in Information Technology",
     org: "University of Moratuwa",
     meta: "2022 – 2026 · Moratuwa",
-    summary:
-      "Final-year research on reducing hallucinations in on-device Sinhala small language models (Interlekt).",
     tags: ["Distributed systems", "Software engineering", "AI/ML"],
+    results: [{ label: "GPA", value: "3.57", note: "/ 4.00" }],
   },
   {
     kind: "education",
@@ -65,6 +65,10 @@ const entries: Entry[] = [
     title: "G.C.E. Advanced Level, Physical Science",
     org: "Southlands College",
     meta: "Completed 2020 · Galle",
+    results: [
+      { label: "G.C.E. A/L", value: "2A 1B" },
+      { label: "G.C.E. O/L", value: "9 A’s" },
+    ],
   },
 ];
 
@@ -211,6 +215,31 @@ export default function Experience() {
                         </li>
                       ))}
                     </ul>
+                  )}
+
+                  {e.results && (
+                    <dl
+                      className="mt-4 flex flex-wrap gap-x-10 gap-y-4 border-t pt-4"
+                      style={{
+                        borderColor: "color-mix(in srgb, var(--color-body), transparent 85%)",
+                      }}
+                    >
+                      {e.results.map((r) => (
+                        <div key={r.label}>
+                          <dt className="font-mono text-[0.7rem] uppercase tracking-[0.18em] text-body/60">
+                            {r.label}
+                          </dt>
+                          <dd className="mt-1 font-display text-2xl font-semibold text-heading">
+                            {r.value}
+                            {r.note && (
+                              <span className="ml-1 font-mono text-sm font-normal text-body/60">
+                                {r.note}
+                              </span>
+                            )}
+                          </dd>
+                        </div>
+                      ))}
+                    </dl>
                   )}
 
                   {e.tags && (
