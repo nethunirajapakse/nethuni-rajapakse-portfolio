@@ -93,19 +93,19 @@ export const volunteering: Volunteering[] = [
   {
     id: "yathra",
     title: "Yathra 2025",
-    role: "Finance committee member & event day coordinator",
+    role: "Finance committee member & Event day coordinator",
     organiser: "Classical Music Society",
     date: "October 1, 2025",
     location: "Nelum Pokuna Theatre, Colombo",
     description:
-      "Helped stage a large-scale classical music concert, \"The world's music converges in one cosmic symphony\". I prepared the event budget and coordinated on the day, which taught me a lot about planning, organising and financial management.",
+      "Helped stage a large-scale classical music concert, \"The world's music converges in one cosmic symphony\". I sponsership hunting on the day, which taught me a lot about planning, organising and financial management.",
     tags: ["Budgeting", "Event management", "Leadership", "Teamwork"],
     photos: ["/community/yathra-stage.jpg", "/community/yathra-finale.jpg"],
   },
   {
     id: "futurewave",
     title: "FutureWave Mission 3",
-    role: "Volunteer",
+    role: "Finance committee member & Volunteer tutor",
     organiser: "Leo Club · University of Moratuwa (UoM Leos)",
     date: "October 25",
     location: "Welagedara Navodya Maha Vidyalaya, Kalutara",
