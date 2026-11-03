@@ -1,6 +1,6 @@
 # Nethuni Rajapakse — Portfolio
 
-Personal portfolio of Nethuni Rajapakse, software engineer and IT graduate of the University of Moratuwa. It covers my projects, experience, skills, hackathons and volunteering.
+Personal portfolio of Nethuni Rajapakse, software engineer and IT graduate of the University of Moratuwa. It covers my projects, experience, and skills.
 
 ## Built with
 
