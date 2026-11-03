@@ -72,7 +72,6 @@ const entries: Entry[] = [
   },
 ];
 
-const PILL = "6.25rem"; // width of the year column
 
 export default function Experience() {
   const { ref, inView } = useInView<HTMLElement>();
@@ -98,7 +97,7 @@ export default function Experience() {
   }, []);
 
   const reveal = inView ? "animate-reveal" : "opacity-0";
-  const railLeft = `calc(${PILL} + 1rem)`;
+  const railLeft = "calc(var(--pill) + 1rem)";
 
   return (
     <section id="experience" ref={ref} className="py-24">
@@ -120,7 +119,10 @@ export default function Experience() {
           </div>
         </div>
 
-        <ol ref={listRef} className="relative">
+        <ol
+          ref={listRef}
+          className="relative [--pill:0px] md:[--pill:6.25rem]"
+        >
           {/* Rail (track + scroll fill) */}
           <span
             aria-hidden
@@ -151,13 +153,13 @@ export default function Experience() {
                 style={{
                   animationDelay: `${0.1 + i * 0.12}s`,
                   display: "grid",
-                  gridTemplateColumns: `${PILL} 2rem 1fr`,
+                  gridTemplateColumns: "var(--pill) 2rem 1fr",
                 }}
               >
                 {/* Year pill */}
                 <div className="pt-0.5">
                   <span
-                    className="inline-block w-full rounded-full border px-3 py-1 text-center font-mono text-sm text-heading"
+                    className="hidden w-full rounded-full border px-3 py-1 text-center md:inline-block font-mono text-sm text-heading"
                     style={{
                       borderColor: "color-mix(in srgb, var(--color-body), transparent 80%)",
                       background: "var(--color-panel)",
@@ -189,7 +191,17 @@ export default function Experience() {
                 </div>
 
                 {/* Content */}
-                <div className="min-w-0 pl-2">
+                <div className="min-w-0 pl-1 md:pl-2">
+                  {/* Year sits above the title on phones; the pill column is desktop-only */}
+                  <span
+                    className="mb-2 inline-block rounded-full border px-2.5 py-0.5 font-mono text-xs text-heading md:hidden"
+                    style={{
+                      borderColor: "color-mix(in srgb, var(--color-body), transparent 80%)",
+                      background: "var(--color-panel)",
+                    }}
+                  >
+                    {e.year}
+                  </span>
                   <h3 className="font-display text-xl font-semibold text-heading">
                     {e.title}
                   </h3>
