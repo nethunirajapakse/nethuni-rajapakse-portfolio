@@ -3,18 +3,12 @@ import ScrambleText from "./ScrambleText";
 import Magnetic from "./Magnetic";
 import TiltCard from "./TiltCard";
 
-/**
- * Hero — no "use client" needed. The old version needed it only for the
- * typewriter; without that, this is a pure server component (faster, less JS).
- * Entrance animation is CSS-only via the `reveal` animation + staggered delays.
- */
 export default function Hero() {
   return (
     <section
       id="hero"
       className="relative flex min-h-[calc(100vh-72px)] items-center overflow-hidden py-20"
     >
-      {/* Single ambient glow — one accessory, not two */}
       <div
         aria-hidden
         className="pointer-events-none absolute -right-[6%] -top-[12%] -z-10 h-[46vw] max-h-[620px] w-[46vw] max-w-[620px] rounded-full blur-[64px]"
@@ -25,49 +19,18 @@ export default function Hero() {
       />
 
       <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-14 px-6 md:grid-cols-[1.1fr_0.9fr] md:gap-16">
-        {/* ---------------- Content ---------------- */}
         <div className="flex flex-col items-start max-md:items-center max-md:text-center">
-          {/* Status eyebrow — monospace, functional green dot. This is the
-              signature voice: system-status language, and it's actually true. */}
-          {/* <p
-            className="animate-reveal mb-7 inline-flex items-center gap-2.5 rounded-full border px-4 py-1.5 font-mono text-[0.78rem] tracking-tight text-body/90 backdrop-blur"
-            style={{
-              animationDelay: "0.1s",
-              borderColor:
-                "color-mix(in srgb, var(--color-accent), transparent 76%)",
-              background:
-                "color-mix(in srgb, var(--color-surface), transparent 30%)",
-            }}
-          >
-             <span
-              className="h-2 w-2 rounded-full bg-[#22c55e]"
-              style={{ animation: "statusPulse 2.2s ease-out infinite" }}
-            /> 
-            aspiring software engineer
-          </p>  */}
-
           <h1
             className="animate-reveal font-display text-[clamp(2.6rem,6vw,4rem)] font-bold leading-[1.05] tracking-tight text-heading"
             style={{ animationDelay: "0.2s" }}
           >
             <ScrambleText text="Nethuni Rajapakse" on="boot" duration={1100} />
           </h1>
-
-          {/* The thesis — one honest, memorable line instead of a typewriter */}
           <p
             className="animate-reveal mt-5 font-display text-[clamp(1.3rem,2.6vw,1.75rem)] font-medium leading-snug text-heading/85"
             style={{ animationDelay: "0.3s" }}
           >
-            Build. Break. <span className="text-accent">Learn.</span>
-          </p>
-
-          <p
-            className="animate-reveal mt-5 max-w-[52ch] text-[1.05rem] leading-relaxed text-body/75"
-            style={{ animationDelay: "0.4s" }}
-          >
-            {/* University of Moratuwa IT graduate with hands-on microservices and
-            CI/CD experience, drawn to reliability engineering and a growing
-            lean into AI at the edge. */}
+            Software engineer &amp; <span className="text-accent">AI enthusiast</span>
           </p>
 
           {/* Actions */}
