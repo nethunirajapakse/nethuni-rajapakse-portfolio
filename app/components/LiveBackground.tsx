@@ -31,6 +31,8 @@ export default function LiveBackground() {
     if (!canvas || !ctx) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    // Phones and tablets: a quieter background that never reacts to taps.
+    const touch = window.matchMedia("(hover: none), (pointer: coarse)").matches;
     let W = 0, H = 0, dpr = 1, LINK = 135;
     const nodes: N[] = [];
     const packets: P[] = [];
@@ -49,6 +51,16 @@ export default function LiveBackground() {
     const rnd = (a: number, b: number) => a + Math.random() * (b - a);
 
     const resize = () => {
+      // Mobile browsers resize the viewport whenever the address bar slides
+      // in or out while scrolling. Ignore those small height-only changes so
+      // the field is not rebuilt (and does not jump) mid-scroll.
+      if (
+        touch &&
+        nodes.length &&
+        window.innerWidth === W &&
+        Math.abs(window.innerHeight - H) < 200
+      )
+        return;
       dpr = Math.min(window.devicePixelRatio || 1, 2);
       W = window.innerWidth;
       H = window.innerHeight;
@@ -58,9 +70,11 @@ export default function LiveBackground() {
       canvas.style.height = `${H}px`;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       LINK = W < 640 ? 105 : 135;
-      const target = Math.round(
-        Math.min(48, Math.max(16, (W * H) / (W < 640 ? 34000 : 30000)))
-      );
+      const target = touch
+        ? Math.round(Math.min(22, Math.max(12, (W * H) / 40000)))
+        : Math.round(
+            Math.min(48, Math.max(16, (W * H) / (W < 640 ? 34000 : 30000)))
+          );
       while (nodes.length < target)
         nodes.push({
           x: rnd(0, W), y: rnd(0, H),
@@ -111,7 +125,7 @@ export default function LiveBackground() {
       }
 
       /* ---- nodes ---- */
-      const para = scrollY * 0.12;
+      const para = touch ? 0 : scrollY * 0.12; // no scroll parallax on touch
       for (let i = 0; i < nodes.length; i++) {
         const n = nodes[i];
         n.x += (n.vx + n.kx) * dt * speedMul;
@@ -159,7 +173,8 @@ export default function LiveBackground() {
           if (d2 > LINK * LINK) continue;
           adj[i].push(j); adj[j].push(i);
           const d = Math.sqrt(d2);
-          const a = (1 - d / LINK) * 0.11 * ((nodes[i].z + nodes[j].z) / 2 + 0.2);
+          const a =
+            (1 - d / LINK) * (touch ? 0.07 : 0.11) * ((nodes[i].z + nodes[j].z) / 2 + 0.2);
           ctx.strokeStyle = `rgba(${MINT},${a})`;
           ctx.beginPath();
           ctx.moveTo(px[i], py[i]);
@@ -199,7 +214,7 @@ export default function LiveBackground() {
       }
 
       /* ---- packets ---- */
-      const maxPackets = calm ? 2 : 5;
+      const maxPackets = touch ? 1 : calm ? 2 : 5;
       if (!reduced && packets.length < maxPackets && Math.random() < dt * (warp > 0.2 ? 16 : 0.7)) {
         spawnPacket();
       }
@@ -265,7 +280,7 @@ export default function LiveBackground() {
     };
     const onLeave = () => { mouse.on = false; };
     const onDown = (e: PointerEvent) => {
-      if (reduced) return;
+      if (reduced || touch || e.pointerType === "touch") return; // taps never pulse
       if (!px.length) return; // first frame hasn't populated positions yet
       const t = e.target as Element | null;
       if (t?.closest?.("a,button,input,textarea,select,label,[role=dialog],[role=button]")) return;
