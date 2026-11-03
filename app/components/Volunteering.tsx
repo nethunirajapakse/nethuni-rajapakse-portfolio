@@ -58,15 +58,6 @@ function Row({ v, index }: { v: Entry; index: number }) {
         <p className="mt-4 max-w-2xl leading-relaxed text-body/80">
           {v.description}
         </p>
-
-        <p className="mt-4 font-mono text-xs leading-loose text-body/55">
-          {v.tags.map((t, i) => (
-            <span key={t}>
-              {i > 0 && <span className="mx-2 text-amber/60">/</span>}
-              {t}
-            </span>
-          ))}
-        </p>
       </div>
     </article>
   );

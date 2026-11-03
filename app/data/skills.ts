@@ -3,7 +3,7 @@
  * one render as plain chips. Keep this list defensible: it's the real stack.
  */
 
-export type SkillItem = { name: string; logo?: string; wordmark?: boolean };
+export type SkillItem = { name: string; logo?: string; wordmark?: boolean; icon?: string };
 
 export type SkillGroup = {
   number: string;
@@ -34,8 +34,8 @@ export const skillGroups: SkillGroup[] = [
       { name: "FastAPI", logo: "fastapi" },
       { name: "Apache Kafka", logo: "apachekafka" },
       { name: "Redis", logo: "redis" },
-      { name: "REST APIs" },
-      { name: "QueryDSL" },
+      { name: "REST APIs", icon: "bi-diagram-3" },
+      { name: "QueryDSL", icon: "bi-database-gear" },
     ],
   },
   {
@@ -43,11 +43,11 @@ export const skillGroups: SkillGroup[] = [
     title: "Reliability patterns",
     description: "Design habits that keep distributed systems predictable.",
     skills: [
-      { name: "Idempotency" },
-      { name: "Circuit breakers" },
-      { name: "Transactional Outbox" },
-      { name: "Optimistic locking" },
-      { name: "Resilience4J" },
+      { name: "Idempotency", icon: "bi-arrow-repeat" },
+      { name: "Circuit breakers", icon: "bi-lightning-charge" },
+      { name: "Transactional Outbox", icon: "bi-inbox" },
+      { name: "Optimistic locking", icon: "bi-lock" },
+      { name: "Resilience4J", icon: "bi-shield-check" },
     ],
   },
   {
@@ -69,9 +69,9 @@ export const skillGroups: SkillGroup[] = [
       { name: "Docker", logo: "docker" },
       { name: "Kubernetes", logo: "kubernetes" },
       { name: "AWS", logo: "amazonwebservices", wordmark: true },
-      { name: "EKS Fargate" },
-      { name: "Cognito" },
-      { name: "CloudWatch" },
+      { name: "EKS Fargate", icon: "bi-cloud" },
+      { name: "Cognito", icon: "bi-person-badge" },
+      { name: "CloudWatch", icon: "bi-activity" },
       { name: "GitHub Actions", logo: "githubactions" },
     ],
   },
@@ -83,9 +83,9 @@ export const skillGroups: SkillGroup[] = [
       { name: "React", logo: "react" },
       { name: "Next.js", logo: "nextjs" },
       { name: "Tailwind CSS", logo: "tailwindcss" },
-      { name: "TanStack Query" },
-      { name: "JUnit" },
-      { name: "Mockito" },
+      { name: "TanStack Query", icon: "bi-arrow-down-up" },
+      { name: "JUnit", icon: "bi-check2-square" },
+      { name: "Mockito", icon: "bi-bug" },
     ],
   },
 ];

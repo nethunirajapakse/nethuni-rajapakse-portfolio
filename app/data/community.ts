@@ -1,11 +1,5 @@
-/**
+/*
  * Hackathons, competitions and volunteering.
- *
- * Photos: drop image files into /public/community/ and list their paths in
- * the `photos` array of the matching entry, e.g.
- *   photos: ["/community/moraforesight-1.jpg", "/community/moraforesight-2.jpg"]
- * The first photo is the cover; clicking opens a viewer with all of them.
- * Entries without photos render as compact text-only cards.
  */
 
 export type Competition = {
@@ -42,8 +36,8 @@ export type Volunteering = {
 export const competitions: Competition[] = [
   {
     id: "cre8x",
-    title: "AQUILA",
-    event: "Cre8X Designathon",
+    title: "Cre8X 1.0",
+    event: "Designathon",  
     organiser:
       "BCS Student Chapter · General Sir John Kotelawala Defence University",
     result: "Top 10 finalist",
@@ -74,7 +68,7 @@ export const competitions: Competition[] = [
     description:
       "A 12-hour overnight coding marathon against more than 100 teams from across Sri Lanka. Working through algorithmic problems with my team from evening until morning was intense, tiring and a wonderful experience in teamwork, endurance and problem solving.",
     tags: ["Competitive programming", "12-hour overnight", "Algorithms", "Teamwork"],
-    photos: ["/community/aces-team.jpg", "/community/aces-hall.jpg"],
+    photos: ["/community/aces-hall.jpg", "/community/aces-team.jpg"],
   },
 ];
 
@@ -87,14 +81,14 @@ export const volunteering: Volunteering[] = [
     date: "October 1, 2025",
     location: "Nelum Pokuna Theatre, Colombo",
     description:
-      "Helped stage a large-scale classical music concert, \"The world's music converges in one cosmic symphony\". I sponsership hunting on the day, which taught me a lot about planning, organising and financial management.",
+      "Contributed to stage a large-scale classical music concert, \"The world's music converges in one cosmic symphony\". I worked on sponsorship hunting and event-day coordination, gaining experience in planning, organising, and financial management.",
     tags: ["Budgeting", "Event management", "Leadership", "Teamwork"],
     photos: ["/community/yathra-stage.jpg", "/community/yathra-finale.jpg"],
   },
   {
     id: "futurewave",
     title: "FutureWave Mission 3",
-    role: "Finance committee member & Volunteer tutor",
+    role: "Organising committee member & Volunteer tutor",
     organiser: "Leo Club · University of Moratuwa (UoM Leos)",
     date: "October 25, 2023",
     location: "Welagedara Navodya Maha Vidyalaya, Kalutara",
@@ -112,7 +106,7 @@ export const volunteering: Volunteering[] = [
     date: "September 27, 2023 · Term 22/23",
     location: "Old gymnasium, University of Moratuwa",
     description:
-      "Helped bring a virtual reality event to life as a member of the finance committee.",
+      "Helped organise VRCade, a virtual reality event, as part of the finance committee. Contributed to the event's financial planning and coordination.",
     tags: ["IEEE", "Finance", "Virtual reality"],
     photos: ["/community/vrcade-event.jpg", "/community/vrcade-finance-committee.jpg"],
   },

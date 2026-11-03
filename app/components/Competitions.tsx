@@ -84,33 +84,6 @@ export default function Competitions() {
                     <p className="mt-4 flex-1 text-sm leading-relaxed text-body/75">
                       {c.description}
                     </p>
-
-                    {(c.team || c.teammates) && (
-                      <p className="mt-4 text-sm text-body/70">
-                        <i className="bi bi-people mr-2 text-accent" />
-                        {c.team && (
-                          <span className="font-medium text-heading">Team {c.team}</span>
-                        )}
-                        {c.team && c.teammates && " · with "}
-                        {!c.team && c.teammates && "With "}
-                        {c.teammates?.join(" and ")}
-                      </p>
-                    )}
-
-                    <div className="mt-5 flex flex-wrap gap-1.5">
-                      {c.tags.map((t) => (
-                        <span
-                          key={t}
-                          className="rounded-full px-2.5 py-1 font-mono text-[0.7rem] text-accent"
-                          style={{
-                            background:
-                              "color-mix(in srgb, var(--color-accent), transparent 90%)",
-                          }}
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
                   </div>
                 </article>
               </TiltCard>

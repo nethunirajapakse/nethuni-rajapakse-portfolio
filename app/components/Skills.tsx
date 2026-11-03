@@ -33,7 +33,7 @@ function Chip({ skill }: { skill: SkillItem }) {
           }}
         />
       ) : (
-        <span aria-hidden className="h-1 w-1 shrink-0 rounded-full bg-accent/70" />
+        <i aria-hidden className={`bi ${skill.icon ?? "bi-code-slash"} shrink-0 text-[0.8rem] text-accent`} />
       )}
       {skill.name}
     </span>
@@ -78,7 +78,6 @@ export default function Skills() {
                     <h3 className="font-display text-lg font-semibold text-heading">
                       {g.title}
                     </h3>
-                    <span className="font-mono text-xs text-body/50">{g.number}</span>
                   </div>
 
                   <p className="mt-2 text-sm leading-relaxed text-body/70">
@@ -89,20 +88,6 @@ export default function Skills() {
                     {g.skills.map((s) => (
                       <Chip key={s.name} skill={s} />
                     ))}
-                  </div>
-
-                  <div
-                    className="mt-auto flex items-center justify-between border-t pt-4 font-mono text-[0.7rem] uppercase tracking-[0.16em] text-body/50"
-                    style={{
-                      marginTop: "1.25rem",
-                      borderColor:
-                        "color-mix(in srgb, var(--color-body), transparent 92%)",
-                    }}
-                  >
-                    <span className="inline-flex items-center gap-2">
-                      <span className="h-1.5 w-1.5 rounded-full bg-accent" />
-                      {g.skills.length.toString().padStart(2, "0")} skills
-                    </span>
                   </div>
                 </article>
               </TiltCard>
