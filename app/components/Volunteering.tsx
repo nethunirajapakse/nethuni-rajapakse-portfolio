@@ -88,8 +88,7 @@ export default function Volunteering() {
             <ScrambleText text="Giving back, behind the scenes" />
           </h2>
           <p className="mt-4 leading-relaxed text-body/80">
-            Events and outreach I helped organise through the IEEE Student Branch, IEEE WIE,
-            the Classical Music Society and UoM Leos.
+            Selected events and outreach I helped organise through different societies and clubs.
           </p>
         </div>
 

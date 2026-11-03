@@ -60,7 +60,7 @@ export const competitions: Competition[] = [
       "AI wildlife ID",
       "Community tools",
     ],
-    photos: ["/community/cre8x-certificate.jpg"],
+    photos: ["/community/cre8x-certificate.jpg", "/community/cre8x-nethuni.jpg"],
     photoFit: "contain",
   },
   {
@@ -72,20 +72,9 @@ export const competitions: Competition[] = [
     date: "2024",
     teammates: ["Chamod Weerasinghe", "Manoj Thilakarathna"],
     description:
-      "Competed with a team of three against more than 100 teams from across Sri Lanka, solving algorithmic problems under time pressure.",
-    tags: ["Competitive programming", "Algorithms", "Teamwork"],
+      "A 12-hour overnight coding marathon against more than 100 teams from across Sri Lanka. Working through algorithmic problems with my team from evening until morning was intense, tiring and a wonderful experience in teamwork, endurance and problem solving.",
+    tags: ["Competitive programming", "12-hour overnight", "Algorithms", "Teamwork"],
     photos: ["/community/aces-team.jpg", "/community/aces-hall.jpg"],
-  },
-  {
-    id: "moraxtreme",
-    title: "MoraXtreme 9.0",
-    event: "Competitive programming contest",
-    organiser: "IEEE Student Branch · University of Moratuwa",
-    team: "WuMing",
-    description:
-      "Took on challenging problems with team WuMing, sharpening competitive programming skills at the IEEE Student Branch's flagship contest.",
-    tags: ["Competitive programming", "Problem solving", "Teamwork"],
-    photos: [],
   },
 ];
 
@@ -107,33 +96,21 @@ export const volunteering: Volunteering[] = [
     title: "FutureWave Mission 3",
     role: "Finance committee member & Volunteer tutor",
     organiser: "Leo Club · University of Moratuwa (UoM Leos)",
-    date: "October 25",
+    date: "October 25, 2023",
     location: "Welagedara Navodya Maha Vidyalaya, Kalutara",
     description:
       "A robotics and programming workshop for O/L and A/L students in underprivileged schools. About 140 students joined motivational talks, an introduction to computer hardware and microcontrollers, and hands-on robotics activities.",
     tags: ["Robotics", "Electronics", "Programming", "Outreach"],
     photos: ["/community/futurewave-group.jpg", "/community/futurewave-robotics.jpg"],
   },
-  // {
-  //   id: "hackelite",
-  //   title: "Hackelite 1.0",
-  //   role: "Editorial committee member",
-  //   organiser:
-  //     "IEEE WIE Student Branch Affinity Group · University of Moratuwa",
-  //   date: "IEEE WIE UoM",
-  //   description:
-  //     "Part of the editorial committee behind Hackelite 1.0, working with the organising team to run the event for its participants.",
-  //   tags: ["IEEE WIE", "Editorial", "Teamwork"],
-  //   photos: ["/community/hackelite-editorial.jpg"],
-  //   photoFit: "contain",
-  // },
   {
     id: "vrcade",
     title: "VRCade",
     role: "Finance committee member",
     organiser:
       "IEEE Industry Applications Society Student Chapter · University of Moratuwa",
-    date: "September 27",
+    date: "September 27, 2023 · Term 22/23",
+    location: "Old gymnasium, University of Moratuwa",
     description:
       "Helped bring a virtual reality event to life as a member of the finance committee.",
     tags: ["IEEE", "Finance", "Virtual reality"],
@@ -144,10 +121,11 @@ export const volunteering: Volunteering[] = [
     title: "MoraForesight 1.0",
     role: "Finance committee member",
     organiser: "IEEE Student Branch · University of Moratuwa",
-    date: "August 25–27 · Term 22/23",
+    date: "August 25–27, 2023 · Term 22/23",
+    location: "Citrus Waskaduwa, Waskaduwa",
     description:
       "Served on the organising committee of a three-day programme for programming, robotics and entrepreneurship, giving outstanding students, picked from thousands of applicants, curated learning resources and mentorship.",
     tags: ["Programming", "Robotics", "Entrepreneurship", "Mentorship"],
-    photos: ["/community/moraforesight-team.jpg", "/community/moraforesight-venue.jpg"],
+    photos: [ "/community/moraforesight-venue.jpg", "/community/moraforesight-team.jpg", "/community/foresight-robotics.jpeg" ],
   },
 ];
