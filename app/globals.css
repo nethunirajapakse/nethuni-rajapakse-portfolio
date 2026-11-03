@@ -58,6 +58,8 @@
   box-sizing: border-box;
 }
 
+* { -webkit-tap-highlight-color: transparent; }
+
 html,
 body {
   margin: 0;
@@ -325,6 +327,10 @@ html[data-boot="running"] .animate-reveal { animation-play-state: paused; }
   right: -10%; bottom: -8%;
   background: radial-gradient(circle, color-mix(in srgb, #3b82f6, transparent 95%) 0%, transparent 68%);
   animation: auroraB 75s ease-in-out infinite alternate;
+}
+/* Touch devices: static, lighter glow so scrolling stays smooth */
+@media (hover: none), (pointer: coarse) {
+  .aurora { animation: none; filter: blur(60px); }
 }
 @keyframes auroraA { to { transform: translate3d(22vw, 14vh, 0) scale(1.15); } }
 @keyframes auroraB { to { transform: translate3d(-24vw, -16vh, 0) scale(1.2); } }

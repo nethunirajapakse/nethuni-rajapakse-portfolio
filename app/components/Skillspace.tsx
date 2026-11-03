@@ -336,7 +336,7 @@ export default function SkillSpace({ animate }: { animate: boolean }) {
     <div className="w-full select-none">
       <div
         ref={boxRef}
-        className="relative aspect-square w-full touch-none"
+        className="relative aspect-square w-full touch-pan-y"
         style={{
           cursor: grabbing ? "grabbing" : "grab",
           opacity: shown || reduced ? 1 : 0,
@@ -349,6 +349,7 @@ export default function SkillSpace({ animate }: { animate: boolean }) {
         onPointerMove={onMove}
         onPointerUp={onUp}
         onPointerLeave={onLeave}
+        onPointerCancel={onLeave}
       >
         {/* sphere body: glow, wireframe and constellation lines */}
         <svg
