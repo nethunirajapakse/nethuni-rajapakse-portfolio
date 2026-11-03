@@ -44,8 +44,11 @@ export default function CommandPalette() {
     () => [
       { id: "home", group: "Navigate", icon: "bi-house", label: "Go to Home", run: go("hero") },
       { id: "about", group: "Navigate", icon: "bi-person", label: "Go to About", run: go("about") },
+      { id: "skills", group: "Navigate", icon: "bi-stack", label: "Go to Skills", keywords: "stack tech tools", run: go("skills") },
       { id: "experience", group: "Navigate", icon: "bi-briefcase", label: "Go to Experience", run: go("experience") },
       { id: "projects", group: "Navigate", icon: "bi-grid", label: "Go to Projects", run: go("projects") },
+      { id: "competitions", group: "Navigate", icon: "bi-trophy", label: "Go to Hackathons", keywords: "competitions contests designathon coding", run: go("competitions") },
+      { id: "volunteering", group: "Navigate", icon: "bi-heart", label: "Go to Volunteering", keywords: "ieee leo events community", run: go("volunteering") },
       { id: "contact", group: "Navigate", icon: "bi-envelope", label: "Go to Contact", run: go("contact") },
       { id: "cv", group: "Links", icon: "bi-file-earmark-person", label: "Open résumé", keywords: "cv resume pdf", run: open("/resume.pdf") },
       { id: "gh", group: "Links", icon: "bi-github", label: "GitHub", run: open("https://github.com/nethunirajapakse") },

@@ -44,6 +44,7 @@ const entries: Entry[] = [
       "Six months on a large FinTech platform, working across Spring Boot microservices and a React frontend in a Kanban-driven team.",
     points: [
       "Sped up frontend data fetching by introducing TanStack Query and tuning custom hooks.",
+      "Built new production features on the platform, including custom SVG upload for the CRM admin portal and analytics downloads as Excel sheets.",
       "Cut SQL overhead on the backend with QueryDSL and batch fetching.",
       "Wrote unit and integration tests with JUnit and Mockito to protect core APIs.",
       "Built modular CRM components and dynamic filters to make financial data easier to explore.",
