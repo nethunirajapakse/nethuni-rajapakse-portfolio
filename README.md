@@ -6,7 +6,7 @@ Personal portfolio of Nethuni Rajapakse, software engineer and IT graduate of th
 
 Next.js 16 · React 19 · TypeScript · Tailwind CSS 4 · Framer Motion · Resend (contact form)
 
-## Run locally
+<!-- ## Run locally
 
 ```bash
 npm install
@@ -30,7 +30,7 @@ RESEND_API_KEY=your_key_here
 | Hackathons, volunteering | `app/data/community.ts` |
 | Event photos | `public/community/` |
 | Experience, education | `app/components/Experience.tsx` |
-
+-->
 ## Contact
 
 [LinkedIn](https://linkedin.com/in/nethuni-rajapakse/) · [GitHub](https://github.com/nethunirajapakse) · [Medium](https://medium.com/@nethunirajapakse)
