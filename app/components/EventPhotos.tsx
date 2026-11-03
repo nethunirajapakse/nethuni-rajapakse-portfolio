@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 
@@ -27,6 +27,7 @@ export default function EventPhotos({
   variant?: "cover" | "collage";
 }) {
   const [open, setOpen] = useState<number | null>(null);
+  const swipeX = useRef<number | null>(null);
   const [mounted, setMounted] = useState(false);
   // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setMounted(true), []);
@@ -133,7 +134,7 @@ export default function EventPhotos({
                 style={{ background: "color-mix(in srgb, var(--color-bg), transparent 30%)" }}
               >
                 <i className="bi bi-images mr-1.5" />
-                {usable.length}
+                {usable.length} photos
               </span>
             )}
           </button>
@@ -180,7 +181,7 @@ export default function EventPhotos({
                   e.stopPropagation();
                   step(-1);
                 }}
-                className="absolute left-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white transition hover:border-accent hover:text-accent sm:left-6"
+                className="absolute left-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white transition hover:border-accent hover:text-accent sm:left-6"
               >
                 <i className="bi bi-chevron-left" />
               </button>
@@ -191,14 +192,26 @@ export default function EventPhotos({
                   e.stopPropagation();
                   step(1);
                 }}
-                className="absolute right-3 top-1/2 flex h-10 w-10 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white transition hover:border-accent hover:text-accent sm:right-6"
+                className="absolute right-2 top-1/2 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full border border-white/10 bg-black/60 text-white transition hover:border-accent hover:text-accent sm:right-6"
               >
                 <i className="bi bi-chevron-right" />
               </button>
             </>
           )}
 
-          <div className="w-full max-w-5xl" onClick={(e) => e.stopPropagation()}>
+          <div
+            className="w-full max-w-5xl"
+            onClick={(e) => e.stopPropagation()}
+            onTouchStart={(e) => {
+              swipeX.current = e.touches[0].clientX;
+            }}
+            onTouchEnd={(e) => {
+              if (swipeX.current === null) return;
+              const dx = e.changedTouches[0].clientX - swipeX.current;
+              swipeX.current = null;
+              if (Math.abs(dx) > 40) step(dx < 0 ? 1 : -1);
+            }}
+          >
             <div className="relative mx-auto h-[70vh] w-full">
               <Image
                 src={usable[open]}
@@ -212,6 +225,21 @@ export default function EventPhotos({
               {title}
               {usable.length > 1 && ` · ${open + 1} / ${usable.length}`}
             </p>
+            {usable.length > 1 && (
+              <div className="mt-3 flex justify-center gap-2">
+                {usable.map((_, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    aria-label={`Show photo ${i + 1}`}
+                    onClick={() => setOpen(i)}
+                    className={`h-2.5 rounded-full transition-all ${
+                      i === open ? "w-6 bg-accent" : "w-2.5 bg-white/30"
+                    }`}
+                  />
+                ))}
+              </div>
+            )}
           </div>
         </div>,
         document.body
