@@ -37,7 +37,7 @@ export const competitions: Competition[] = [
   {
     id: "cre8x",
     title: "Cre8X 1.0",
-    event: "Designathon",  
+    event: "Designathon",
     organiser:
       "BCS Student Chapter · General Sir John Kotelawala Defence University",
     result: "Top 10 finalist",
@@ -45,7 +45,7 @@ export const competitions: Competition[] = [
     team: "WuMing",
     teammates: ["Bhawanthi Weerasinghe", "Nuwani Samarakoon"],
     description:
-      "AQUILA is a digital platform for eco-tourism and forest conservation. It gives explorers live forest conditions, smart ticket booking, safety alerts and personalised trail suggestions, and it can identify wildlife and plants with AI. Built with team WuMing for hikers, nature photographers, writers and safari enthusiasts.",
+      "Designed AQUILA, a digital platform concept for eco-tourism and forest conservation, with team WuMing. The proposed platform features live forest conditions, smart ticket booking, safety alerts, personalised trail recommendations, and AI-powered wildlife and plant identification. Designed with hikers, nature photographers, writers, and safari enthusiasts in mind.",
     tags: [
       "Forest monitoring",
       "Smart ticketing",
@@ -54,20 +54,27 @@ export const competitions: Competition[] = [
       "AI wildlife ID",
       "Community tools",
     ],
-    photos: ["/community/cre8x-certificate.jpg", "/community/cre8x-nethuni.jpg"],
+    photos: [
+      "/community/cre8x-certificate.jpg",
+      "/community/cre8x-nethuni.jpg",
+    ],
     photoFit: "contain",
   },
   {
     id: "aces-coders",
     title: "ACES Coders 2024",
     event: "Competitive programming contest",
-    organiser:
-      "Department of Computer Engineering · University of Peradeniya",
+    organiser: "Department of Computer Engineering · University of Peradeniya",
     date: "2024",
     teammates: ["Chamod Weerasinghe", "Manoj Thilakarathna"],
     description:
-      "A 12-hour overnight coding marathon against more than 100 teams from across Sri Lanka. Working through algorithmic problems with my team from evening until morning was intense, tiring and a wonderful experience in teamwork, endurance and problem solving.",
-    tags: ["Competitive programming", "12-hour overnight", "Algorithms", "Teamwork"],
+      "Selected to participate in a 12-hour overnight coding marathon alongside 100 teams from across the island. Working through algorithmic problems with my team from evening until morning was an intense yet rewarding experience that challenged our teamwork, endurance, and problem-solving skills.",
+    tags: [
+      "Competitive programming",
+      "12-hour overnight",
+      "Algorithms",
+      "Teamwork",
+    ],
     photos: ["/community/aces-hall.jpg", "/community/aces-team.jpg"],
   },
 ];
@@ -81,7 +88,7 @@ export const volunteering: Volunteering[] = [
     date: "October 1, 2025",
     location: "Nelum Pokuna Theatre, Colombo",
     description:
-      "Contributed to stage a large-scale classical music concert, \"The world's music converges in one cosmic symphony\". I worked on sponsorship hunting and event-day coordination, gaining experience in planning, organising, and financial management.",
+      'Contributed to stage a large-scale classical music concert, "The world\'s music converges in one cosmic symphony". I worked on sponsorship hunting and event-day coordination, gaining experience in planning, organising, and financial management.',
     tags: ["Budgeting", "Event management", "Leadership", "Teamwork"],
     photos: ["/community/yathra-stage.jpg", "/community/yathra-finale.jpg"],
   },
@@ -95,7 +102,10 @@ export const volunteering: Volunteering[] = [
     description:
       "A robotics and programming workshop for O/L and A/L students in underprivileged schools. Students joined motivational talks, an introduction to computer hardware and microcontrollers, and hands-on robotics activities.",
     tags: ["Robotics", "Electronics", "Programming", "Outreach"],
-    photos: ["/community/futurewave-group.jpg", "/community/futurewave-robotics.jpg"],
+    photos: [
+      "/community/futurewave-group.jpg",
+      "/community/futurewave-robotics.jpg",
+    ],
   },
   {
     id: "vrcade",
@@ -108,7 +118,10 @@ export const volunteering: Volunteering[] = [
     description:
       "Helped organise VRCade, a virtual reality event, as part of the finance committee. Contributed to the event's financial planning and coordination.",
     tags: ["IEEE", "Finance", "Virtual reality"],
-    photos: ["/community/vrcade-event.jpg", "/community/vrcade-finance-committee.jpg"],
+    photos: [
+      "/community/vrcade-event.jpg",
+      "/community/vrcade-finance-committee.jpg",
+    ],
   },
   {
     id: "moraforesight",
@@ -120,6 +133,10 @@ export const volunteering: Volunteering[] = [
     description:
       "Served on the organising committee of a three-day programme for programming, robotics and entrepreneurship, giving outstanding students, picked from thousands of applicants, curated learning resources and mentorship.",
     tags: ["Programming", "Robotics", "Entrepreneurship", "Mentorship"],
-    photos: [ "/community/moraforesight-venue.jpg", "/community/moraforesight-team.jpg", "/community/foresight-robotics.jpeg" ],
+    photos: [
+      "/community/moraforesight-venue.jpg",
+      "/community/moraforesight-team.jpg",
+      "/community/foresight-robotics.jpeg",
+    ],
   },
 ];
