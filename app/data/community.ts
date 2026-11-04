@@ -93,7 +93,7 @@ export const volunteering: Volunteering[] = [
     date: "October 25, 2023",
     location: "Welagedara Navodya Maha Vidyalaya, Kalutara",
     description:
-      "A robotics and programming workshop for O/L and A/L students in underprivileged schools. About 140 students joined motivational talks, an introduction to computer hardware and microcontrollers, and hands-on robotics activities.",
+      "A robotics and programming workshop for O/L and A/L students in underprivileged schools. Students joined motivational talks, an introduction to computer hardware and microcontrollers, and hands-on robotics activities.",
     tags: ["Robotics", "Electronics", "Programming", "Outreach"],
     photos: ["/community/futurewave-group.jpg", "/community/futurewave-robotics.jpg"],
   },

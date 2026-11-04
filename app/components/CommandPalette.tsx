@@ -156,14 +156,14 @@ export default function CommandPalette() {
           setOpen(true);
         }}
         aria-label="Open command palette"
-        className="fixed bottom-5 left-5 z-[900] inline-flex items-center gap-2 rounded-full border px-3.5 py-2 font-mono text-[0.72rem] text-body/70 backdrop-blur transition hover:border-accent hover:text-accent"
+        className="fixed bottom-5 left-5 z-[900] hidden items-center sm:inline-flex gap-2 rounded-full border px-3.5 py-2 font-mono text-[0.72rem] text-body/70 backdrop-blur transition hover:border-accent hover:text-accent"
         style={{
           borderColor: "color-mix(in srgb, var(--color-body), transparent 82%)",
           background: "color-mix(in srgb, var(--color-surface), transparent 20%)",
         }}
       >
         <i className="bi bi-command" aria-hidden />
-        <span className="hidden sm:inline">commands</span>
+        <span>commands</span>
         <kbd className="rounded border px-1.5 text-[0.66rem] text-body/50" style={{ borderColor: "color-mix(in srgb, var(--color-body), transparent 82%)" }}>
           {mac ? "⌘K" : "Ctrl K"}
         </kbd>

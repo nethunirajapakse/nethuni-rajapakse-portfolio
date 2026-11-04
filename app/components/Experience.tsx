@@ -56,7 +56,6 @@ const entries: Entry[] = [
     title: "B.Sc. (Hons) in Information Technology",
     org: "University of Moratuwa",
     meta: "2022 – 2026 · Moratuwa",
-    tags: ["Distributed systems", "Software engineering", "AI/ML"],
     results: [{ label: "GPA", value: "3.57", note: "/ 4.00" }],
   },
   {
@@ -66,7 +65,7 @@ const entries: Entry[] = [
     org: "Southlands College",
     meta: "Completed 2020 · Galle",
     results: [
-      { label: "G.C.E. A/L", value: "2A 1B" },
+      { label: "G.C.E. A/L", value: "2 A’s & 1 B" },
       { label: "G.C.E. O/L", value: "9 A’s" },
     ],
   },

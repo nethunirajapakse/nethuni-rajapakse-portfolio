@@ -6,6 +6,7 @@ import ScrambleText from "./ScrambleText";
 import TiltCard from "./TiltCard";
 
 const logoUrl = (s: SkillItem) =>
+  s.src ??
   `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${s.logo}/${s.logo}-${
     s.wordmark ? "original-wordmark" : "original"
   }.svg`;

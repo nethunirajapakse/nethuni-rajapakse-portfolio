@@ -20,7 +20,7 @@ const CATEGORIES = [
   "Frontend",
 ] as const;
 
-type Tech = { id: string; label: string; cat: number; wm?: boolean };
+type Tech = { id: string; label: string; cat: number; wm?: boolean; src?: string };
 
 const TECH: Tech[] = [
   // Languages
@@ -42,7 +42,7 @@ const TECH: Tech[] = [
   // Cloud & DevOps
   { id: "docker", label: "Docker", cat: 3 },
   { id: "kubernetes", label: "Kubernetes", cat: 3 },
-  { id: "amazonwebservices", label: "AWS", cat: 3, wm: true },
+  { id: "amazonwebservices", label: "AWS", cat: 3, src: "/logos/aws-dark.svg" },
   { id: "githubactions", label: "GitHub Actions", cat: 3 },
   // Frontend
   { id: "react", label: "React", cat: 4 },
@@ -51,6 +51,7 @@ const TECH: Tech[] = [
 ];
 
 const logoUrl = (t: Tech) =>
+  t.src ??
   `https://cdn.jsdelivr.net/gh/devicons/devicon/icons/${t.id}/${t.id}-${
     t.wm ? "original-wordmark" : "original"
   }.svg`;
