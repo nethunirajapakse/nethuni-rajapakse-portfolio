@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Tracker from "@/components/Tracker";
 
 import { Space_Grotesk, Hanken_Grotesk, IBM_Plex_Mono } from "next/font/google";
 
@@ -69,6 +70,7 @@ export default function RootLayout({
         suppressHydrationWarning
       >
         {children}
+        <Tracker />
       </body>
     </html>
   );
