@@ -3,7 +3,7 @@
  * one render as plain chips. Keep this list defensible: it's the real stack.
  */
 
-export type SkillItem = { name: string; logo?: string; wordmark?: boolean; icon?: string };
+export type SkillItem = { name: string; logo?: string; wordmark?: boolean; icon?: string; src?: string };
 
 export type SkillGroup = {
   number: string;
@@ -68,7 +68,7 @@ export const skillGroups: SkillGroup[] = [
     skills: [
       { name: "Docker", logo: "docker" },
       { name: "Kubernetes", logo: "kubernetes" },
-      { name: "AWS", logo: "amazonwebservices", wordmark: true },
+      { name: "AWS", logo: "amazonwebservices", src: "/logos/aws.svg" },
       { name: "EKS Fargate", icon: "bi-cloud" },
       { name: "Cognito", icon: "bi-person-badge" },
       { name: "CloudWatch", icon: "bi-activity" },
