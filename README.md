@@ -4,7 +4,7 @@ Personal portfolio of Nethuni Rajapakse, a software developer and IT graduate of
 
 ## Built with
 
-Next.js 16 · React 19 · TypeScript · Tailwind CSS 4 · Framer Motion · Resend (contact form)
+Next.js 16 · React 19 · TypeScript · Tailwind CSS 4 · Framer Motion · Resend
 
 <!-- ## Run locally
 
