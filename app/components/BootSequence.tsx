@@ -16,10 +16,10 @@ import { fx } from "../lib/fx";
  * The boot is a readiness probe for the portfolio-as-a-system, in the same
  */
 const LINES: { key: string; text: string }[] = [
-  { key: "who", text: "nethuni · software engineer, galle" },
+  { key: "who", text: "nethuni · software developer, galle" },
   { key: "stack", text: "java, spring boot, react, aws" },
   { key: "focus", text: "distributed systems, reliability patterns" },
-  { key: "research", text: "on-device sinhala language models" },
+  //{ key: "research", text: "on-device sinhala language models" },
   { key: "status", text: "open to work" },
 ];
 
@@ -88,19 +88,31 @@ export default function BootSequence() {
     >
       <div className="boot-edge" aria-hidden />
       <div className="boot-inner">
-        <p className="font-mono text-[0.78rem] tracking-widest text-accent">
+        <p
+          className={`font-mono text-[0.78rem] tracking-widest text-accent ${
+            phase === "boot" && !granted ? "caret" : ""
+          }`}
+        >
           $ loading portfolio...
         </p>
 
-        <ul className="mt-6 space-y-1.5 font-mono text-[0.85rem]">
-          {LINES.slice(0, shown).map((l) => (
-            <li key={l.key} className="log-line flex items-baseline gap-3">
-              <span className="text-accent">[ ok ]</span>
-              <span className="w-[4.6rem] shrink-0 text-body/50">{l.key}</span>
-              <span className="text-body/85">{l.text}</span>
+        {/* All lines are rendered up front (hidden until their turn) so the
+            block keeps its final height and nothing jumps as lines appear.
+            On phones the label sits beside [ ok ] and the text drops under
+            it, so long lines wrap against the full width, not a narrow column. */}
+        <ul className="mt-6 space-y-2.5 font-mono text-[0.85rem] sm:space-y-1.5">
+          {LINES.map((l, i) => (
+            <li
+              key={l.key}
+              className={`grid grid-cols-[auto_1fr] items-baseline gap-x-3 sm:grid-cols-[auto_4.6rem_1fr] ${
+                i < shown ? "log-line" : "invisible"
+              }`}
+            >
+              <span className="whitespace-nowrap text-accent">[ ok ]</span>
+              <span className="text-body/50">{l.key}</span>
+              <span className="col-start-2 text-body/85 sm:col-start-3">{l.text}</span>
             </li>
           ))}
-          {phase === "boot" && !granted && <li className="caret h-5" aria-hidden />}
         </ul>
 
         <div
@@ -122,7 +134,10 @@ export default function BootSequence() {
           >
             READY
           </span>
-          <span className="text-body/40">{pct}% · any key to skip</span>
+          <span className="text-body/40">
+            {pct}% · <span className="pointer-coarse:hidden">any key</span>
+            <span className="hidden pointer-coarse:inline">tap</span> to skip
+          </span>
         </div>
       </div>
     </div>
