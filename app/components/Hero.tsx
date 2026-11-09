@@ -30,7 +30,7 @@ export default function Hero() {
             className="animate-reveal mt-5 font-display text-[clamp(1.3rem,2.6vw,1.75rem)] font-medium leading-snug text-heading/85"
             style={{ animationDelay: "0.3s" }}
           >
-            Software engineer &amp; <span className="text-accent">AI enthusiast</span>
+            Software Developer &amp; <span className="text-accent">AI enthusiast</span>
           </p>
 
           {/* Actions */}
