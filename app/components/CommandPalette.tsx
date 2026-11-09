@@ -53,7 +53,7 @@ export default function CommandPalette() {
       { id: "cv", group: "Links", icon: "bi-file-earmark-person", label: "Open résumé", keywords: "cv resume pdf", run: open("/resume.pdf") },
       { id: "gh", group: "Links", icon: "bi-github", label: "GitHub", run: open("https://github.com/nethunirajapakse") },
       { id: "li", group: "Links", icon: "bi-linkedin", label: "LinkedIn", run: open("https://linkedin.com/in/nethuni-rajapakse/") },
-      { id: "md", group: "Links", icon: "bi-medium", label: "Medium articles", keywords: "blog writing", run: open("https://medium.com/@nethunirajapakse/activity") },
+      { id: "md", group: "Links", icon: "bi-medium", label: "Medium articles", keywords: "blog writing", run: open("https://medium.com/@nethunirajapakse") },
       {
         id: "pulse", group: "Background", icon: "bi-broadcast", label: "Send a pulse", keywords: "shockwave ping",
         hint: "shockwave through the mesh",

@@ -147,7 +147,7 @@ export const socials = [
     label: "LinkedIn",
   },
   {
-    href: "https://medium.com/@nethunirajapakse/activity",
+    href: "https://medium.com/@nethunirajapakse",
     icon: "bi-medium",
     label: "Medium",
   },
