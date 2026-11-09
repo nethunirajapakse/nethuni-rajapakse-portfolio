@@ -16,7 +16,7 @@ const navLinks = [
 const socials = [
   { href: "https://github.com/nethunirajapakse", icon: "bi-github", label: "GitHub" },
   { href: "https://linkedin.com/in/nethuni-rajapakse/", icon: "bi-linkedin", label: "LinkedIn" },
-  { href: "https://medium.com/@nethunirajapakse/activity", icon: "bi-medium", label: "Medium" },
+  { href: "https://medium.com/@nethunirajapakse", icon: "bi-medium", label: "Medium" },
 ];
 
 export default function Navbar() {
